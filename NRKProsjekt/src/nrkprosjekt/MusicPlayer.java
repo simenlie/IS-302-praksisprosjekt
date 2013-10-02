@@ -38,6 +38,17 @@ public class MusicPlayer {
         initSong();
     }
 
+    public MusicPlayer() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+
+        player = AudioPlayer.player;
+        initSong();
+    }
+
+    public void setSongFile(String path) {
+        file = new File(path);
+
+    }
+
     public int getAudioStream() {
         return audioStream.available();
 
@@ -45,7 +56,7 @@ public class MusicPlayer {
 
     public String getInfoSong() {
         return file.getName();
-        
+
     }
 
     public void playSong() throws FileNotFoundException, IOException {

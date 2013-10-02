@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,15 +44,58 @@ public class Main extends javax.swing.JFrame {
     MetaEdit metaEdit;
     JButton back;
     JButton forward;
+    long start;
+    long slutt;
+    Thread thread2;
+    Loader l;
 
     /**
      * Creates new form Main
      */
-    public Main() throws LineUnavailableException, IOException, IOException, UnsupportedAudioFileException {
+    public Main() throws LineUnavailableException, IOException, IOException, UnsupportedAudioFileException, InterruptedException, InvocationTargetException {
+        start = System.currentTimeMillis();
+        System.out.println("Start");
+        l = new Loader(new javax.swing.JFrame(), true);
+
+        thread = new Thread(new Runnable() {
+            
+            public void run() {
+                System.out.println("a");
+                initComponents();
+                try {
+                    initialize();
+                    l.dispose();
+                } catch (LineUnavailableException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedAudioFileException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    Thread.sleep(1000/1);  // milliseconds
+                } catch (InterruptedException ex) {
+                }
+            }
+        });
+        thread.start();
+
+
+
+        l.setVisible(true);
+
+
+
+        //thread.interrupt();
+
+        System.out.println(System.currentTimeMillis() - start);
+    }
+
+    public void initialize() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         panels = new HashMap<>();
 
         content = new ContentPanel();
-        initComponents();
+
         setTitle("Music Database Organizer");
         fileDialog = new FileDialog(new javax.swing.JFrame(), true);
         metaEdit = new MetaEdit(new javax.swing.JFrame(), true);
@@ -75,15 +119,10 @@ public class Main extends javax.swing.JFrame {
 
         addActionFileChooser(fileDialog.getFileChooser());
         addMouseListener(content.getTable());
-        thread = new Thread(new Runnable() {
-            public void run() {
-                while (nos) {
-                    System.out.println(getSize().width);
-                }
 
-            }
-        });
-        //thread.start();
+        System.out.println("1");
+
+
     }
 
     public void loadMainComponents() {
@@ -162,15 +201,23 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new Main().setVisible(true);
-                } catch (LineUnavailableException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (UnsupportedAudioFileException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
+                
+                    try {
+                        new Main().setVisible(true);
+                    } catch (LineUnavailableException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }  catch (UnsupportedAudioFileException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InvocationTargetException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                
+
             }
         });
     }
@@ -229,9 +276,9 @@ public class Main extends javax.swing.JFrame {
         if (evt.getButton() == 1 && content.isLink()) {
             System.out.println("left clicked");
             content.showPanel("artist");
-             back.setEnabled(true);
-             forward.setEnabled(content.isLastPage());
-             
+            back.setEnabled(true);
+            forward.setEnabled(content.isLastPage());
+
             //searchTable.getValueAt(selectedRow, selectedCol);
         }
     }
@@ -298,7 +345,9 @@ public class Main extends javax.swing.JFrame {
 
 
             metaEdit.setVisible(true);
-
+            
+            MusicPanel p = (MusicPanel)panels.get("music");
+            p.setSong(chosenFile.getAbsolutePath());
         } else if (evt.getActionCommand().equals("CancelSelection")) {
             //System.out.println("can");
         }

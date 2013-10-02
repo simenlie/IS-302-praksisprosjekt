@@ -5,7 +5,8 @@
 package nrkprosjekt;
 
 import java.awt.Color;
-import javax.swing.JPanel;
+import java.awt.event.KeyEvent;
+import javax.swing.JLabel;
 
 /**
  *
@@ -19,8 +20,8 @@ public class Settings extends javax.swing.JDialog {
     public Settings(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
-        
-       
+
+
         //setLocationRelativeTo(null);
         //setResizable(false);
         setUndecorated(true);
@@ -29,9 +30,13 @@ public class Settings extends javax.swing.JDialog {
         getContentPane().setBackground(new Color(0, 0, 0, 0));
         setBackground(new Color(0, 0, 0, 0));
         initComponents();
+        changed.setVisible(false);
         setSize(344, 494);
+        JLabel jLabel1 = new javax.swing.JLabel();
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/settingsPanel.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 400, 494);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,32 +47,79 @@ public class Settings extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        localCopiesTextField = new javax.swing.JTextField();
+        changed = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(344, 494));
+        setPreferredSize(new java.awt.Dimension(344, 494));
+        setResizable(false);
         getContentPane().setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/settingsPanel.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 400, 494);
-
-        jButton1.setText("jButton1");
+        jButton1.setText("Close");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(110, 180, 73, 23);
+        jButton1.setBounds(220, 410, 59, 23);
+
+        jLabel1.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        jLabel1.setText("Font:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(40, 90, 80, 17);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(jComboBox1);
+        jComboBox1.setBounds(40, 110, 56, 20);
+
+        jLabel2.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        jLabel2.setText("Save local copies to:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(40, 150, 120, 20);
+
+        localCopiesTextField.setText("C:\\Users\\Simen");
+        localCopiesTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                localCopiesTextFieldKeyPressed(evt);
+            }
+        });
+        getContentPane().add(localCopiesTextField);
+        localCopiesTextField.setBounds(40, 170, 170, 30);
+
+        changed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/sucess2.png"))); // NOI18N
+        getContentPane().add(changed);
+        changed.setBounds(220, 170, 20, 30);
+
+        jLabel3.setFont(new java.awt.Font("Calibri Light", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(71, 170, 221));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Settings");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(0, 40, 340, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void localCopiesTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_localCopiesTextFieldKeyPressed
+        int h = evt.getKeyCode();
+
+        if (h == KeyEvent.VK_ENTER) {
+            localCopiesTextField.setFocusable(false);
+            changed.setVisible(true);
+        }
+
+    }//GEN-LAST:event_localCopiesTextFieldKeyPressed
 
     /**
      * @param args the command line arguments
@@ -111,7 +163,12 @@ public class Settings extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel changed;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField localCopiesTextField;
     // End of variables declaration//GEN-END:variables
 }
