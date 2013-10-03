@@ -1,6 +1,6 @@
 package nrkprosjekt;
 
-import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author mNygaard
@@ -11,22 +11,7 @@ public class RecentlyAddedPanel extends javax.swing.JPanel {
     public RecentlyAddedPanel() {
         initComponents(); 
         jTable1.setAutoCreateRowSorter(true);
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(jTable1.getModel());
-        jTable1.setRowSorter(sorter);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
