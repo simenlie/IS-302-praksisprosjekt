@@ -169,12 +169,11 @@ public class SearchPanel extends javax.swing.JPanel {
         add(pane);
         pane.setBounds(80, 50, 1250, 402);
 
-        jPanel1.setBackground(new java.awt.Color(232, 232, 232));
         jPanel1.setMinimumSize(new java.awt.Dimension(100, 100));
         jPanel1.setLayout(null);
 
         showing.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
-        showing.setForeground(new java.awt.Color(153, 153, 153));
+        showing.setForeground(new java.awt.Color(102, 102, 102));
         showing.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         showing.setText("Showing results for");
         jPanel1.add(showing);
