@@ -168,6 +168,9 @@ public class LeftPanel extends javax.swing.JPanel {
         menuClick(recBut, false);
     }//GEN-LAST:event_recButActionPerformed
 
+    public JButton getButtonRec() {
+        return recBut;
+    }
     private void adButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adButActionPerformed
         menuClick(adBut, false);
     }//GEN-LAST:event_adButActionPerformed

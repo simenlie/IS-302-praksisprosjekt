@@ -17,6 +17,7 @@ import javax.swing.JTable;
 public class ContentPanel extends javax.swing.JPanel {
 
     SearchPanel searchPanel;
+    RecentlyAddedPanel recentlyA;
     LibraryPanel libraryPanel;
     ArtistPanel artistPanel;
     Stack<JPanel> navigation;
@@ -102,6 +103,7 @@ public class ContentPanel extends javax.swing.JPanel {
     private void addPanels() {
         searchPanel = new SearchPanel();
         libraryPanel = new LibraryPanel();
+        recentlyA = new RecentlyAddedPanel();
         artistPanel = new ArtistPanel();
         add(pane, BorderLayout.CENTER);
 
@@ -121,6 +123,12 @@ public class ContentPanel extends javax.swing.JPanel {
     public void showLibraryContent() {
         pane.setViewportView(libraryPanel);
         addNavigation(libraryPanel);
+
+    }
+    
+     public void showRecContent() {
+        pane.setViewportView(recentlyA);
+        //addNavigation(libraryPanel);
 
     }
 
