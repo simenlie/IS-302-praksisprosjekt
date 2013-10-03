@@ -3,6 +3,10 @@
  * and open the template in the editor.
  */
 package nrkprosjekt;
+
+import java.awt.event.MouseEvent;
+import javax.swing.table.JTableHeader;
+
 /**
  *
  * @author mNygaard
@@ -15,6 +19,14 @@ public class RecentlyAddedPanel extends javax.swing.JPanel {
         initComponents();
         
     }
+    protected String[] columnToolTips = {
+    null, // "First Name" assumed obvious
+    null, // "Last Name" assumed obvious
+    "The person's favorite sport to participate in",
+    "The number of years the person has played the sport",
+    "If checked, the person eats no meat"};
+    
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,15 +45,41 @@ public class RecentlyAddedPanel extends javax.swing.JPanel {
                 {"01.10.2013", "Track 1", "Artist 1", "Album 1", "3:36", "1996"},
                 {"28.09.2013", "Track 2", "Artist 2", "Album 2", "2:14", "2001"},
                 {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
                 "Date added", "Track", "Artist", "Album", "Duration", "Year"
             }
         ));
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/button.png"))); // NOI18N
         jButton1.setText("Recently Added");
+        jButton1.setToolTipText("Sort by clicking button");
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setFocusPainted(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonOver.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -54,28 +92,33 @@ public class RecentlyAddedPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jButton1)
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         if(jButton1.getText().equals("Recently Added")){
+        if(jButton1.getText().equals("Recently Added")){
             jButton1.setText("Latest Added");
         } else{
             jButton1.setText("Recently Added");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+
+       
+    
+       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;

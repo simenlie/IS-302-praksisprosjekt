@@ -17,8 +17,8 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jScrollPane1" pref="573" max="32767" attributes="0"/>
-          <Group type="102" attributes="0">
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jButton1" min="-2" pref="122" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -26,10 +26,10 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="343" max="32767" attributes="0"/>
+              <Component id="jButton1" min="-2" pref="41" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="351" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -46,10 +46,26 @@
         <Component class="javax.swing.JTable" name="jTable1">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="4">
+              <Table columnCount="6" rowCount="20">
                 <Column editable="true" title="Date added" type="java.lang.Object">
                   <Data value="01.10.2013"/>
                   <Data value="28.09.2013"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                 </Column>
@@ -58,10 +74,42 @@
                   <Data value="Track 2"/>
                   <Data value="null"/>
                   <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
                 </Column>
                 <Column editable="true" title="Artist" type="java.lang.Object">
                   <Data value="Artist 1"/>
                   <Data value="Artist 2"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                 </Column>
@@ -70,16 +118,64 @@
                   <Data value="Album 2"/>
                   <Data value="null"/>
                   <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
                 </Column>
                 <Column editable="true" title="Duration" type="java.lang.Object">
                   <Data value="3:36"/>
                   <Data value="2:14"/>
                   <Data value="null"/>
                   <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
                 </Column>
                 <Column editable="true" title="Year" type="java.lang.Object">
                   <Data value="1996"/>
                   <Data value="2001"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                 </Column>
@@ -120,7 +216,7 @@
               </TableColumnModel>
             </Property>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
         </Component>
@@ -128,7 +224,26 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="11" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/nrkprosjekt/graphics/button.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Recently Added"/>
+        <Property name="toolTipText" type="java.lang.String" value="Sort by clicking button"/>
+        <Property name="contentAreaFilled" type="boolean" value="false"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Hand Cursor"/>
+        </Property>
+        <Property name="focusPainted" type="boolean" value="false"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+        <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/nrkprosjekt/graphics/buttonOver.png"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
