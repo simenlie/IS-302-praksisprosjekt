@@ -69,7 +69,11 @@ public class RecentlyAddedPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jButton1.setText("Latest Added");
+         if(jButton1.getText().equals("Recently Added")){
+            jButton1.setText("Latest Added");
+        } else{
+            jButton1.setText("Recently Added");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
