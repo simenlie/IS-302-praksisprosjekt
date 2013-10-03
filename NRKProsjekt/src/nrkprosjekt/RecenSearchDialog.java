@@ -4,8 +4,10 @@
  */
 package nrkprosjekt;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -14,13 +16,15 @@ import javax.swing.JLabel;
 public class RecenSearchDialog extends javax.swing.JDialog {
 
     int y = 15;
+    String tempText;
+    ArrayList<JLabel> labels;
 
     /**
      * Creates new form recSearchDialog
      */
     public RecenSearchDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-
+        labels = new ArrayList<>();
 
         setUndecorated(true);
         setLocationRelativeTo(null);
@@ -34,17 +38,30 @@ public class RecenSearchDialog extends javax.swing.JDialog {
 
     }
 
-    public void addSearch(String text) {
+    public JLabel addSearch(final String text) {
         JLabel label = new JLabel(text);
         label.setBounds(25, y, 100, 20);
+        label.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jPanel1.add(label);
         y += 30;
+
+        return label;
+    }
+
+    public String getText() {
+        return tempText;
     }
 
     public void updateList(List<String> list) {
+
         for (String tekst : list) {
-            addSearch(tekst);
+            labels.add(addSearch(tekst));
         }
+
+    }
+
+    public List<JLabel> getlist() {
+        return labels;
     }
 
     /**
@@ -60,18 +77,28 @@ public class RecenSearchDialog extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                formFocusLost(evt);
+            }
+        });
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jScrollPane1FocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 398, Short.MAX_VALUE)
+            .addGap(0, 399, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -80,15 +107,26 @@ public class RecenSearchDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jScrollPane1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane1FocusLost
+    }//GEN-LAST:event_jScrollPane1FocusLost
+
+    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
+        dispose();
+
+    }//GEN-LAST:event_formFocusLost
+    public JPanel getPanel() {
+        return jPanel1;
+    }
 
     /**
      * @param args the command line arguments

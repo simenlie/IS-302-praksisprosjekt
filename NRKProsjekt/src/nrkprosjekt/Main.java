@@ -6,6 +6,7 @@ package nrkprosjekt;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -127,6 +129,7 @@ public class Main extends javax.swing.JFrame {
         forward = topPanel.getButton3();
 
         l.setLoadingInfo("Setting up listeners");
+
         addKeyListener(topPanel.getSearch());
         addActionButton(topPanel.getButton());
         addActionGoBack(topPanel.getButton2());
@@ -326,14 +329,15 @@ public class Main extends javax.swing.JFrame {
         if (keyCode == KeyEvent.VK_ENTER && topPanel.isCtrlDown()) {
             recentSearchDialog = new RecenSearchDialog(new javax.swing.JFrame(), false);
             recentSearchDialog.updateList(searches);
+            for (JLabel j : recentSearchDialog.getlist()) {
+                mouseRecentSearches(j);
+            }
 
             recentSearchDialog.setLocation(evt.getComponent().getLocationOnScreen().x, evt.getComponent().getLocationOnScreen().y + 41);
             recentSearchDialog.setVisible(true);
             System.out.println(textBox.getLocation().x);
-        }
-
-       else if (keyCode == KeyEvent.VK_ENTER) {
-            searches.add(0,textBox.getText());
+        } else if (keyCode == KeyEvent.VK_ENTER) {
+            searches.add(0, textBox.getText());
             System.out.println("Searching");
             content.showPanel("search");
             content.getSearchPanel().setShowResult(textBox.getText());
@@ -342,6 +346,45 @@ public class Main extends javax.swing.JFrame {
             LeftPanel temp = (LeftPanel) panels.get("Left");
             temp.menuClick(temp.getButton(), true);
         }
+    }
+
+    public void mouseRecentSearches(final JLabel label) {
+
+        label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt, label);
+            }
+
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel1MouseEntered(evt, label);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel1MouseExited(evt, label);
+            }
+        });
+
+
+    }
+
+    private void jLabel1MouseEntered(java.awt.event.MouseEvent evt, JLabel label) {
+        label.setFont(new java.awt.Font("Tahoma", 1, 11));
+    }
+
+    private void jLabel1MouseExited(java.awt.event.MouseEvent evt, JLabel label) {
+        label.setFont(new java.awt.Font("Tahoma", 0, 11));
+    }
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt, JLabel label) {
+        searches.add(0, label.getText());
+        System.out.println("Searching");
+        content.showPanel("search");
+        content.getSearchPanel().setShowResult(label.getText());
+
+
+        LeftPanel temp = (LeftPanel) panels.get("Left");
+        temp.menuClick(temp.getButton(), true);
+        recentSearchDialog.dispose();
     }
 
     public void addActionFileChooser(final JFileChooser chooser) {
