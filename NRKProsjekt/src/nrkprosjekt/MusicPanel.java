@@ -52,7 +52,7 @@ public class MusicPanel extends javax.swing.JPanel {
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/window.png")));
         
         
-        add(playButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+       add(playButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
         System.out.println(getBounds().width);
         
         jLabel2.setSize(9, 9);
