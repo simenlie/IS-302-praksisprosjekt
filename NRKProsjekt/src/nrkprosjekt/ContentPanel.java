@@ -159,6 +159,10 @@ public class ContentPanel extends javax.swing.JPanel {
         return searchPanel.getTable();
     }
 
+    public SearchPanel getSearchPanel() {
+        return searchPanel;
+    }
+
     public void showRecentlyAddedContent() {
         //code here
     }

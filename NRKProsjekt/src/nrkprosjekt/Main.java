@@ -22,6 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import jwawfile.BadRIFFException;
 import jwawfile.Metadata;
 import jwawfile.Tag;
@@ -48,6 +50,7 @@ public class Main extends javax.swing.JFrame {
     long slutt;
     Thread thread2;
     Loader l;
+    String loaderInformation;
 
     /**
      * Creates new form Main
@@ -95,14 +98,20 @@ public class Main extends javax.swing.JFrame {
         panels = new HashMap<>();
 
         content = new ContentPanel();
-
+        l.setLoadingInfo("Initializing UI");
         setTitle("Music Database Organizer");
         fileDialog = new FileDialog(new javax.swing.JFrame(), true);
         metaEdit = new MetaEdit(new javax.swing.JFrame(), true);
+        
+        l.setLoadingInfo("Initializing Window properties");
         loadMainComponents();
+        l.setLoadingInfo("Loading panels");
+        
         loadPanel(new TopPanel(), BorderLayout.NORTH);
         loadPanel(new LeftPanel(), BorderLayout.WEST);
         String defPath = System.getProperty("user.home") + "\\Desktop";
+        
+        l.setLoadingInfo("Loading Music player");
         loadPanel(new MusicPanel(defPath + "\\Mabvuto.wav"), BorderLayout.SOUTH);
         loadPanel(content, null);
 
@@ -112,6 +121,8 @@ public class Main extends javax.swing.JFrame {
         TopPanel temp = (TopPanel) panels.get("Top");
         back = temp.getButton2();
         forward = temp.getButton3();
+       
+         l.setLoadingInfo("Setting up listeners");
         addKeyListener(temp.getSearch());
         addActionButton(temp.getButton());
         addActionGoBack(temp.getButton2());
@@ -184,6 +195,14 @@ public class Main extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    
+                    UIManager.getLookAndFeelDefaults().put("Table:\"Table.cellRenderer\".background",
+                            new ColorUIResource(new java.awt.Color(51, 51, 51)));
+
+
+                    UIManager.put("Table.alternateRowColor", new java.awt.Color(243,242,242));
+
+                    UIManager.put("TableHeader.background", new java.awt.Color(81, 81, 81));
                     break;
                 }
             }
@@ -302,6 +321,7 @@ public class Main extends javax.swing.JFrame {
         if (keyCode == KeyEvent.VK_ENTER) {
             System.out.println("Searching");
             content.showPanel("search");
+            content.getSearchPanel().setShowResult(textBox.getText());
 
 
             LeftPanel temp = (LeftPanel) panels.get("Left");

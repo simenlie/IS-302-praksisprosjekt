@@ -12,12 +12,14 @@ import javax.swing.JLabel;
  */
 public class Loader extends javax.swing.JDialog {
 
+    JLabel textLoading;
+
     /**
      * Creates new form Loader
      */
     public Loader(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-         setSize(300, 150);
+        setSize(300, 150);
         setLocationRelativeTo(null);
         setResizable(false);
         setUndecorated(true);
@@ -25,12 +27,16 @@ public class Loader extends javax.swing.JDialog {
         JLabel label = new JLabel();
         label.setBounds(0, 0, 400, 300);
         label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/splash.png")));
-        
-        JLabel textLoading = new JLabel();
+
+        textLoading = new JLabel();
         textLoading.setText("Loading...");
         textLoading.setBounds(35, 175, 100, 20);
         jPanel1.add(textLoading);
         jPanel1.add(label);
+    }
+
+    public void setLoadingInfo(String info) {
+        textLoading.setText(info);
     }
 
     /**
