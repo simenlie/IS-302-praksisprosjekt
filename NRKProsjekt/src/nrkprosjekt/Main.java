@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,9 +34,12 @@ import jwawfile.Tag;
  * @author Simen
  */
 public class Main extends javax.swing.JFrame {
-    
+
     HashMap<String, JPanel> panels;
     FileDialog fileDialog;
+    RecenSearchDialog recentSearchDialog;
+    ArrayList<String> searches;
+    TopPanel topPanel;
     JFrame tempF;
     ContentPanel content;
     boolean nos = true;
@@ -59,7 +63,7 @@ public class Main extends javax.swing.JFrame {
         start = System.currentTimeMillis();
         System.out.println("Start");
         l = new Loader(new javax.swing.JFrame(), true);
-        
+
         thread = new Thread(new Runnable() {
             public void run() {
                 System.out.println("a");
@@ -81,9 +85,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
         thread.start();
-        
-        
-        
+
+
+
         l.setVisible(true);
 
 
@@ -92,58 +96,59 @@ public class Main extends javax.swing.JFrame {
 
         System.out.println(System.currentTimeMillis() - start);
     }
-    
+
     public void initialize() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         panels = new HashMap<>();
-        
+        recentSearchDialog = new RecenSearchDialog(new javax.swing.JFrame(), false);
+        searches = new ArrayList<>();
         content = new ContentPanel();
         l.setLoadingInfo("Initializing UI");
         setTitle("Music Database Organizer");
         fileDialog = new FileDialog(new javax.swing.JFrame(), true);
         metaEdit = new MetaEdit(new javax.swing.JFrame(), true);
-        
+
         l.setLoadingInfo("Initializing Window properties");
         loadMainComponents();
         l.setLoadingInfo("Loading panels");
-        
-        loadPanel(new TopPanel(), BorderLayout.NORTH);
+        topPanel = new TopPanel();
+        loadPanel(topPanel, BorderLayout.NORTH);
         loadPanel(new LeftPanel(), BorderLayout.WEST);
         String defPath = System.getProperty("user.home") + "\\Desktop";
-        
+
         l.setLoadingInfo("Loading Music player");
         loadPanel(new MusicPanel(defPath + "\\Mabvuto.wav"), BorderLayout.SOUTH);
         loadPanel(content, null);
-        
+
         loadScrollBar();
-        
-        
-        TopPanel temp = (TopPanel) panels.get("Top");
-        back = temp.getButton2();
-        forward = temp.getButton3();
-        
+
+
+
+        back = topPanel.getButton2();
+        forward = topPanel.getButton3();
+
         l.setLoadingInfo("Setting up listeners");
-        addKeyListener(temp.getSearch());
-        addActionButton(temp.getButton());
-        addActionGoBack(temp.getButton2());
-        addActionGoForward(temp.getButton3());
+        addKeyListener(topPanel.getSearch());
+        addActionButton(topPanel.getButton());
+        addActionGoBack(topPanel.getButton2());
+        addActionGoForward(topPanel.getButton3());
         LeftPanel h = (LeftPanel) panels.get("Left");
         recAction(h.getButtonRec());
         addActionFileChooser(fileDialog.getFileChooser());
         addMouseListener(content.getTable());
-        
+
         System.out.println("1");
-        
-        
+
+
     }
-    
+
     public void loadMainComponents() {
         setSize(900, 600);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         setMinimumSize(new Dimension(600, 300));
-        
+
     }
-    
+
     private void loadScrollBar() {
         JScrollPane scroll = new javax.swing.JScrollPane();
         scroll.setBorder(null);
@@ -151,7 +156,7 @@ public class Main extends javax.swing.JFrame {
         add(scroll, BorderLayout.WEST);
         scroll.setViewportView(panels.get("Left"));
     }
-    
+
     public void loadPanel(JPanel panel, String pos) {
         panels.put(panel.getName(), panel);
         add(panel, pos);
@@ -195,13 +200,13 @@ public class Main extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    
+
                     UIManager.getLookAndFeelDefaults().put("Table:\"Table.cellRenderer\".background",
                             new ColorUIResource(new java.awt.Color(51, 51, 51)));
-                    
-                    
+
+
                     UIManager.put("Table.alternateRowColor", new java.awt.Color(243, 242, 242));
-                    
+
                     UIManager.put("TableHeader.background", new java.awt.Color(81, 81, 81));
                     break;
                 }
@@ -220,8 +225,8 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                
+
+
                 try {
                     new Main().setVisible(true);
                 } catch (LineUnavailableException ex) {
@@ -235,63 +240,63 @@ public class Main extends javax.swing.JFrame {
                 } catch (InvocationTargetException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                
+
+
             }
         });
     }
-    
+
     public void addKeyListener(final JTextField textBox) {
-        
+
         textBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 searchBoxKeyPressed(evt, textBox);
             }
         });
-        
+
     }
-    
+
     public void addMouseListener(JTable table) {
         table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 searchTableMouseClicked(evt);
             }
         });
-        
+
     }
-    
+
     public void addActionGoBack(final JButton button) {
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackActionPerformed(evt, button);
             }
         });
-        
+
     }
-    
+
     public void addActionGoForward(final JButton button) {
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goForwardActionPerformed(evt, button);
             }
         });
-        
+
     }
-    
+
     private void goBackActionPerformed(java.awt.event.ActionEvent evt, JButton but) {
         System.out.println("Go back");
         but.setEnabled(content.navBack());
         forward.setEnabled(true);
     }
-    
+
     private void goForwardActionPerformed(java.awt.event.ActionEvent evt, JButton but) {
         System.out.println("Go back");
         but.setEnabled(content.navForward());
         back.setEnabled(true);
     }
-    
+
     private void searchTableMouseClicked(java.awt.event.MouseEvent evt) {
-        
+
         if (evt.getButton() == 1 && content.isLink()) {
             System.out.println("left clicked");
             content.showPanel("artist");
@@ -301,7 +306,7 @@ public class Main extends javax.swing.JFrame {
             //searchTable.getValueAt(selectedRow, selectedCol);
         }
     }
-    
+
     public void addActionButton(JButton button) {
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,26 +314,36 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {
         fileDialog.setVisible(true);
         fileDialog.getChosenFile();
     }
-    
+
     private void searchBoxKeyPressed(java.awt.event.KeyEvent evt, final JTextField textBox) {
         int keyCode = evt.getKeyCode();
-        
-        if (keyCode == KeyEvent.VK_ENTER) {
+
+        if (keyCode == KeyEvent.VK_ENTER && topPanel.isCtrlDown()) {
+            recentSearchDialog = new RecenSearchDialog(new javax.swing.JFrame(), false);
+            recentSearchDialog.updateList(searches);
+
+            recentSearchDialog.setLocation(evt.getComponent().getLocationOnScreen().x, evt.getComponent().getLocationOnScreen().y + 41);
+            recentSearchDialog.setVisible(true);
+            System.out.println(textBox.getLocation().x);
+        }
+
+       else if (keyCode == KeyEvent.VK_ENTER) {
+            searches.add(0,textBox.getText());
             System.out.println("Searching");
             content.showPanel("search");
             content.getSearchPanel().setShowResult(textBox.getText());
-            
-            
+
+
             LeftPanel temp = (LeftPanel) panels.get("Left");
             temp.menuClick(temp.getButton(), true);
         }
     }
-    
+
     public void addActionFileChooser(final JFileChooser chooser) {
         chooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,19 +360,19 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         });
-        
+
     }
-    
+
     private void fileChooserActionPerformed(java.awt.event.ActionEvent evt, JFileChooser chooser) throws BadRIFFException, IOException, UnsupportedAudioFileException, LineUnavailableException {
         fileDialog.setVisible(false);
-        
-        
+
+
         if (evt.getActionCommand().equals("ApproveSelection")) {
             chosenFile = chooser.getSelectedFile();
-            
+
             metadata = new Metadata(chosenFile.getAbsolutePath());
             metadata.getTag(Tag.IART);
-            
+
             metaEdit.setText(Tag.IART.toString(), "s");
             metaEdit.setTextTitles(metadata.getTag(Tag.INAM), metadata.getTag(Tag.IART));
             for (Tag s : Tag.values()) {
@@ -366,27 +381,27 @@ public class Main extends javax.swing.JFrame {
                 metaEdit.setText(s.toString(), temp);
                 System.out.println(s.toString() + " : " + metadata.getTag(s));
             }
-            
-            
+
+
             metaEdit.setVisible(true);
-            
+
             MusicPanel p = (MusicPanel) panels.get("music");
             p.setSong(chosenFile.getAbsolutePath());
         } else if (evt.getActionCommand().equals("CancelSelection")) {
             //System.out.println("can");
         }
     }
-    
+
     public void recAction(JButton button) {
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 recButActionPerformed(evt);
             }
         });
-        
+
     }
-    
-    private void recButActionPerformed(java.awt.event.ActionEvent evt) {        
+
+    private void recButActionPerformed(java.awt.event.ActionEvent evt) {
         content.showRecContent();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

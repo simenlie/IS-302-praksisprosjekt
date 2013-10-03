@@ -21,6 +21,7 @@ public class TopPanel extends javax.swing.JPanel {
     boolean search;
     Settings settings;
     Thread thread;
+    boolean ctrlDown = false;
 
     /**
      * Creates new form TopPanel
@@ -88,6 +89,14 @@ public class TopPanel extends javax.swing.JPanel {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 searchBoxFocusLost(evt);
+            }
+        });
+        searchBox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchBoxKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchBoxKeyReleased(evt);
             }
         });
 
@@ -176,6 +185,7 @@ public class TopPanel extends javax.swing.JPanel {
             searchBox.setText(searchBox.getToolTipText());
             searchBox.setForeground(new Color(204, 204, 204));
         }
+        ctrlDown = false;
     }//GEN-LAST:event_searchBoxFocusLost
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -185,12 +195,28 @@ public class TopPanel extends javax.swing.JPanel {
         settings.setLocationRelativeTo(evt.getComponent());
         settings.setLocation(evt.getLocationOnScreen().x - settings.getSize().width + 22, evt.getLocationOnScreen().y - 22);
         settings.setVisible(true);
-        
 
-        
+
+
 
 
     }//GEN-LAST:event_jButton4MouseClicked
+
+    public boolean isCtrlDown() {
+        return ctrlDown;
+    }
+
+    private void searchBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBoxKeyPressed
+        if (evt.getKeyCode() == 17) {
+            ctrlDown = true;
+        }
+    }//GEN-LAST:event_searchBoxKeyPressed
+
+    private void searchBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBoxKeyReleased
+        if (evt.getKeyCode() == 17) {
+            ctrlDown = false;
+        }
+    }//GEN-LAST:event_searchBoxKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
