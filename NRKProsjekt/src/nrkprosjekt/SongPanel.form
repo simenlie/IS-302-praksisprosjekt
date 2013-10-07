@@ -152,7 +152,7 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/sindresdel/graphics/516is-FPgmL.jpg"/>
+          <Image iconType="3" name="/nrkprosjekt/graphics/516is-FPgmL.jpg"/>
         </Property>
         <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="jLabel1"/>

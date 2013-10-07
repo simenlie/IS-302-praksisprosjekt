@@ -82,7 +82,7 @@ public class SongPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sindresdel/graphics/516is-FPgmL.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/516is-FPgmL.jpg"))); // NOI18N
         jLabel1.setLabelFor(jLabel1);
 
         jButton2.setText("OpenSongFile");
