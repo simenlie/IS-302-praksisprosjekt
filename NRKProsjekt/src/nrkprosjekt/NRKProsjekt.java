@@ -16,6 +16,6 @@ public class NRKProsjekt {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        new Test_Martin();
+      
     }
 }
