@@ -11,7 +11,13 @@ public class RecentlyAddedPanel extends javax.swing.JPanel {
     public RecentlyAddedPanel() {
         initComponents(); 
         jTable1.setAutoCreateRowSorter(true);
+        jTable1.getTableHeader().setToolTipText(
+        "Click to sort; Shift-Click to sort in reverse order");
+        
+        
     }
+    
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -33,6 +39,8 @@ public class RecentlyAddedPanel extends javax.swing.JPanel {
             }
         ));
         jTable1.setToolTipText("Date last song was added");
+        jTable1.setIntercellSpacing(new java.awt.Dimension(4, 4));
+        jTable1.setRowHeight(20);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
@@ -56,10 +64,13 @@ public class RecentlyAddedPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 451, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
