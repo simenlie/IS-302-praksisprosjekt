@@ -20,6 +20,7 @@ public class ContentPanel extends javax.swing.JPanel {
     RecentlyAddedPanel recentlyA;
     LibraryPanel libraryPanel;
     ArtistPanel artistPanel;
+    
     Stack<JPanel> navigation;
     Stack<JPanel> navigationBack;
     HashMap<JPanel, Navigation> bol;
