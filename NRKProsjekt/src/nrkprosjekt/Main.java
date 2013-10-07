@@ -136,6 +136,7 @@ public class Main extends javax.swing.JFrame {
         addActionGoForward(topPanel.getButton3());
         LeftPanel h = (LeftPanel) panels.get("Left");
         recAction(h.getButtonRec());
+        libAction(h.getButtonLib());
         addActionFileChooser(fileDialog.getFileChooser());
         addMouseListener(content.getTable());
 
@@ -446,6 +447,19 @@ public class Main extends javax.swing.JFrame {
 
     private void recButActionPerformed(java.awt.event.ActionEvent evt) {
         content.showRecContent();
+    }
+    
+       public void libAction(JButton button) {
+        button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                libButActionPerformed(evt);
+            }
+        });
+
+    }
+       
+       private void libButActionPerformed(java.awt.event.ActionEvent evt) {
+        content.showLibraryContent();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

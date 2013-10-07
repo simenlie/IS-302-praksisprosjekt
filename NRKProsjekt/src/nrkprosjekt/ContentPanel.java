@@ -18,7 +18,7 @@ public class ContentPanel extends javax.swing.JPanel {
 
     SearchPanel searchPanel;
     RecentlyAddedPanel recentlyA;
-    LibraryPanel libraryPanel;
+    LibraryOverviewPanel libraryPanel;
     ArtistPanel artistPanel;
     
     Stack<JPanel> navigation;
@@ -103,7 +103,7 @@ public class ContentPanel extends javax.swing.JPanel {
 
     private void addPanels() {
         searchPanel = new SearchPanel();
-        libraryPanel = new LibraryPanel();
+        libraryPanel = new LibraryOverviewPanel();
         recentlyA = new RecentlyAddedPanel();
         artistPanel = new ArtistPanel();
         add(pane, BorderLayout.CENTER);
