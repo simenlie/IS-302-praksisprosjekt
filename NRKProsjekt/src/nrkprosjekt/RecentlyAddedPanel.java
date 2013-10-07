@@ -38,8 +38,11 @@ public class RecentlyAddedPanel extends javax.swing.JPanel {
             }
         ));
         jTable1.setToolTipText("Date last song was added");
+        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
         jTable1.setIntercellSpacing(new java.awt.Dimension(4, 4));
         jTable1.setRowHeight(20);
+        jTable1.setShowHorizontalLines(false);
+        jTable1.setShowVerticalLines(false);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
