@@ -172,6 +172,10 @@ public class LeftPanel extends javax.swing.JPanel {
         return recBut;
     }
     
+    public JButton getButtonAdvan() {
+        return adBut;
+    }
+    
     public JButton getButtonLib() {
         return libraryBut;
     }

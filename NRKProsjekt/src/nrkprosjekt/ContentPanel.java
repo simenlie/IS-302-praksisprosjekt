@@ -20,6 +20,7 @@ public class ContentPanel extends javax.swing.JPanel {
     RecentlyAddedPanel recentlyA;
     LibraryOverviewPanel libraryPanel;
     ArtistPanel artistPanel;
+    AdvancedSearchPanel advancedS;
     
     Stack<JPanel> navigation;
     Stack<JPanel> navigationBack;
@@ -106,6 +107,7 @@ public class ContentPanel extends javax.swing.JPanel {
         libraryPanel = new LibraryOverviewPanel();
         recentlyA = new RecentlyAddedPanel();
         artistPanel = new ArtistPanel();
+        advancedS = new AdvancedSearchPanel();
         add(pane, BorderLayout.CENTER);
 
     }
@@ -123,8 +125,12 @@ public class ContentPanel extends javax.swing.JPanel {
 
     public void showLibraryContent() {
         pane.setViewportView(libraryPanel);
-        addNavigation(libraryPanel);
+        //addNavigation(libraryPanel);
 
+    }
+    public void showAdvancedSearchPanel(){
+    pane.setViewportView(advancedS);
+   
     }
     
      public void showRecContent() {

@@ -42,6 +42,7 @@ public class Main extends javax.swing.JFrame {
     RecenSearchDialog recentSearchDialog;
     ArrayList<String> searches;
     TopPanel topPanel;
+    LeftPanel leftPanel;
     JFrame tempF;
     ContentPanel content;
     boolean nos = true;
@@ -113,8 +114,9 @@ public class Main extends javax.swing.JFrame {
         loadMainComponents();
         l.setLoadingInfo("Loading panels");
         topPanel = new TopPanel();
+        leftPanel = new LeftPanel();
         loadPanel(topPanel, BorderLayout.NORTH);
-        loadPanel(new LeftPanel(), BorderLayout.WEST);
+        loadPanel(leftPanel, BorderLayout.WEST);
         String defPath = System.getProperty("user.home") + "\\Desktop";
 
         l.setLoadingInfo("Loading Music player");
@@ -134,9 +136,10 @@ public class Main extends javax.swing.JFrame {
         addActionButton(topPanel.getButton());
         addActionGoBack(topPanel.getButton2());
         addActionGoForward(topPanel.getButton3());
-        LeftPanel h = (LeftPanel) panels.get("Left");
-        recAction(h.getButtonRec());
-        libAction(h.getButtonLib());
+        
+        recAction(leftPanel.getButtonRec());
+        libAction(leftPanel.getButtonLib());
+        advanAction(leftPanel.getButtonAdvan());
         addActionFileChooser(fileDialog.getFileChooser());
         addMouseListener(content.getTable());
 
@@ -344,8 +347,8 @@ public class Main extends javax.swing.JFrame {
             content.getSearchPanel().setShowResult(textBox.getText());
 
 
-            LeftPanel temp = (LeftPanel) panels.get("Left");
-            temp.menuClick(temp.getButton(), true);
+            
+            leftPanel.menuClick(leftPanel.getButton(), true);
         }
     }
 
@@ -383,8 +386,8 @@ public class Main extends javax.swing.JFrame {
         content.getSearchPanel().setShowResult(label.getText());
 
 
-        LeftPanel temp = (LeftPanel) panels.get("Left");
-        temp.menuClick(temp.getButton(), true);
+        
+        leftPanel.menuClick(leftPanel.getButton(), true);
         recentSearchDialog.dispose();
     }
 
@@ -448,6 +451,22 @@ public class Main extends javax.swing.JFrame {
     private void recButActionPerformed(java.awt.event.ActionEvent evt) {
         content.showRecContent();
     }
+    
+       public void advanAction(JButton button) {
+        button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                advanActionPerformed(evt);
+            }
+        });
+
+    }
+
+    private void advanActionPerformed(java.awt.event.ActionEvent evt) {
+        content.showAdvancedSearchPanel();
+       
+    }
+    
+    
     
        public void libAction(JButton button) {
         button.addActionListener(new java.awt.event.ActionListener() {
