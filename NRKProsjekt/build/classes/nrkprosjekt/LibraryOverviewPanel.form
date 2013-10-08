@@ -21,34 +21,34 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jButton1" min="-2" pref="103" max="-2" attributes="0"/>
-                      <Component id="jButton6" pref="0" max="32767" attributes="0"/>
                       <Component id="jButton5" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jButton7" alignment="0" min="-2" pref="104" max="-2" attributes="0"/>
+                  <Component id="jButton6" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="515" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="134" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="64" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jButton1" min="-2" pref="42" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton7" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
+              <EmptySpace pref="190" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,49 +65,49 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="8" rowCount="4">
-                <Column editable="true" title="Track" type="java.lang.Object">
+                <Column editable="false" title="Track" type="java.lang.Object">
                   <Data value="Track1"/>
                   <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                 </Column>
-                <Column editable="true" title="Artist" type="java.lang.Object">
+                <Column editable="false" title="Artist" type="java.lang.Object">
                   <Data value="Jadda"/>
                   <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                 </Column>
-                <Column editable="true" title="Album" type="java.lang.Object">
+                <Column editable="false" title="Album" type="java.lang.Object">
                   <Data value="Eksempel"/>
                   <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                 </Column>
-                <Column editable="true" title="Duration" type="java.lang.Object">
+                <Column editable="false" title="Duration" type="java.lang.Object">
                   <Data value="3:50"/>
                   <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                 </Column>
-                <Column editable="true" title="Released" type="java.lang.Object">
+                <Column editable="false" title="Released" type="java.lang.Object">
                   <Data value="2009"/>
                   <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                 </Column>
-                <Column editable="true" title="Genre" type="java.lang.Object">
+                <Column editable="false" title="Genre" type="java.lang.Object">
                   <Data value="Jazz"/>
                   <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                 </Column>
-                <Column editable="true" title="Example2" type="java.lang.Object">
+                <Column editable="false" title="Example2" type="java.lang.Object">
                   <Data value="123"/>
                   <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                 </Column>
-                <Column editable="true" title="Example3" type="java.lang.Object">
+                <Column editable="false" title="Example3" type="java.lang.Object">
                   <Data value="123"/>
                   <Data value="null"/>
                   <Data value="null"/>
@@ -160,14 +160,14 @@
                 </Column>
               </TableColumnModel>
             </Property>
-            <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            <Property name="intercellSpacing" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[0, 0]"/>
             </Property>
-            <Property name="rowHeight" type="int" value="20"/>
+            <Property name="rowHeight" type="int" value="28"/>
             <Property name="showHorizontalLines" type="boolean" value="false"/>
             <Property name="showVerticalLines" type="boolean" value="false"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
         </Component>
@@ -184,7 +184,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/nrkprosjekt/graphics/button.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Artist"/>
+        <Property name="text" type="java.lang.String" value="ARTIST"/>
         <Property name="toolTipText" type="java.lang.String" value="Sort after Artist"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -196,6 +196,9 @@
           <Image iconType="3" name="/nrkprosjekt/graphics/buttonOver.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton5">
       <Properties>
@@ -208,7 +211,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/nrkprosjekt/graphics/button.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Genre"/>
+        <Property name="text" type="java.lang.String" value="GENRE"/>
         <Property name="toolTipText" type="java.lang.String" value="Sort after Artist"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -232,7 +235,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/nrkprosjekt/graphics/button.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Album"/>
+        <Property name="text" type="java.lang.String" value="ALBUM"/>
         <Property name="toolTipText" type="java.lang.String" value="Sort after Artist"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -256,7 +259,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/nrkprosjekt/graphics/button.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Released"/>
+        <Property name="text" type="java.lang.String" value="RELEASED"/>
         <Property name="toolTipText" type="java.lang.String" value="Sort after Artist"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -268,6 +271,9 @@
           <Image iconType="3" name="/nrkprosjekt/graphics/buttonOver.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

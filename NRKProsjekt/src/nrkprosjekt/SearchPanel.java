@@ -123,6 +123,7 @@ public class SearchPanel extends javax.swing.JPanel {
         pane.setMinimumSize(new java.awt.Dimension(1000, 500));
         pane.setPreferredSize(new java.awt.Dimension(1250, 402));
 
+        searchTable.setAutoCreateRowSorter(true);
         searchTable.setForeground(new java.awt.Color(51, 51, 51));
         searchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

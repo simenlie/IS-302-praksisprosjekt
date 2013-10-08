@@ -16,14 +16,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jButton1" min="-2" pref="122" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="451" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="553" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" pref="121" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -31,9 +31,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="41" max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" pref="52" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="351" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="340" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -51,41 +51,41 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="6" rowCount="4">
-                <Column editable="true" title="Date added" type="java.lang.Object">
+                <Column editable="false" title="Date added" type="java.lang.Object">
                   <Data value="01.10.2013"/>
                   <Data value="28.09.2013"/>
                   <Data value="24.08.2013"/>
                   <Data value="04.05.2013"/>
                 </Column>
-                <Column editable="true" title="Track" type="java.lang.Object">
+                <Column editable="false" title="Track" type="java.lang.Object">
                   <Data value="Track 1"/>
                   <Data value="Track 2"/>
                   <Data value="Track 14"/>
                   <Data value="Track 9"/>
                 </Column>
-                <Column editable="true" title="Artist" type="java.lang.Object">
+                <Column editable="false" title="Artist" type="java.lang.Object">
                   <Data value="Artist 1"/>
                   <Data value="Artist 2"/>
                   <Data value="Artist 5"/>
                   <Data value="Artist 7"/>
                 </Column>
-                <Column editable="true" title="Album" type="java.lang.Object">
+                <Column editable="false" title="Album" type="java.lang.Object">
                   <Data value="Album 1"/>
                   <Data value="Album 2"/>
                   <Data value="Album 6"/>
                   <Data value="Album 3"/>
                 </Column>
-                <Column editable="true" title="Duration" type="java.lang.Object">
+                <Column editable="false" title="Duration" type="java.lang.Object">
                   <Data value="3:36"/>
                   <Data value="2:14"/>
                   <Data value="2:01"/>
                   <Data value="5:16"/>
                 </Column>
-                <Column editable="true" title="Year" type="java.lang.Object">
+                <Column editable="false" title="Year" type="java.lang.Object">
                   <Data value="1996"/>
                   <Data value="2001"/>
                   <Data value="1998"/>
-                  <Data value="null"/>
+                  <Data value="2003"/>
                 </Column>
               </Table>
             </Property>
@@ -128,9 +128,9 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="intercellSpacing" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[4, 4]"/>
+              <Dimension value="[0, 0]"/>
             </Property>
-            <Property name="rowHeight" type="int" value="20"/>
+            <Property name="rowHeight" type="int" value="28"/>
             <Property name="showHorizontalLines" type="boolean" value="false"/>
             <Property name="showVerticalLines" type="boolean" value="false"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -151,7 +151,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/nrkprosjekt/graphics/button.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Recently Added"/>
+        <Property name="text" type="java.lang.String" value="Recently added"/>
         <Property name="toolTipText" type="java.lang.String" value="Sort by clicking button"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
