@@ -80,7 +80,7 @@ public class LeftPanel extends javax.swing.JPanel {
         recBut = new javax.swing.JButton();
         searchBut = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(246, 246, 246));
+        setBackground(new java.awt.Color(250, 250, 250));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(130, 135, 144)));
 
         adBut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/icon_search.png"))); // NOI18N

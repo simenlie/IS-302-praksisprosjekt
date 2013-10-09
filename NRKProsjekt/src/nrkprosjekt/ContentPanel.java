@@ -201,6 +201,8 @@ public class ContentPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 204));
         setLayout(null);
 
+        jPanel3.setBackground(new java.awt.Color(236, 235, 232));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(

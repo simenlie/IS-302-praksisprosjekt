@@ -6,6 +6,7 @@ package nrkprosjekt;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.io.FileNotFoundException;
@@ -16,32 +17,40 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
 /**
  *
  * @author Simen
  */
 public class MusicPanel extends javax.swing.JPanel {
-    
+
     Calculator c;
     JLabel progressing = new JLabel();
     JLabel progress1 = new JLabel();
     JLabel jLabel2 = new JLabel();
     JLabel emptyBar = new JLabel();
     JLabel textInfo = new JLabel();
+    JLabel textInfo2 = new JLabel();
     JLabel totalTimet = new JLabel();
     JLabel currentTime = new JLabel();
     boolean play;
     MusicPlayer musicPlayer;
     Thread thread;
+    Thread thread2;
     final int FUDGE_FACTOR = 112;
     boolean safe = true;
+    Timer songNameTimer;
+    Animation songNameAni;
+    Animation animation;
+    boolean pl = false;
 
     /**
      * Creates new form MusicPlayer
      */
     public MusicPanel(String path) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         setName("music");
+
         musicPlayer = new MusicPlayer(path);
         initComponents();
         c = new Calculator();
@@ -50,36 +59,36 @@ public class MusicPanel extends javax.swing.JPanel {
         back.setSize(2000, 64);
         back.setLocation(0, 0);
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/window.png")));
-        
-        
-       add(playButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+
+
+        add(playButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
         System.out.println(getBounds().width);
-        
+
         jLabel2.setSize(9, 9);
         jLabel2.setLocation(113, 29);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/progressCir.png"))); // NOI18N
 
-        
-        
+
+
         emptyBar.setSize(563, 7);
         emptyBar.setLocation(113, 30);
         //emptyBar.setBounds(FUDGE_FACTOR, 30, 563, 7);
         emptyBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/barEmpty.png"))); // NOI18N
         add(emptyBar);
-        
+
         add(jLabel2);
         emptyBar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 emptyBarMouseClicked(evt);
             }
         });
-        
+
         progressing.setSize(563, 7);
         progressing.setLocation(113, 30);
         progressing.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/bar2.png"))); // NOI18N
         add(progressing);
         progressing.setSize(0, 7);
-        
+
         progress1.setSize(563, 7);
         progress1.setLocation(113, 30);
         progress1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/barBack.png"))); // NOI18N
@@ -89,38 +98,66 @@ public class MusicPanel extends javax.swing.JPanel {
 
         //progress1.setSize(0, 7);
 
-        
-        addResizeListener();
-        
-        
-        textInfo.setForeground(new Color(0, 0, 0));
-        textInfo.setBounds((getSize().width / 2) - 50, 8, 100, 15);
-        textInfo.setText(musicPlayer.getInfoSong());
 
+        addResizeListener();
+
+
+        textInfo.setForeground(new Color(51, 51, 51));
+        int temp = (getSize().width / 2) - 50;
+        textInfo.setBounds(temp, 8, 150, 15);
+        textInfo.setFont(new Font("Calibri Light", 0, 14));
+        textInfo.setText("Mabvuto");
+        System.out.println(textInfo.getBounds().x + " temp: " + temp);
         //textInfo.setAlignmentY(TOP_ALIGNMENT);
         add(textInfo, BorderLayout.CENTER);
-        
+
+        textInfo2.setForeground(new Color(153, 153, 153));
+        textInfo2.setBounds(-150, 8, 150, 15);
+        textInfo2.setFont(new Font("Calibri Light", 0, 13));
+        textInfo2.setText("Hot Fingers");
+
+        add(textInfo2, BorderLayout.CENTER);
+
         totalTimet.setText(musicPlayer.getTotalTime());;
         totalTimet.setBounds(100, 27, 100, 15);
         totalTimet.setForeground(new Color(0, 0, 0));
         add(totalTimet);
-        
+
         currentTime.setText("0:00");;
         currentTime.setBounds(100, 27, 100, 15);
         currentTime.setForeground(new Color(0, 0, 0));
         add(currentTime);
-        
+
         add(back);
-        
+        loadAnim();
+        action();
     }
-    
+
+    public void loadAnim() {
+
+        thread2 = new Thread(new Runnable() {
+            public void run() {
+                songNameAni = new Animation(textInfo, progress1, textInfo2);
+
+            }
+        });
+
+        thread2.start();
+
+
+    }
+
+    public void action() {
+        animation = new Animation(textInfo2, progress1, textInfo2, 4000);
+    }
+
     public void setSong(String filepath) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         musicPlayer = new MusicPlayer(filepath);
         textInfo.setText(musicPlayer.getInfoSong());
         totalTimet.setText(musicPlayer.getTotalTime());
-        
+
     }
-    
+
     public void addResizeListener() {
         addComponentListener(new ComponentListener() {
             @Override
@@ -132,43 +169,48 @@ public class MusicPanel extends javax.swing.JPanel {
                         ImageIcon i3 = (ImageIcon) emptyBar.getIcon();
                         progress1.setIcon(c.dos(i, getPercentage(80)));
                         progress1.setSize(getPercentage(80), 7);
-                        
+
                         emptyBar.setIcon(c.dos(i3, getPercentage(80)));
                         emptyBar.setSize(getPercentage(80), 7);
-                        
+
                         progressing.setIcon(c.dos(i2, getPercentage(80)));
-                        
-                        textInfo.setBounds((getSize().width / 2) - 50, 8, 100, 15);
+                        if (!pl) {
+                            textInfo.setBounds((getSize().width / 2) - 50, 8, 100, 15);
+                        } else {
+                            textInfo.setBounds(progress1.getLocation().x, 8, 100, 15);
+                        }
+
+
                         //progressing.setSize(getPercentage(80), 7);
                         int to = emptyBar.getLocation().x + ((int) emptyBar.getSize().getWidth()) + 20;
                         int tre = emptyBar.getLocation().x - 40;
                         totalTimet.setLocation(to, totalTimet.getLocation().y);
                         currentTime.setLocation(tre, currentTime.getLocation().y);
-                        
+
                     }
                 });
-                
+
                 thread.start();
-                
-                
-                
-                
+
+
+
+
             }
-            
+
             @Override
             public void componentMoved(ComponentEvent e) {
             }
-            
+
             @Override
             public void componentShown(ComponentEvent e) {
             }
-            
+
             @Override
             public void componentHidden(ComponentEvent e) {
             }
         });
     }
-    
+
     public int getPercentage(int prosent) {
         return (getSize().width * prosent) / 100;
     }
@@ -215,7 +257,7 @@ public class MusicPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
-        
+
         check();
     }//GEN-LAST:event_playButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -224,34 +266,41 @@ public class MusicPanel extends javax.swing.JPanel {
 
     public void check() {
         if (play) {
+            if (songNameAni.isRunning()) {
+                songNameAni.stop();
+            }
+
             musicPlayer.pause();
             play = false;
             playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/play.png"))); // NOI18N
             playButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/playOver.png"))); // NOI18N
         } else {
-            
+            pl = true;
+            songNameAni.start();
+            textInfo.setText("Mabvuto |");
             musicPlayer.play();
+
 
             //System.out.println("hei");
             play = true;
             playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/pause.png"))); // NOI18N
             playButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/pauseOver.png"))); // NOI18N
             checkSong();
-            
+
         }
     }
-    
+
     public void checkSong() {
         thread = new Thread(new Runnable() {
             public void run() {
                 while (play) {
                     try {
                         //System.out.println(doProsent(musicPlayer.getProsent(musicPlayer.calc())));
-
+                        animation.start();
                         currentTime.setText(musicPlayer.getTime());
                         progressing.setSize(doProsent(musicPlayer.getProsent(musicPlayer.calc())), 7);
                         jLabel2.setLocation(FUDGE_FACTOR + doProsent(musicPlayer.getProsent(musicPlayer.calc())), jLabel2.getLocation().y);
-                        
+
                     } catch (UnsupportedAudioFileException ex) {
                         Logger.getLogger(MusicPanel.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (IOException ex) {
@@ -266,7 +315,7 @@ public class MusicPanel extends javax.swing.JPanel {
                             currentTime.setText("0:00");
                             progressing.setSize(0, 7);
                             jLabel2.setLocation(113, 29);
-                            
+
                             musicPlayer.initSong();
                         } catch (FileNotFoundException ex) {
                             Logger.getLogger(MusicPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -276,39 +325,39 @@ public class MusicPanel extends javax.swing.JPanel {
                         check();
                         //System.out.println("Song finished play");
                     }
-                    
+
                 }
-                
+
             }
         });
-        
+
         thread.start();
-        
+
     }
-    
+
     public int doProsent(int prosent) {
         int origin = progress1.getSize().width;
         int calc = origin * prosent / 100;
         return calc;
-        
+
     }
-    
+
     public int prosentOf(int sekunder) {
         float ja = progress1.getSize().width;
         int jas = (int) Math.ceil(sekunder / ja * 100);
         //System.out.println("KAS: " + jas);
         return (int) jas;
     }
-    
+
     private void emptyBarMouseClicked(java.awt.event.MouseEvent evt) {
         try {
             try {
-                
-                
+
+
                 jLabel2.setLocation(FUDGE_FACTOR + emptyBar.getMousePosition().x, jLabel2.getLocation().y);
-                
+
                 progressing.setSize(emptyBar.getMousePosition().x, progressing.getSize().height);
-                
+
                 musicPlayer.jumpToSeconds(returnBytesToSkip());
             } catch (UnsupportedAudioFileException ex) {
                 Logger.getLogger(MusicPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -318,11 +367,11 @@ public class MusicPanel extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(MusicPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     public int returnBytesToSkip() throws UnsupportedAudioFileException, IOException {
         return musicPlayer.test23(musicPlayer.getSeconds(prosentOf(emptyBar.getMousePosition().x)));
-        
+
     }
 }

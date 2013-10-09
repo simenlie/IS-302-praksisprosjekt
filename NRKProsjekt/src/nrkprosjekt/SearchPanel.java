@@ -117,7 +117,7 @@ public class SearchPanel extends javax.swing.JPanel {
         showing = new javax.swing.JLabel();
         showingResult = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(232, 232, 232));
+        setBackground(new java.awt.Color(236, 235, 232));
         setLayout(null);
 
         pane.setMinimumSize(new java.awt.Dimension(1000, 500));
@@ -168,8 +168,9 @@ public class SearchPanel extends javax.swing.JPanel {
         pane.setViewportView(searchTable);
 
         add(pane);
-        pane.setBounds(80, 50, 1250, 402);
+        pane.setBounds(80, 50, 1250, 220);
 
+        jPanel1.setBackground(new java.awt.Color(251, 251, 251));
         jPanel1.setMinimumSize(new java.awt.Dimension(100, 100));
         jPanel1.setLayout(null);
 

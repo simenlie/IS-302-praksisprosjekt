@@ -212,9 +212,9 @@ public class Main extends javax.swing.JFrame {
                             new ColorUIResource(new java.awt.Color(51, 51, 51)));
 
 
-                    UIManager.put("Table.alternateRowColor", new java.awt.Color(243, 242, 242));
+                    UIManager.put("Table.alternateRowColor", new java.awt.Color(236,235,232));
 
-                    UIManager.put("TableHeader.background", new java.awt.Color(81, 81, 81));
+                    UIManager.put("TableHeader.background", new java.awt.Color(236,235,232));
                     break;
                 }
             }
