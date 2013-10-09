@@ -4,11 +4,13 @@
  */
 package nrkprosjekt;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -25,7 +27,8 @@ public class MetaEdit extends javax.swing.JDialog {
     Thread thread;
     int simluationSpeed = 1000;
     int counter = 0;
-    HashMap<String, JTextField> tags;
+    HashMap<String, Component> tags;
+    SaveDialog saveDialog;
 
     /**
      * Creates new form metaEdit
@@ -38,13 +41,15 @@ public class MetaEdit extends javax.swing.JDialog {
         addMouseListeners();
         loadMetaEditDialog();
         font = new java.awt.Font("Calibri Light", 0, 24);
+        saveDialog = new SaveDialog(new javax.swing.JFrame(), true);
+        saveDialog.getMeta(this);
         loadFont();
         fillMap();
 
 
     }
 
-    public void fill(JTextField text, String name) {
+    public void fill(Component text, String name) {
         text.setName(name);
         tags.put(name, text);
     }
@@ -64,8 +69,8 @@ public class MetaEdit extends javax.swing.JDialog {
         fill(ICRD, "ICRD");
         fill(IALB, "IALB");
         fill(ILAN, "ILAN");
-        
-        
+
+
         fill(ICMT, "ICMT");
         fill(ISBJ, "ISBJ");
 
@@ -86,7 +91,7 @@ public class MetaEdit extends javax.swing.JDialog {
         mouseTextField(ICRD);
         mouseTextField(IALB);
         mouseTextField(ILAN);
-        mouseTextField(ICMT);
+        //mouseTextField(ICMT);
         mouseTextField(ISBJ);
     }
 
@@ -96,12 +101,38 @@ public class MetaEdit extends javax.swing.JDialog {
             if (data.contains("finnes ikke")) {
                 //nothing
             } else {
-                tags.get(tag).setText(data);
+                if (tag.equals("ICMT")) {
+                    JTextArea temp = (JTextArea) tags.get(tag);
+                    temp.setText(data);
+                } else {
+                    JTextField temp = (JTextField) tags.get(tag);
+                    temp.setText(data);
+
+                }
                 tags.get(tag).setForeground(new java.awt.Color(44, 47, 54));
                 tags.get(tag).setBackground(new java.awt.Color(232, 255, 232));
             }
 
         }
+    }
+
+    public String getText(String tag) {
+        if (tags.containsKey(tag)) {
+
+
+            if (tag.equals("ICMT")) {
+                JTextArea temp = (JTextArea) tags.get(tag);
+                return temp.getText();
+            } else {
+                JTextField temp = (JTextField) tags.get(tag);
+                return temp.getText();
+
+            }
+
+
+
+        }
+        return null;
     }
 
     public void loadFont() {
@@ -176,10 +207,13 @@ public class MetaEdit extends javax.swing.JDialog {
         IALB = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        ICMT = new javax.swing.JTextField();
         ISBJ = new javax.swing.JTextField();
         subTitle = new javax.swing.JLabel();
         checkCopy = new javax.swing.JCheckBox();
+        jButton3 = new javax.swing.JButton();
+        IMG = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ICMT = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -198,118 +232,118 @@ public class MetaEdit extends javax.swing.JDialog {
         IART.setForeground(new java.awt.Color(153, 153, 153));
         IART.setText("Artist");
         IART.setToolTipText("Artist");
-        IART.setPreferredSize(new java.awt.Dimension(170, 35));
+        IART.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(IART);
-        IART.setBounds(260, 70, 170, 35);
+        IART.setBounds(260, 70, 170, 30);
 
         ILAN.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ILAN.setForeground(new java.awt.Color(153, 153, 153));
         ILAN.setText("Language");
         ILAN.setToolTipText("Language");
-        ILAN.setPreferredSize(new java.awt.Dimension(170, 35));
+        ILAN.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(ILAN);
-        ILAN.setBounds(260, 420, 170, 35);
+        ILAN.setBounds(70, 350, 170, 30);
 
         INAM.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         INAM.setForeground(new java.awt.Color(153, 153, 153));
         INAM.setText("Track");
         INAM.setToolTipText("Track");
-        INAM.setPreferredSize(new java.awt.Dimension(170, 35));
+        INAM.setPreferredSize(new java.awt.Dimension(170, 30));
         INAM.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 INAMFocusGained(evt);
             }
         });
         jPanel1.add(INAM);
-        INAM.setBounds(70, 70, 170, 35);
+        INAM.setBounds(70, 70, 170, 30);
 
         IGNR.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         IGNR.setForeground(new java.awt.Color(153, 153, 153));
         IGNR.setText("Genre");
         IGNR.setToolTipText("Genre");
-        IGNR.setPreferredSize(new java.awt.Dimension(170, 35));
+        IGNR.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(IGNR);
-        IGNR.setBounds(70, 120, 170, 35);
+        IGNR.setBounds(70, 110, 170, 30);
 
         IKEY.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         IKEY.setForeground(new java.awt.Color(153, 153, 153));
         IKEY.setText("Keywords");
         IKEY.setToolTipText("Keywords");
-        IKEY.setPreferredSize(new java.awt.Dimension(170, 35));
+        IKEY.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(IKEY);
-        IKEY.setBounds(260, 120, 170, 35);
+        IKEY.setBounds(260, 110, 170, 30);
 
         ISRF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ISRF.setForeground(new java.awt.Color(153, 153, 153));
         ISRF.setText("Digitization Source");
         ISRF.setToolTipText("Digitization Source");
-        ISRF.setPreferredSize(new java.awt.Dimension(170, 35));
+        ISRF.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(ISRF);
-        ISRF.setBounds(70, 170, 170, 35);
+        ISRF.setBounds(70, 150, 170, 30);
 
         IMED.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         IMED.setForeground(new java.awt.Color(153, 153, 153));
         IMED.setText("Original Medium");
         IMED.setToolTipText("Original Medium");
-        IMED.setPreferredSize(new java.awt.Dimension(170, 35));
+        IMED.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(IMED);
-        IMED.setBounds(260, 170, 170, 35);
+        IMED.setBounds(260, 150, 170, 30);
 
         IENG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         IENG.setForeground(new java.awt.Color(153, 153, 153));
         IENG.setText("Engineers");
         IENG.setToolTipText("Engineers");
-        IENG.setPreferredSize(new java.awt.Dimension(170, 35));
+        IENG.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(IENG);
-        IENG.setBounds(70, 220, 170, 35);
+        IENG.setBounds(70, 190, 170, 30);
 
         ITCH.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ITCH.setForeground(new java.awt.Color(153, 153, 153));
         ITCH.setText("Digitizer");
         ITCH.setToolTipText("Digitizer");
-        ITCH.setPreferredSize(new java.awt.Dimension(170, 35));
+        ITCH.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(ITCH);
-        ITCH.setBounds(260, 220, 170, 35);
+        ITCH.setBounds(260, 190, 170, 30);
 
         ISRC.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ISRC.setForeground(new java.awt.Color(153, 153, 153));
         ISRC.setText("Source Supplier");
         ISRC.setToolTipText("Source Supplier");
-        ISRC.setPreferredSize(new java.awt.Dimension(170, 35));
+        ISRC.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(ISRC);
-        ISRC.setBounds(70, 270, 170, 35);
+        ISRC.setBounds(70, 230, 170, 30);
 
         ICOP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ICOP.setForeground(new java.awt.Color(153, 153, 153));
         ICOP.setText("Copyright");
         ICOP.setToolTipText("Copyright");
-        ICOP.setPreferredSize(new java.awt.Dimension(170, 35));
+        ICOP.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(ICOP);
-        ICOP.setBounds(260, 270, 170, 35);
+        ICOP.setBounds(260, 230, 170, 30);
 
         ISFT.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ISFT.setForeground(new java.awt.Color(153, 153, 153));
         ISFT.setText("Software Package");
         ISFT.setToolTipText("Software Package");
-        ISFT.setPreferredSize(new java.awt.Dimension(170, 35));
+        ISFT.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(ISFT);
-        ISFT.setBounds(70, 320, 170, 35);
+        ISFT.setBounds(70, 270, 170, 30);
 
         ICRD.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ICRD.setForeground(new java.awt.Color(153, 153, 153));
         ICRD.setText("Creation Date");
         ICRD.setToolTipText("Creation Date");
-        ICRD.setPreferredSize(new java.awt.Dimension(170, 35));
+        ICRD.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(ICRD);
-        ICRD.setBounds(260, 320, 170, 35);
+        ICRD.setBounds(260, 270, 170, 30);
 
         IALB.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         IALB.setForeground(new java.awt.Color(153, 153, 153));
         IALB.setText("Album");
         IALB.setToolTipText("Album");
-        IALB.setPreferredSize(new java.awt.Dimension(170, 35));
+        IALB.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(IALB);
-        IALB.setBounds(70, 420, 170, 35);
+        IALB.setBounds(260, 310, 170, 30);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -335,6 +369,7 @@ public class MetaEdit extends javax.swing.JDialog {
         jButton2.setContentAreaFilled(false);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setFocusPainted(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setIconTextGap(-105);
         jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveOver.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -345,21 +380,13 @@ public class MetaEdit extends javax.swing.JDialog {
         jPanel1.add(jButton2);
         jButton2.setBounds(70, 500, 170, 40);
 
-        ICMT.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        ICMT.setForeground(new java.awt.Color(153, 153, 153));
-        ICMT.setText("Comments");
-        ICMT.setToolTipText("Comments");
-        ICMT.setPreferredSize(new java.awt.Dimension(170, 35));
-        jPanel1.add(ICMT);
-        ICMT.setBounds(70, 370, 170, 35);
-
         ISBJ.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ISBJ.setForeground(new java.awt.Color(153, 153, 153));
         ISBJ.setText("Subjects");
         ISBJ.setToolTipText("Subjects");
-        ISBJ.setPreferredSize(new java.awt.Dimension(170, 35));
+        ISBJ.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(ISBJ);
-        ISBJ.setBounds(260, 370, 170, 35);
+        ISBJ.setBounds(70, 310, 170, 30);
 
         subTitle.setForeground(new java.awt.Color(66, 68, 72));
         subTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -371,6 +398,49 @@ public class MetaEdit extends javax.swing.JDialog {
         checkCopy.setText("Create a copy on the harddrive");
         jPanel1.add(checkCopy);
         checkCopy.setBounds(70, 470, 180, 23);
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/addPic.png"))); // NOI18N
+        jButton3.setText("+");
+        jButton3.setAlignmentY(0.0F);
+        jButton3.setContentAreaFilled(false);
+        jButton3.setFocusPainted(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setIconTextGap(0);
+        jButton3.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/addPicO.png"))); // NOI18N
+        jPanel1.add(jButton3);
+        jButton3.setBounds(390, 350, 39, 30);
+
+        IMG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        IMG.setForeground(new java.awt.Color(153, 153, 153));
+        IMG.setText("Image");
+        IMG.setToolTipText("Image");
+        IMG.setEnabled(false);
+        IMG.setPreferredSize(new java.awt.Dimension(170, 30));
+        jPanel1.add(IMG);
+        IMG.setBounds(260, 350, 170, 30);
+
+        ICMT.setColumns(20);
+        ICMT.setForeground(new java.awt.Color(153, 153, 153));
+        ICMT.setRows(2);
+        ICMT.setText("Comments");
+        ICMT.setToolTipText("Comments");
+        ICMT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ICMTMouseClicked(evt);
+            }
+        });
+        ICMT.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ICMTFocusLost(evt);
+            }
+        });
+        jScrollPane1.setViewportView(ICMT);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(70, 390, 360, 70);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -391,39 +461,40 @@ public class MetaEdit extends javax.swing.JDialog {
     }//GEN-LAST:event_INAMFocusGained
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       if(checkCopy.isSelected()){
-       System.out.println("Skriver kopi...");
-       } 
-        thread = new Thread(new Runnable() {
-            public void run() {
+        saveDialog = new SaveDialog(new javax.swing.JFrame(), true);
+        saveDialog.getMeta(this);
+        saveDialog.save();
+        saveDialog.setVisible(true);
 
-                textInfo.setVisible(true);
-                while (progress.getSize().width < 300) {
-                    if (counter == simluationSpeed) {
-                        progress.setSize(progress.getSize().width + 1, 10);
-                        simluationSpeed += 10000;
-                        counter = 0;
-                    }
-
-                    counter++;
-                }
-                textInfo.setText("Saved");
-                suc.setVisible(true);
-
-
-            }
-        });
-        try {
-            Thread.sleep(1000 / 30);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MetaEdit.class.getName()).log(Level.SEVERE, null, ex);
+        if (checkCopy.isSelected()) {
+            System.out.println("Skriver kopi...");
         }
-        thread.start();
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void ICMTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ICMTMouseClicked
+        if (ICMT.getText().equals(ICMT.getToolTipText())) {
+            ICMT.setText("");
+            ICMT.setForeground(new java.awt.Color(44, 47, 54));
+
+        }
+    }//GEN-LAST:event_ICMTMouseClicked
+
+    private void ICMTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ICMTFocusLost
+        if (ICMT.getText().equals("")) {
+            ICMT.setBackground(new java.awt.Color(255, 255, 255));
+            ICMT.setForeground(new java.awt.Color(153, 153, 153));
+
+            ICMT.setText(ICMT.getToolTipText());
+        } else {
+            ICMT.setBackground(new java.awt.Color(232, 255, 232));
+        }
+    }//GEN-LAST:event_ICMTFocusLost
 
     private void tekstClicked(java.awt.event.MouseEvent evt, JTextField text) {
         if (text.getText().equals(text.getToolTipText())) {
@@ -516,7 +587,7 @@ public class MetaEdit extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField IALB;
     private javax.swing.JTextField IART;
-    private javax.swing.JTextField ICMT;
+    private javax.swing.JTextArea ICMT;
     private javax.swing.JTextField ICOP;
     private javax.swing.JTextField ICRD;
     private javax.swing.JTextField IENG;
@@ -524,6 +595,7 @@ public class MetaEdit extends javax.swing.JDialog {
     private javax.swing.JTextField IKEY;
     private javax.swing.JTextField ILAN;
     private javax.swing.JTextField IMED;
+    private javax.swing.JTextField IMG;
     private javax.swing.JTextField INAM;
     private javax.swing.JTextField ISBJ;
     private javax.swing.JTextField ISFT;
@@ -533,8 +605,10 @@ public class MetaEdit extends javax.swing.JDialog {
     private javax.swing.JCheckBox checkCopy;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel subTitle;
     // End of variables declaration//GEN-END:variables
 }

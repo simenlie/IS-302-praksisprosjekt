@@ -58,7 +58,7 @@ public class AlbumPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri Light", 0, 20)); // NOI18N
         jLabel1.setText("Album Name");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

@@ -56,8 +56,8 @@ public class MusicPanel extends javax.swing.JPanel {
         c = new Calculator();
         // setSize(100, 100);
         JLabel back = new JLabel();
-        back.setSize(2000, 64);
-        back.setLocation(0, 0);
+        back.setSize(2000, 63);
+        back.setLocation(0, 1);
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/window.png")));
 
 
@@ -131,6 +131,7 @@ public class MusicPanel extends javax.swing.JPanel {
         add(back);
         loadAnim();
         action();
+
     }
 
     public void loadAnim() {
@@ -227,6 +228,7 @@ public class MusicPanel extends javax.swing.JPanel {
         playButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(53, 53, 53));
+        setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(153, 153, 153)));
 
         playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/play.png"))); // NOI18N
         playButton.setContentAreaFilled(false);
@@ -250,7 +252,7 @@ public class MusicPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -269,6 +271,9 @@ public class MusicPanel extends javax.swing.JPanel {
             if (songNameAni.isRunning()) {
                 songNameAni.stop();
             }
+            if (animation.isRunning()) {
+                animation.stop();
+            }
 
             musicPlayer.pause();
             play = false;
@@ -277,6 +282,7 @@ public class MusicPanel extends javax.swing.JPanel {
         } else {
             pl = true;
             songNameAni.start();
+            animation.start();
             textInfo.setText("Mabvuto |");
             musicPlayer.play();
 
@@ -296,7 +302,7 @@ public class MusicPanel extends javax.swing.JPanel {
                 while (play) {
                     try {
                         //System.out.println(doProsent(musicPlayer.getProsent(musicPlayer.calc())));
-                        animation.start();
+
                         currentTime.setText(musicPlayer.getTime());
                         progressing.setSize(doProsent(musicPlayer.getProsent(musicPlayer.calc())), 7);
                         jLabel2.setLocation(FUDGE_FACTOR + doProsent(musicPlayer.getProsent(musicPlayer.calc())), jLabel2.getLocation().y);

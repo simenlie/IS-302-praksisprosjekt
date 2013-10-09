@@ -78,6 +78,7 @@ public class TopPanel extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(53, 53, 53));
+        setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(153, 153, 153)));
 
         searchBox.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         searchBox.setForeground(new java.awt.Color(204, 204, 204));

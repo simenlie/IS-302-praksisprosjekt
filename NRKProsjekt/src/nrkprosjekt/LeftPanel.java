@@ -27,6 +27,10 @@ public class LeftPanel extends javax.swing.JPanel {
         setSize(100, 100);
         setName("Left");
         initSelectedComp();
+        JLabel background = new JLabel();
+        background.setBounds(0, 0, 202, 1000);
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/leftBack2.png")));
+        add(background);
     }
 
     private void initButtons() {
@@ -38,7 +42,7 @@ public class LeftPanel extends javax.swing.JPanel {
 
     private void defaultButtons() {
         for (JButton button : buttons) {
-            button.setFont(new java.awt.Font("Tahoma", 0, 11));
+            button.setFont(new java.awt.Font("Calibri Light", 0, 14));
             button.setForeground(new java.awt.Color(0, 0, 0));
             if (button.getText().equals("Library")) {
                 button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/library.png")));
@@ -47,7 +51,7 @@ public class LeftPanel extends javax.swing.JPanel {
                 button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/recently.png")));
             }
             if (button.getText().equals("Advanced search")) {
-                button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/icon_search.png")));
+                button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/test.png")));
             }
 
             if (button.getText().equals("Search results")) {
@@ -79,22 +83,24 @@ public class LeftPanel extends javax.swing.JPanel {
         libraryBut = new javax.swing.JButton();
         recBut = new javax.swing.JButton();
         searchBut = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(250, 250, 250));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(130, 135, 144)));
 
-        adBut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/icon_search.png"))); // NOI18N
+        adBut.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        adBut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/test.png"))); // NOI18N
         adBut.setText("Advanced search");
         adBut.setContentAreaFilled(false);
         adBut.setFocusPainted(false);
         adBut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        adBut.setIconTextGap(15);
+        adBut.setIconTextGap(10);
         adBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adButActionPerformed(evt);
             }
         });
 
+        libraryBut.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         libraryBut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/library.png"))); // NOI18N
         libraryBut.setText("Library");
         libraryBut.setContentAreaFilled(false);
@@ -112,6 +118,7 @@ public class LeftPanel extends javax.swing.JPanel {
             }
         });
 
+        recBut.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         recBut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/recently.png"))); // NOI18N
         recBut.setText("Recently added");
         recBut.setContentAreaFilled(false);
@@ -124,6 +131,7 @@ public class LeftPanel extends javax.swing.JPanel {
             }
         });
 
+        searchBut.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         searchBut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/icon_search.png"))); // NOI18N
         searchBut.setText("Search results");
         searchBut.setContentAreaFilled(false);
@@ -136,14 +144,20 @@ public class LeftPanel extends javax.swing.JPanel {
             }
         });
 
+        jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(recBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(libraryBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(adBut, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(adBut, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
             .addComponent(searchBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,9 +168,11 @@ public class LeftPanel extends javax.swing.JPanel {
                 .addComponent(recBut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(adBut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(16, 16, 16)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchBut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -179,6 +195,10 @@ public class LeftPanel extends javax.swing.JPanel {
     public JButton getButtonLib() {
         return libraryBut;
     }
+    
+    public JButton getButtonSearch() {
+        return searchBut;
+    }
     private void adButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adButActionPerformed
         menuClick(adBut, false);
     }//GEN-LAST:event_adButActionPerformed
@@ -196,7 +216,7 @@ public class LeftPanel extends javax.swing.JPanel {
 
     public void menuClick(JButton button, boolean manual) {
         defaultButtons();
-        button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        button.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         button.setForeground(new java.awt.Color(255, 255, 255));
 
 
@@ -211,7 +231,7 @@ public class LeftPanel extends javax.swing.JPanel {
             button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/recentlyWhite.png")));
         } else if (adBut.isFocusOwner()) {
             selected.setLocation(0, 100);
-            button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/icon_searchWhite.png")));
+            button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/testO.png")));
         } else if (searchBut.isFocusOwner()) {
             selected.setLocation(0, 171);
             button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/icon_searchWhite.png")));
@@ -224,6 +244,7 @@ public class LeftPanel extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adBut;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton libraryBut;
     private javax.swing.JButton recBut;
     private javax.swing.JButton searchBut;

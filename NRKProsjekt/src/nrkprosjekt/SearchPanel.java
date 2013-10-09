@@ -6,6 +6,7 @@ package nrkprosjekt;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.MouseInfo;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -17,7 +18,7 @@ import javax.swing.JTable;
  * @author Simen
  */
 public class SearchPanel extends javax.swing.JPanel {
-    
+
     OptionDialog dialog;
     MetaEdit metaEdit;
     JPopupMenu popupMenu;
@@ -30,74 +31,77 @@ public class SearchPanel extends javax.swing.JPanel {
      * Creates new form SearchPanel
      */
     public SearchPanel() {
-        
+
         initComponents();
         setLayout(new BorderLayout());
         jPanel1.setPreferredSize(new Dimension(100, 50));
+       
         add(jPanel1, BorderLayout.NORTH);
         JLabel iconS = new JLabel();
         iconS.setBounds(10, 8, 34, 34);
         iconS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/search-iconP.png")));
         jPanel1.add(iconS);
-        
+
         add(pane, BorderLayout.CENTER);
+        jPanel1.add(showingResult,BorderLayout.CENTER);
 
         //searchTable.setShowGrid(false);
         searchTable.setIntercellSpacing(new Dimension(0, 0));
         initPopup();
         initMetaPopup();
         searchTable.getTableHeader().setReorderingAllowed(false);
-        
-        
-        
+        // pane.setBorder(BorderFactory.createEmptyBorder());
+
+       searchTable.getTableHeader().setFont(new Font("Calibri Light", Font.BOLD, 12));
+
     }
-    
+
     public void setShowResult(String text) {
-        
+
         showingResult.setText(text);
     }
-    
+
     public void initMetaPopup() {
         metaEdit = new MetaEdit(new javax.swing.JFrame(), true);
-        
+
     }
-    
+
     public void initPopup() {
         popupMenu = new JPopupMenu();
         JMenuItem edit = new JMenuItem("Edit");
         JMenuItem delete = new JMenuItem("Delete");
         popupMenu.add(edit);
         popupMenu.add(delete);
-        
+
         edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editActionPerformed(evt);
             }
         });
-        
+
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteActionPerformed(evt);
             }
         });
-        
+
     }
-    
+
     private void editActionPerformed(java.awt.event.ActionEvent evt) {
         metaEdit.setVisible(true);
     }
-    
+
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {
         dialog = new OptionDialog(new javax.swing.JFrame(), true, MouseInfo.getPointerInfo().getLocation());
         dialog.setVisible(true);
     }
-    
+
     private String parse(String string) {
         selected = string;
-        
+
         return "<html><u><font color=\"#000000\">" + string + "</font></u></html>";
     }
-    
+
     private void backToNormal() {
         searchTable.setValueAt(selected, selectedRow, selectedCol);
     }
@@ -120,6 +124,7 @@ public class SearchPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(236, 235, 232));
         setLayout(null);
 
+        pane.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(153, 153, 153)));
         pane.setMinimumSize(new java.awt.Dimension(1000, 500));
         pane.setPreferredSize(new java.awt.Dimension(1250, 402));
 
@@ -127,18 +132,18 @@ public class SearchPanel extends javax.swing.JPanel {
         searchTable.setForeground(new java.awt.Color(51, 51, 51));
         searchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Mabvuto", "The Borthers", null, null, null, null, null, null, null, null},
-                {"La chule", "This is", null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, "Mabvuto", "The Borthers", null, null, null, null, null, null, null, null},
+                {null, "La chule", "This is", null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Track", "Artist", "Album", "Duration", "Year", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
+                "", "Track", "Artist", "Album", "Duration", "Year", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -153,11 +158,11 @@ public class SearchPanel extends javax.swing.JPanel {
         searchTable.setShowHorizontalLines(false);
         searchTable.setShowVerticalLines(false);
         searchTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                searchTableMouseClicked(evt);
-            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 searchTableMouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchTableMouseClicked(evt);
             }
         });
         searchTable.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -166,73 +171,76 @@ public class SearchPanel extends javax.swing.JPanel {
             }
         });
         pane.setViewportView(searchTable);
+        searchTable.getColumnModel().getColumn(0).setMinWidth(20);
+        searchTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+        searchTable.getColumnModel().getColumn(0).setMaxWidth(20);
 
         add(pane);
         pane.setBounds(80, 50, 1250, 220);
 
-        jPanel1.setBackground(new java.awt.Color(251, 251, 251));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(100, 100));
         jPanel1.setLayout(null);
 
         showing.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         showing.setForeground(new java.awt.Color(102, 102, 102));
-        showing.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        showing.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         showing.setText("Showing results for");
         jPanel1.add(showing);
-        showing.setBounds(4, 4, 630, 20);
+        showing.setBounds(60, 0, 120, 50);
 
-        showingResult.setFont(new java.awt.Font("Calibri Light", 1, 16)); // NOI18N
-        showingResult.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        showingResult.setText("dsg");
+        showingResult.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        showingResult.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        showingResult.setText("searchText");
         jPanel1.add(showingResult);
-        showingResult.setBounds(4, 24, 630, 20);
+        showingResult.setBounds(170, 0, 100, 50);
 
         add(jPanel1);
         jPanel1.setBounds(0, 0, 620, 50);
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchTableMouseReleased
-        
+
         searchTable.setRowSelectionInterval(selectedRow, selectedRow);
-        
-        
+
+
         if (evt.getButton() == 3) {
             System.out.println("righ clicked");
         }
-        
+
         if (evt.isPopupTrigger()) {
-            
+
             popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
-            
+
         }
-        
+
     }//GEN-LAST:event_searchTableMouseReleased
-    
+
     public JTable getTable() {
         return searchTable;
     }
-    
+
     public boolean isLink() {
         return link;
     }
-    
+
     private void searchTableMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchTableMouseMoved
-        if (selected != null && searchTable.getValueAt(selectedRow, selectedCol) != null && selectedCol != 0) {
+        if (selected != null && searchTable.getValueAt(selectedRow, selectedCol) != null && selectedCol != 1) {
             backToNormal();
         }
-        
+
         selectedRow = searchTable.rowAtPoint(evt.getPoint());
         selectedCol = searchTable.columnAtPoint(evt.getPoint());
 
         //searchTable.setRowSelectionInterval(selectedRow, selectedRow);
         //System.out.println("rad " + searchTable.getValueAt(selectedRow, selectedCol));
-        if (searchTable.getValueAt(selectedRow, selectedCol) != null && selectedCol != 0) {
+        if (searchTable.getValueAt(selectedRow, selectedCol) != null && selectedCol != 1) {
             String t = parse((String) searchTable.getValueAt(selectedRow, selectedCol));
             searchTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             //searchTable.getColumnModel().setColumnSelectionAllowed(false);
             link = true;
             searchTable.setValueAt(t, selectedRow, selectedCol);
-            
+
         } else {
             searchTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
             link = false;
@@ -242,7 +250,7 @@ public class SearchPanel extends javax.swing.JPanel {
         //searchTable.getSelectedRow();
 
     }//GEN-LAST:event_searchTableMouseMoved
-    
+
     private void searchTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchTableMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_searchTableMouseClicked

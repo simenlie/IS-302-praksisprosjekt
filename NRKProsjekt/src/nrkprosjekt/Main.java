@@ -6,7 +6,6 @@ package nrkprosjekt;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
@@ -121,7 +120,9 @@ public class Main extends javax.swing.JFrame {
 
         l.setLoadingInfo("Loading Music player");
         loadPanel(new MusicPanel(defPath + "\\Mabvuto.wav"), BorderLayout.SOUTH);
+        content.setBorder(null);
         loadPanel(content, null);
+
 
         loadScrollBar();
 
@@ -136,10 +137,11 @@ public class Main extends javax.swing.JFrame {
         addActionButton(topPanel.getButton());
         addActionGoBack(topPanel.getButton2());
         addActionGoForward(topPanel.getButton3());
-        
+
         recAction(leftPanel.getButtonRec());
         libAction(leftPanel.getButtonLib());
         advanAction(leftPanel.getButtonAdvan());
+        searchButAction(leftPanel.getButtonSearch());
         addActionFileChooser(fileDialog.getFileChooser());
         addMouseListener(content.getTable());
 
@@ -212,9 +214,9 @@ public class Main extends javax.swing.JFrame {
                             new ColorUIResource(new java.awt.Color(51, 51, 51)));
 
 
-                    UIManager.put("Table.alternateRowColor", new java.awt.Color(236,235,232));
+                    UIManager.put("Table.alternateRowColor", new java.awt.Color(236, 235, 232));
 
-                    UIManager.put("TableHeader.background", new java.awt.Color(236,235,232));
+                    UIManager.put("TableHeader.background", new java.awt.Color(236, 235, 232));
                     break;
                 }
             }
@@ -347,7 +349,7 @@ public class Main extends javax.swing.JFrame {
             content.getSearchPanel().setShowResult(textBox.getText());
 
 
-            
+
             leftPanel.menuClick(leftPanel.getButton(), true);
         }
     }
@@ -386,7 +388,7 @@ public class Main extends javax.swing.JFrame {
         content.getSearchPanel().setShowResult(label.getText());
 
 
-        
+
         leftPanel.menuClick(leftPanel.getButton(), true);
         recentSearchDialog.dispose();
     }
@@ -415,22 +417,37 @@ public class Main extends javax.swing.JFrame {
 
 
         if (evt.getActionCommand().equals("ApproveSelection")) {
+            setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
             chosenFile = chooser.getSelectedFile();
-
+            
             metadata = new Metadata(chosenFile.getAbsolutePath());
+            
             metadata.getTag(Tag.IART);
 
             metaEdit.setText(Tag.IART.toString(), "s");
             metaEdit.setTextTitles(metadata.getTag(Tag.INAM), metadata.getTag(Tag.IART));
             for (Tag s : Tag.values()) {
                 String tempString = metadata.getTag(s);
-                String temp = tempString.substring(0, tempString.length() - 1);
+
+                String nyL = tempString.substring(tempString.length() - 1);
+                String temp;
+                if (!nyL.matches("[a-zA-Z]+")) {
+                    temp = tempString.substring(0, tempString.length() - 1);
+                } else {
+                    temp = tempString;
+                }
+
+
+System.out.println("2");
+                //String temp = tempString.substring(0, tempString.length() - 1);
                 metaEdit.setText(s.toString(), temp);
+
                 System.out.println(s.toString() + " : " + metadata.getTag(s));
             }
 
 
             metaEdit.setVisible(true);
+            setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
             MusicPanel p = (MusicPanel) panels.get("music");
             p.setSong(chosenFile.getAbsolutePath());
@@ -451,8 +468,8 @@ public class Main extends javax.swing.JFrame {
     private void recButActionPerformed(java.awt.event.ActionEvent evt) {
         content.showRecContent();
     }
-    
-       public void advanAction(JButton button) {
+
+    public void advanAction(JButton button) {
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 advanActionPerformed(evt);
@@ -461,14 +478,26 @@ public class Main extends javax.swing.JFrame {
 
     }
 
+    public void searchButAction(JButton button) {
+        button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchButActionPerformed(evt);
+            }
+        });
+
+    }
+
     private void advanActionPerformed(java.awt.event.ActionEvent evt) {
         content.showAdvancedSearchPanel();
-       
+
     }
-    
-    
-    
-       public void libAction(JButton button) {
+
+    private void SearchButActionPerformed(java.awt.event.ActionEvent evt) {
+        content.showSearchContent();
+
+    }
+
+    public void libAction(JButton button) {
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 libButActionPerformed(evt);
@@ -476,8 +505,8 @@ public class Main extends javax.swing.JFrame {
         });
 
     }
-       
-       private void libButActionPerformed(java.awt.event.ActionEvent evt) {
+
+    private void libButActionPerformed(java.awt.event.ActionEvent evt) {
         content.showLibraryContent();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

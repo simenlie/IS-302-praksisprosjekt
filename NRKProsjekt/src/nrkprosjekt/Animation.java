@@ -28,7 +28,7 @@ public class Animation {
     public Animation(JLabel label, JLabel label2, JLabel label3) {
         this.label = label;
         this.label2 = label2;
-        songNameTimer = new Timer(15, tima);
+        songNameTimer = new Timer(1, tima);
         this.label3 = label3;
         
 
@@ -67,7 +67,7 @@ public class Animation {
 
 
             if (label.getLocation().x > label2.getLocation().x) {
-                label.setLocation(label.getLocation().x - 15, label.getLocation().y);
+                label.setLocation(label.getLocation().x - 2, label.getLocation().y);
             } else {
                 stop();
                 label3.setBounds(label2.getLocation().x + 60, 8, 100, 15);

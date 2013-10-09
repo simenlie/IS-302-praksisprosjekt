@@ -21,7 +21,6 @@ public class ContentPanel extends javax.swing.JPanel {
     LibraryOverviewPanel libraryPanel;
     ArtistPanel artistPanel;
     AdvancedSearchPanel advancedS;
-    
     Stack<JPanel> navigation;
     Stack<JPanel> navigationBack;
     HashMap<JPanel, Navigation> bol;
@@ -128,12 +127,18 @@ public class ContentPanel extends javax.swing.JPanel {
         //addNavigation(libraryPanel);
 
     }
-    public void showAdvancedSearchPanel(){
-    pane.setViewportView(advancedS);
-   
+
+    public void showAdvancedSearchPanel() {
+        pane.setViewportView(advancedS);
+
     }
-    
-     public void showRecContent() {
+
+    public void showSearchPanel() {
+        pane.setViewportView(searchPanel);
+
+    }
+
+    public void showRecContent() {
         pane.setViewportView(recentlyA);
         //addNavigation(libraryPanel);
 
@@ -201,17 +206,19 @@ public class ContentPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 204));
         setLayout(null);
 
+        pane.setBorder(null);
+
         jPanel3.setBackground(new java.awt.Color(236, 235, 232));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 398, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pane.setViewportView(jPanel3);

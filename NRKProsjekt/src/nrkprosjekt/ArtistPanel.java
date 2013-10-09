@@ -4,8 +4,8 @@
  */
 package nrkprosjekt;
 
-import java.awt.GridBagConstraints;
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 
 /**
  *
@@ -18,6 +18,11 @@ public class ArtistPanel extends javax.swing.JPanel {
      */
     public ArtistPanel() {
         initComponents();
+        
+        JLabel background = new JLabel();
+        background.setBounds(0, 0, 1024, 172);
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/AlbumBack.png")));
+        jPanel1.add(background);
         
         jPanel2.setLayout(new BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
         
@@ -56,7 +61,7 @@ public class ArtistPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
 
         jPanel1.setBackground(new java.awt.Color(251, 251, 251));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(171, 174, 180)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(171, 174, 180)));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/artist.png"))); // NOI18N
 
@@ -84,7 +89,7 @@ public class ArtistPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
@@ -109,7 +114,7 @@ public class ArtistPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Calibri Light", 0, 16)); // NOI18N
         jLabel6.setText("Albums");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -120,7 +125,7 @@ public class ArtistPanel extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 285, Short.MAX_VALUE)
+            .addGap(0, 283, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
