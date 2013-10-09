@@ -25,9 +25,11 @@ public class ContentPanel extends javax.swing.JPanel {
     Stack<JPanel> navigationBack;
     HashMap<JPanel, Navigation> bol;
     HashMap<String, JPanel> dictionary;
+    WelcomePanel welcomePanel;
     boolean hei;
     boolean visit = false;
     boolean visit2 = false;
+    
 
     /**
      * Creates new form ContentPanel
@@ -35,10 +37,12 @@ public class ContentPanel extends javax.swing.JPanel {
     public ContentPanel() {
         navigation = new Stack();
         navigationBack = new Stack<>();
+        welcomePanel = new WelcomePanel();
         bol = new HashMap<>();
         dictionary = new HashMap<>();
 
         initComponents();
+        pane.setViewportView(welcomePanel);
         setName("Content");
         setLayout(new BorderLayout());
         addPanels();
@@ -214,17 +218,17 @@ public class ContentPanel extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 581, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 403, Short.MAX_VALUE)
         );
 
         pane.setViewportView(jPanel3);
 
         add(pane);
-        pane.setBounds(0, 0, 400, 300);
+        pane.setBounds(0, 0, 580, 420);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel3;

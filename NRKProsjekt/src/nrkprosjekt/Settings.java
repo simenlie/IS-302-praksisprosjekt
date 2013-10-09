@@ -54,6 +54,8 @@ public class Settings extends javax.swing.JDialog {
         localCopiesTextField = new javax.swing.JTextField();
         changed = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(344, 494));
@@ -75,14 +77,14 @@ public class Settings extends javax.swing.JDialog {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(40, 90, 80, 17);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Calibri Light", "Tahoma", "Arial" }));
         getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(40, 110, 56, 20);
+        jComboBox1.setBounds(40, 110, 110, 20);
 
         jLabel2.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         jLabel2.setText("Save local copies to:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(40, 150, 120, 20);
+        jLabel2.setBounds(40, 190, 120, 20);
 
         localCopiesTextField.setText("C:\\Users\\Simen");
         localCopiesTextField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -91,11 +93,11 @@ public class Settings extends javax.swing.JDialog {
             }
         });
         getContentPane().add(localCopiesTextField);
-        localCopiesTextField.setBounds(40, 170, 170, 30);
+        localCopiesTextField.setBounds(40, 210, 170, 30);
 
         changed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/sucess2.png"))); // NOI18N
         getContentPane().add(changed);
-        changed.setBounds(220, 170, 20, 30);
+        changed.setBounds(220, 210, 20, 30);
 
         jLabel3.setFont(new java.awt.Font("Calibri Light", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(71, 170, 221));
@@ -103,6 +105,15 @@ public class Settings extends javax.swing.JDialog {
         jLabel3.setText("Settings");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(0, 40, 340, 40);
+
+        jLabel4.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        jLabel4.setText("Welcome page:");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(40, 140, 110, 20);
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Welcome", "Library", "Recently added", "Advanced search" }));
+        getContentPane().add(jComboBox2);
+        jComboBox2.setBounds(40, 160, 110, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -166,9 +177,11 @@ public class Settings extends javax.swing.JDialog {
     private javax.swing.JLabel changed;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField localCopiesTextField;
     // End of variables declaration//GEN-END:variables
 }

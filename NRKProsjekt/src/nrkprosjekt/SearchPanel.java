@@ -35,7 +35,7 @@ public class SearchPanel extends javax.swing.JPanel {
         initComponents();
         setLayout(new BorderLayout());
         jPanel1.setPreferredSize(new Dimension(100, 50));
-       
+
         add(jPanel1, BorderLayout.NORTH);
         JLabel iconS = new JLabel();
         iconS.setBounds(10, 8, 34, 34);
@@ -43,7 +43,7 @@ public class SearchPanel extends javax.swing.JPanel {
         jPanel1.add(iconS);
 
         add(pane, BorderLayout.CENTER);
-        jPanel1.add(showingResult,BorderLayout.CENTER);
+        jPanel1.add(showingResult, BorderLayout.CENTER);
 
         //searchTable.setShowGrid(false);
         searchTable.setIntercellSpacing(new Dimension(0, 0));
@@ -52,8 +52,8 @@ public class SearchPanel extends javax.swing.JPanel {
         searchTable.getTableHeader().setReorderingAllowed(false);
         // pane.setBorder(BorderFactory.createEmptyBorder());
 
-       searchTable.getTableHeader().setFont(new Font("Calibri Light", Font.BOLD, 12));
-
+        searchTable.getTableHeader().setFont(new Font("Calibri Light", Font.BOLD, 12));
+       
     }
 
     public void setShowResult(String text) {
@@ -193,7 +193,7 @@ public class SearchPanel extends javax.swing.JPanel {
         showingResult.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         showingResult.setText("searchText");
         jPanel1.add(showingResult);
-        showingResult.setBounds(170, 0, 100, 50);
+        showingResult.setBounds(170, 0, 250, 50);
 
         add(jPanel1);
         jPanel1.setBounds(0, 0, 620, 50);
