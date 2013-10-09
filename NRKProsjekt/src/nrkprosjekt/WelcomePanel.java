@@ -35,6 +35,12 @@ public class WelcomePanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Calibri Light", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(71, 170, 221));
         jLabel1.setText("WELCOME");
@@ -110,6 +116,11 @@ public class WelcomePanel extends javax.swing.JPanel {
         jLabel1.setText("WELCOME");
         jLabel3.setText("<html>Music Database Organizer lets you<br>organize music in a simple way.<br>Easily find a specific song, artist or <br>album. Edit, delete or play the content</html>");
     }//GEN-LAST:event_jLabel4MouseExited
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        
+    }//GEN-LAST:event_formComponentResized
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

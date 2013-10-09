@@ -38,6 +38,7 @@ public class ContentPanel extends javax.swing.JPanel {
         navigation = new Stack();
         navigationBack = new Stack<>();
         welcomePanel = new WelcomePanel();
+        
         bol = new HashMap<>();
         dictionary = new HashMap<>();
 
@@ -208,6 +209,11 @@ public class ContentPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 204));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
         setLayout(null);
 
         pane.setBorder(null);
@@ -230,6 +236,12 @@ public class ContentPanel extends javax.swing.JPanel {
         add(pane);
         pane.setBounds(0, 0, 580, 420);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+       
+        
+    }//GEN-LAST:event_formComponentResized
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane pane;
