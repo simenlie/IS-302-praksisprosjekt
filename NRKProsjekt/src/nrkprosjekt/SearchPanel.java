@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.MouseInfo;
+import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -30,7 +31,7 @@ public class SearchPanel extends javax.swing.JPanel {
     /**
      * Creates new form SearchPanel
      */
-    public SearchPanel() {
+    public SearchPanel() throws IOException {
 
         initComponents();
         setLayout(new BorderLayout());
@@ -61,7 +62,7 @@ public class SearchPanel extends javax.swing.JPanel {
         showingResult.setText(text);
     }
 
-    public void initMetaPopup() {
+    public void initMetaPopup() throws IOException {
         metaEdit = new MetaEdit(new javax.swing.JFrame(), true);
 
     }

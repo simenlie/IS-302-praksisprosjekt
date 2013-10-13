@@ -4,55 +4,41 @@
  */
 package nrkprosjekt;
 
-import java.io.File;
-import javax.swing.JFileChooser;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.Icon;
 
 /**
  *
  * @author Simen
  */
-public class FileDialog extends javax.swing.JDialog {
-
-    File chosenFile;
+public class ImageViewer extends javax.swing.JDialog {
 
     /**
-     * Creates new form FileDialog
+     * Creates new form ImageViewer
      */
-    public FileDialog(java.awt.Frame parent, boolean modal) {
+    public ImageViewer(java.awt.Frame parent, boolean modal, int width, int height) {
         super(parent, modal);
         initComponents();
-        setResizable(false);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        if (width == height && height <= 1080) {
+            setSize(width + 20, height + 50);
+        } else if (width >= screenSize.getWidth() - 20 || height >= screenSize.getHeight() - 50) {
+            setSize((int) screenSize.getWidth(), (int) screenSize.getHeight());
+        } else {
+            setSize(width + 20, height + 50);
+        }
+
         setLocationRelativeTo(null);
-        setFileFilters();
-    }
-
-    public FileDialog(java.awt.Frame parent, boolean modal, int img) {
-        super(parent, modal);
-        initComponents();
         setResizable(false);
-        setLocationRelativeTo(null);
-        setImageFileFilters();
-    }
 
-    public void setFileFilters() {
-        //fileChooser.addChoosableFileFilter(new FileFiltering("PDF Documents (*.pdf)",".pdf"));
-        //fileChooser.addChoosableFileFilter(new FileFiltering("Wave (Microsoft) (*.wav)",".wav"));
-        fileChooser.setFileFilter(new FileFiltering("Wave (Microsoft) (*.wav)", ".wav"));
+
 
     }
 
-    public void setImageFileFilters() {
-        fileChooser.setFileFilter(new FileFiltering("PNG(*.png)", ".png"));
-        fileChooser.setFileFilter(new FileFiltering("JPG(*.jpg)", ".jpg"));
-    }
-
-    public File getChosenFile() {
-        return chosenFile;
-    }
-
-    public JFileChooser getFileChooser() {
-        return fileChooser;
-
+    public void setImageHolder(Icon icon) {
+        jLabel1.setIcon(icon);
     }
 
     /**
@@ -64,23 +50,22 @@ public class FileDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        fileChooser = new javax.swing.JFileChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jScrollPane1.setViewportView(jLabel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(fileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(fileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -103,20 +88,20 @@ public class FileDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FileDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ImageViewer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FileDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ImageViewer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FileDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ImageViewer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FileDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ImageViewer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FileDialog dialog = new FileDialog(new javax.swing.JFrame(), true);
+                ImageViewer dialog = new ImageViewer(new javax.swing.JFrame(), true, 1280, 720);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -128,6 +113,7 @@ public class FileDialog extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFileChooser fileChooser;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
