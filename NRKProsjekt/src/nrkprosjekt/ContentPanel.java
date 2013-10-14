@@ -5,6 +5,7 @@
 package nrkprosjekt;
 
 import java.awt.BorderLayout;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Stack;
 import javax.swing.JPanel;
@@ -29,16 +30,15 @@ public class ContentPanel extends javax.swing.JPanel {
     boolean hei;
     boolean visit = false;
     boolean visit2 = false;
-    
 
     /**
      * Creates new form ContentPanel
      */
-    public ContentPanel() {
+    public ContentPanel() throws IOException {
         navigation = new Stack();
         navigationBack = new Stack<>();
         welcomePanel = new WelcomePanel();
-        
+
         bol = new HashMap<>();
         dictionary = new HashMap<>();
 
@@ -106,7 +106,7 @@ public class ContentPanel extends javax.swing.JPanel {
         return visit;
     }
 
-    private void addPanels() {
+    private void addPanels() throws IOException {
         searchPanel = new SearchPanel();
         libraryPanel = new LibraryOverviewPanel();
         recentlyA = new RecentlyAddedPanel();
@@ -150,6 +150,7 @@ public class ContentPanel extends javax.swing.JPanel {
     }
 
     public void showArtistContent() {
+
         pane.setViewportView(artistPanel);
         if (!visit2) {
             addNavigation(artistPanel);
@@ -162,6 +163,11 @@ public class ContentPanel extends javax.swing.JPanel {
     }
 
     public void showPanel(String name) {
+        if (name.equals("artist")) {
+            artistPanel = new ArtistPanel();
+            dictionary.put("artist", artistPanel);
+            artistPanel.doIT();
+        }
         JPanel temp = dictionary.get(name);
         pane.setViewportView(temp);
         if (!bol.containsKey(temp)) {
@@ -238,10 +244,7 @@ public class ContentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-       
-        
     }//GEN-LAST:event_formComponentResized
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane pane;

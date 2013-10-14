@@ -307,6 +307,8 @@ public class Main extends javax.swing.JFrame {
     private void searchTableMouseClicked(java.awt.event.MouseEvent evt) {
 
         if (evt.getButton() == 1 && content.isLink()) {
+            JTable temp = content.getTable();
+           // System.out.println("ID: "+temp.getValueAt(temp.getSelectedRow(), 0));
             System.out.println("left clicked");
             content.showPanel("artist");
             back.setEnabled(true);

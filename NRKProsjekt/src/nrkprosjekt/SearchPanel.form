@@ -57,7 +57,14 @@
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="11" rowCount="5">
+              <Table columnCount="12" rowCount="5">
+                <Column editable="false" title="ID Hidden" type="java.lang.Object">
+                  <Data value="0"/>
+                  <Data value="1"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                </Column>
                 <Column editable="false" title="" type="java.lang.Object"/>
                 <Column editable="false" title="Track" type="java.lang.Object">
                   <Data value="Mabvuto"/>
@@ -76,17 +83,22 @@
                 <Column editable="false" title="Album" type="java.lang.Object"/>
                 <Column editable="false" title="Duration" type="java.lang.Object"/>
                 <Column editable="false" title="Year" type="java.lang.Object"/>
-                <Column editable="false" title="Title 7" type="java.lang.Object"/>
                 <Column editable="false" title="Title 8" type="java.lang.Object"/>
                 <Column editable="false" title="Title 9" type="java.lang.Object"/>
                 <Column editable="false" title="Title 10" type="java.lang.Object"/>
                 <Column editable="false" title="Title 11" type="java.lang.Object"/>
+                <Column editable="false" title="Title 12" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="alignmentX" type="float" value="0.6"/>
             <Property name="alignmentY" type="float" value="0.6"/>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="20" minWidth="20" prefWidth="20" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="20" minWidth="20" prefWidth="20" resizable="true">
                   <Title/>
                   <Editor/>
@@ -158,8 +170,8 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="searchTableMouseReleased"/>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="searchTableMouseClicked"/>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="searchTableMouseReleased"/>
             <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="searchTableMouseMoved"/>
           </Events>
         </Component>

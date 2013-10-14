@@ -4,6 +4,11 @@
  */
 package nrkprosjekt;
 
+import database.Album;
+import database.ArtistPage;
+import database.DBConnection;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 
@@ -16,29 +21,37 @@ public class ArtistPanel extends javax.swing.JPanel {
     /**
      * Creates new form ArtistPanel
      */
+    DBConnection d;
+    HashMap<String, String> artist;
+    ArrayList<Album> albums;
+
     public ArtistPanel() {
         initComponents();
-        
+
         JLabel background = new JLabel();
         background.setBounds(0, 0, 1024, 172);
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/AlbumBack.png")));
         jPanel1.add(background);
-        
+
         jPanel2.setLayout(new BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
-        
-        AlbumPanel p = new AlbumPanel();
-        p.setBounds(11, 245, 800, 300);
-        jPanel2.add(p);
-        
-        AlbumPanel pa = new AlbumPanel();
-        pa.setBounds(11, 545, 800, 300);
-        jPanel2.add(pa);
-        
-        AlbumPanel pas = new AlbumPanel();
-        pas.setBounds(11, 545, 800, 300);
-        jPanel2.add(pas);
-        
+
+
         //jScrollPane1.setViewportView(panele);
+    }
+
+    public void doIT() {
+        d = new DBConnection();
+        artist = d.getArtistMap(ArtistPage.artistID);
+        jLabel2.setText(artist.get("IART"));
+        jLabel3.setText(artist.get("ILAN"));
+        d.getAlbums(ArtistPage.artistID);
+        albums = d.getAlbum();
+
+        for (Album a : albums) {
+            AlbumPanel p = new AlbumPanel(a.getIALB());
+            p.setBounds(11, 245, 800, 300);
+            jPanel2.add(p);
+        }
     }
 
     /**

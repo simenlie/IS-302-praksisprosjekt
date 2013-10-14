@@ -13,9 +13,9 @@ public class AlbumPanel extends javax.swing.JPanel {
     /**
      * Creates new form AlbumPanel
      */
-    public AlbumPanel() {
+    public AlbumPanel(String album) {
         initComponents();
-
+        jLabel1.setText(album);
         jTable1.setTableHeader(null);
     }
 

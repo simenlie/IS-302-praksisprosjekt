@@ -4,9 +4,7 @@
  */
 package database;
 
-import java.awt.Component;
 import java.io.IOException;
-import java.util.HashMap;
 import javax.swing.JFrame;
 import nrkprosjekt.MetaEdit;
 
