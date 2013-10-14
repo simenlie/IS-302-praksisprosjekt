@@ -544,6 +544,11 @@ public class MetaEdit extends javax.swing.JDialog {
         ICOP.setText("Copyright");
         ICOP.setToolTipText("Copyright");
         ICOP.setPreferredSize(new java.awt.Dimension(170, 30));
+        ICOP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ICOPActionPerformed(evt);
+            }
+        });
         jPanel1.add(ICOP);
         ICOP.setBounds(230, 50, 190, 30);
 
@@ -552,6 +557,11 @@ public class MetaEdit extends javax.swing.JDialog {
         ITCH.setText("Digitizer");
         ITCH.setToolTipText("Digitizer");
         ITCH.setPreferredSize(new java.awt.Dimension(170, 30));
+        ITCH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ITCHActionPerformed(evt);
+            }
+        });
         jPanel1.add(ITCH);
         ITCH.setBounds(230, 10, 190, 30);
 
@@ -851,6 +861,14 @@ public class MetaEdit extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_cropActionPerformed
+
+    private void ITCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ITCHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ITCHActionPerformed
+
+    private void ICOPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ICOPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ICOPActionPerformed
 
     private void tekstClicked(java.awt.event.MouseEvent evt, JTextField text) {
         if (text.getText().equals(text.getToolTipText())) {
