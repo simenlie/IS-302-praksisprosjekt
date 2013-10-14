@@ -187,15 +187,15 @@ public class LeftPanel extends javax.swing.JPanel {
     public JButton getButtonRec() {
         return recBut;
     }
-    
+
     public JButton getButtonAdvan() {
         return adBut;
     }
-    
+
     public JButton getButtonLib() {
         return libraryBut;
     }
-    
+
     public JButton getButtonSearch() {
         return searchBut;
     }
@@ -218,21 +218,21 @@ public class LeftPanel extends javax.swing.JPanel {
         defaultButtons();
         button.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         button.setForeground(new java.awt.Color(255, 255, 255));
-
+        
 
         if (!selected.isVisible()) {
             selected.setVisible(true);
         }
-        if (libraryBut.isFocusOwner()) {
+        if (libraryBut.isFocusOwner() || button.getText().equals(libraryBut.getText())) {
             selected.setLocation(0, 16);
             button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/libraryWhite.png")));
-        } else if (recBut.isFocusOwner()) {
+        } else if (recBut.isFocusOwner() || button.getText().equals(recBut.getText())) {
             selected.setLocation(0, 59);
             button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/recentlyWhite.png")));
-        } else if (adBut.isFocusOwner()) {
+        } else if (adBut.isFocusOwner() || button.getText().equals(adBut.getText())) {
             selected.setLocation(0, 100);
             button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/testO.png")));
-        } else if (searchBut.isFocusOwner()) {
+        } else if (searchBut.isFocusOwner() || button.getText().equals(searchBut.getText())) {
             selected.setLocation(0, 171);
             button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/icon_searchWhite.png")));
         }

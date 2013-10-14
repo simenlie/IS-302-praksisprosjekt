@@ -23,7 +23,7 @@ import javax.swing.table.TableColumn;
  * @author Simen
  */
 public class SearchPanel extends javax.swing.JPanel {
-
+    
     OptionDialog dialog;
     MetaEdit metaEdit;
     JPopupMenu popupMenu;
@@ -42,23 +42,25 @@ public class SearchPanel extends javax.swing.JPanel {
      */
     public SearchPanel() throws IOException {
         db = new DBConnection();
-
+        
         initComponents();
         setLayout(new BorderLayout());
-        jPanel1.setPreferredSize(new Dimension(100, 50));
+        //jPanel1.setPreferredSize(new Dimension(100, 50));
         searchTable.setModel(db.getTable());
+       
+                
         searchTable.getColumnModel().getColumn(0).setMinWidth(20);
         searchTable.getColumnModel().getColumn(0).setPreferredWidth(20);
         searchTable.getColumnModel().getColumn(0).setMaxWidth(20);
         load();
-        add(jPanel1, BorderLayout.NORTH);
+        //add(jPanel1, BorderLayout.NORTH);
         JLabel iconS = new JLabel();
-        iconS.setBounds(10, 8, 34, 34);
-        iconS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/search-iconP.png")));
-        jPanel1.add(iconS);
-
+        iconS.setBounds(10, 11, 30, 30);
+        iconS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/searchPage.png")));
+        //jPanel1.add(iconS);
+        
         add(pane, BorderLayout.CENTER);
-        jPanel1.add(showingResult, BorderLayout.CENTER);
+        //jPanel1.add(showingResult, BorderLayout.CENTER);
 
         //searchTable.setShowGrid(false);
         searchTable.setIntercellSpacing(new Dimension(0, 0));
@@ -67,66 +69,74 @@ public class SearchPanel extends javax.swing.JPanel {
         searchTable.getTableHeader().setReorderingAllowed(false);
         // pane.setBorder(BorderFactory.createEmptyBorder());
 
-        searchTable.getTableHeader().setFont(new Font("Calibri Light", Font.BOLD, 12));
+        searchTable.getTableHeader().setFont(new Font("Calibri Light", Font.PLAIN, 14));
         TableColumn c = searchTable.getColumnModel().getColumn(1);
-
+        
         c.setMaxWidth(0);
         c.setMinWidth(0);
         c.setPreferredWidth(0);
         //searchTable.removeColumn(searchTable.getColumnModel().getColumn(0));
 
     }
+    
+    public void chn(){
+    searchTable.setModel(db.getTable());
 
+   searchTable.isCellEditable(WIDTH, WIDTH);
+    }
+    
+    
+    
     public int getArtistID() {
         return artistID;
     }
-
+    
     public void setShowResult(String text) {
-
-        showingResult.setText(text);
+        
+        //showingResult.setText(text);
     }
-
+    
     public void initMetaPopup() throws IOException {
         metaEdit = new MetaEdit(new javax.swing.JFrame(), true);
-
+        
     }
-
+    
     public void initPopup() {
         popupMenu = new JPopupMenu();
         JMenuItem edit = new JMenuItem("Edit");
         JMenuItem delete = new JMenuItem("Delete");
         popupMenu.add(edit);
         popupMenu.add(delete);
-
+        
         edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editActionPerformed(evt);
             }
         });
-
+        
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteActionPerformed(evt);
             }
         });
-
+        
     }
-
+    
     private void editActionPerformed(java.awt.event.ActionEvent evt) {
         metaEdit.setVisible(true);
     }
-
+    
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {
         dialog = new OptionDialog(new javax.swing.JFrame(), true, MouseInfo.getPointerInfo().getLocation());
         dialog.setVisible(true);
     }
-
+    
     private String parse(String string) {
         selected = string;
-
+        
         return "<html><u><font color=\"#000000\">" + string + "</font></u></html>";
     }
-
+    
     private void backToNormal() {
         searchTable.setValueAt(selected, selectedRow, selectedCol);
     }
@@ -142,9 +152,6 @@ public class SearchPanel extends javax.swing.JPanel {
 
         pane = new javax.swing.JScrollPane();
         searchTable = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        showing = new javax.swing.JLabel();
-        showingResult = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(236, 235, 232));
         setLayout(null);
@@ -205,71 +212,52 @@ public class SearchPanel extends javax.swing.JPanel {
 
         add(pane);
         pane.setBounds(80, 50, 1250, 220);
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setMinimumSize(new java.awt.Dimension(100, 100));
-        jPanel1.setLayout(null);
-
-        showing.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
-        showing.setForeground(new java.awt.Color(102, 102, 102));
-        showing.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        showing.setText("Showing results for");
-        jPanel1.add(showing);
-        showing.setBounds(60, 0, 120, 50);
-
-        showingResult.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
-        showingResult.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        showingResult.setText("searchText");
-        jPanel1.add(showingResult);
-        showingResult.setBounds(170, 0, 250, 50);
-
-        add(jPanel1);
-        jPanel1.setBounds(0, 0, 620, 50);
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchTableMouseReleased
-
+        
         searchTable.setRowSelectionInterval(selectedRow, selectedRow);
         //System.out.println(" row: " + searchTable.getSelectedRow() + " col: " + searchTable.getSelectedColumn());
         //System.out.println(searchTable.getValueAt(searchTable.getSelectedRow(), 0));
         if (evt.getButton() == 3) {
             System.out.println("righ clicked");
-
+            
         }
-
+        
         if (evt.isPopupTrigger()) {
-
+            
             popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
-
+            
         }
-
+        
     }//GEN-LAST:event_searchTableMouseReleased
-
+    
     public JTable getTable() {
         return searchTable;
     }
-
+    
     public boolean isLink() {
         return link;
     }
-
+    
     private void searchTableMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchTableMouseMoved
         if (selected != null && searchTable.getValueAt(selectedRow, selectedCol) != null && selectedCol == searchTable.getColumn("IART").getModelIndex()) {
             backToNormal();
         }
-
+        
         selectedRow = searchTable.rowAtPoint(evt.getPoint());
         selectedCol = searchTable.columnAtPoint(evt.getPoint());
 
         //searchTable.setRowSelectionInterval(selectedRow, selectedRow);
         //System.out.println("rad " + searchTable.getValueAt(selectedRow, selectedCol));
         if (searchTable.getValueAt(selectedRow, selectedCol) != null && selectedCol == searchTable.getColumn("IART").getModelIndex()) {
+            
             String t = parse((String) searchTable.getValueAt(selectedRow, selectedCol));
             searchTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             //searchTable.getColumnModel().setColumnSelectionAllowed(false);
             link = true;
             searchTable.setValueAt(t, selectedRow, selectedCol);
-
+            
         } else {
             searchTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
             link = false;
@@ -285,8 +273,8 @@ public class SearchPanel extends javax.swing.JPanel {
         int id = Integer.parseInt((String) searchTable.getModel().getValueAt(selectedRow, searchTable.getColumn("idSONG").getModelIndex()));
         d = new DBConnection();
         if (selectedCol == searchTable.getColumn("IALB").getModelIndex()) {
-
-
+            
+            
             d.getManyRelation(id, 1);
             albumPop = new JPopupMenu();
             for (final Artist a : d.getAlbums().getCollection()) {
@@ -298,7 +286,7 @@ public class SearchPanel extends javax.swing.JPanel {
                 });
                 albumPop.add(temps);
             }
-
+            
             if (albumPop.isVisible()) {
                 albumPop.setVisible(false);
             } else {
@@ -308,18 +296,18 @@ public class SearchPanel extends javax.swing.JPanel {
                     //Jump to album page
                 }
             }
-
+            
         } else if (selectedCol == searchTable.getColumn("IART").getModelIndex()) {
-
-
-
-
-
+            
+            
+            
+            
+            
             d.getManyRelation(id, 0);
-           
+            
             
             ArtistPage.artistID = d.getArtists().getId(selected);
-
+            
             artistPop = new JPopupMenu();
             for (final Artist a : d.getArtists().getCollection()) {
                 JMenuItem temps = new JMenuItem(a.IART);
@@ -340,52 +328,49 @@ public class SearchPanel extends javax.swing.JPanel {
                 }
             }
         }
-
+        
         searchTable.setColumnSelectionInterval(selectedCol, selectedCol);
         searchTable.setRowSelectionInterval(selectedRow, selectedRow);
         if (selectedCol != searchTable.getColumn("IALB").getModelIndex()) {
             if (albumPop != null) {
                 albumPop.setVisible(false);
             }
-
+            
         }
         if (selectedCol != searchTable.getColumn("IART").getModelIndex()) {
             if (artistPop != null) {
                 artistPop.setVisible(false);
             }
         }
-
+        
     }
-
+    
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt, String s) {
         System.out.println(d.getAlbums().getId(s));
         System.out.println(searchTable.getColumn("IART").getModelIndex());
     }
-
+    
     public void load() {
         int rowCount = 2;
         for (int i = 0; i < rowCount; i++) {
             DBConnection dba = new DBConnection();
             System.out.println("hei");
             int ida = Integer.parseInt((String) searchTable.getModel().getValueAt(i, searchTable.getColumn("idSONG").getModelIndex()));
-
+            
             dba.getManyRelation(ida, 1);
             dba.getManyRelation(ida, 0);
             System.out.println(ida);
             searchTable.getModel().setValueAt(dba.getAlbums().getCollectionInString(), i, searchTable.getColumn("IALB").getModelIndex());
             searchTable.getModel().setValueAt(dba.getArtists().getCollectionInString(), i, searchTable.getColumn("IART").getModelIndex());
         }
-
-
+        
+        
     }
     private void searchTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchTableMouseClicked
         checkArtistAlbum(evt);
     }//GEN-LAST:event_searchTableMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane pane;
     private javax.swing.JTable searchTable;
-    private javax.swing.JLabel showing;
-    private javax.swing.JLabel showingResult;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,6 +6,7 @@ package nrkprosjekt;
 
 import java.awt.BorderLayout;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 import javax.swing.JPanel;
@@ -17,29 +18,27 @@ import javax.swing.JTable;
  */
 public class ContentPanel extends javax.swing.JPanel {
 
-    SearchPanel searchPanel;
+    NewSearch searchPanel2;
+    NewLibrary lib;
     RecentlyAddedPanel recentlyA;
     LibraryOverviewPanel libraryPanel;
     ArtistPanel artistPanel;
     AdvancedSearchPanel advancedS;
-    Stack<JPanel> navigation;
-    Stack<JPanel> navigationBack;
-    HashMap<JPanel, Navigation> bol;
     HashMap<String, JPanel> dictionary;
     WelcomePanel welcomePanel;
-    boolean hei;
-    boolean visit = false;
-    boolean visit2 = false;
+    ArrayList<JPanel> navigation;
+    int currentPage = 0;
+    boolean canGoBack = false;
 
     /**
      * Creates new form ContentPanel
      */
     public ContentPanel() throws IOException {
-        navigation = new Stack();
-        navigationBack = new Stack<>();
-        welcomePanel = new WelcomePanel();
 
-        bol = new HashMap<>();
+        welcomePanel = new WelcomePanel();
+        navigation = new ArrayList<>();
+
+
         dictionary = new HashMap<>();
 
         initComponents();
@@ -51,115 +50,53 @@ public class ContentPanel extends javax.swing.JPanel {
     }
 
     boolean isLink() {
-        return searchPanel.isLink();
+        return searchPanel2.isLink();
     }
 
     public void fillDict() {
-        dictionary.put("search", searchPanel);
-        dictionary.put("library", libraryPanel);
+        dictionary.put("search", searchPanel2);
+        dictionary.put("library", lib);
         dictionary.put("artist", artistPanel);
+        dictionary.put("recently", recentlyA);
+
+        dictionary.put("advancedS", advancedS);
+        dictionary.put("welcome", welcomePanel);
     }
 
-    private void addNavigation(JPanel panel) {
-        //navigation.add(panel);
-        navigationBack.add(panel);
+    public boolean goBack() {
+        pane.setViewportView(navigation.get(currentPage - 1));
+        currentPage -= 1;
+        if (currentPage == 0) {
+            //first page
+            return false;
+        }
+        return true;
     }
 
-    public boolean navBack() {
-        boolean returning = true;
-        if (navigation.size() == 0) {
-            returning = false;
+    public boolean goForward() {
+        pane.setViewportView(navigation.get(currentPage + 1));
+        currentPage += 1;
+        if (currentPage == navigation.size() - 1) {
+            //last page
+            return false;
         }
-
-        if (!navigationBack.isEmpty()) {
-            if (navigation.size() != 1) {
-                navigation.add(navigationBack.pop());
-
-                pane.setViewportView(navigationBack.peek());
-            } else {
-                returning = false;
-            }
-
-        }
-
-        return returning;
-    }
-
-    public boolean navForward() {
-        boolean returning = true;
-        System.out.println(navigationBack.size());
-        if (navigationBack.size() == 1) {
-            returning = false;
-        }
-        if (!navigation.isEmpty()) {
-            navigationBack.add(navigation.peek());
-
-            pane.setViewportView(navigation.pop());
-        } else {
-            returning = false;
-        }
-        return returning;
-
-    }
-
-    public boolean isLastPage() {
-        return visit;
+        return true;
     }
 
     private void addPanels() throws IOException {
-        searchPanel = new SearchPanel();
+
         libraryPanel = new LibraryOverviewPanel();
         recentlyA = new RecentlyAddedPanel();
         artistPanel = new ArtistPanel();
         advancedS = new AdvancedSearchPanel();
+        searchPanel2 = new NewSearch();
+        lib = new NewLibrary();
         add(pane, BorderLayout.CENTER);
 
     }
 
-    public void showSearchContent() {
-        pane.setViewportView(searchPanel);
-        if (!visit) {
-            addNavigation(searchPanel);
-        }
-
-        visit = true;
-
-
-    }
-
-    public void showLibraryContent() {
-        pane.setViewportView(libraryPanel);
-        //addNavigation(libraryPanel);
-
-    }
-
-    public void showAdvancedSearchPanel() {
-        pane.setViewportView(advancedS);
-
-    }
-
-    public void showSearchPanel() {
-        pane.setViewportView(searchPanel);
-
-    }
-
-    public void showRecContent() {
-        pane.setViewportView(recentlyA);
-        //addNavigation(libraryPanel);
-
-    }
-
-    public void showArtistContent() {
-
-        pane.setViewportView(artistPanel);
-        if (!visit2) {
-            addNavigation(artistPanel);
-            bol.put(artistPanel, new Navigation());
-        }
-        visit2 = true;
-        navForward();
-
-
+    public JPanel getCurrentPage() {
+        return navigation.get(currentPage);
     }
 
     public void showPanel(String name) {
@@ -170,36 +107,21 @@ public class ContentPanel extends javax.swing.JPanel {
         }
         JPanel temp = dictionary.get(name);
         pane.setViewportView(temp);
-        if (!bol.containsKey(temp)) {
-            bol.put(temp, new Navigation());
-        }
-        if (!bol.get(temp).isVisited()) {
-            addNavigation(temp);
-        } else {
-            visit = false;
-        }
-        bol.get(temp).setVisited(true);
-        if (!name.equals("search")) {
-            navForward();
+        navigation.add(temp);
+        currentPage = navigation.size() - 1;
+        if (navigation.size() > 1) {
+            canGoBack = true;
         }
 
 
     }
 
     public JTable getTable() {
-        return searchPanel.getTable();
+        return searchPanel2.getTable();
     }
 
-    public SearchPanel getSearchPanel() {
-        return searchPanel;
-    }
-
-    public void showRecentlyAddedContent() {
-        //code here
-    }
-
-    public void showAdvancedSearchContent() {
-        //code here
+    public NewSearch getSearchPanel() {
+        return searchPanel2;
     }
 
     /**

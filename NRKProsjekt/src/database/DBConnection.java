@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
+import nrkprosjekt.TableModell;
 
 /**
  *
@@ -122,7 +123,7 @@ public class DBConnection {
 
     public DefaultTableModel getTable() {
 
-        DefaultTableModel dm = new DefaultTableModel();
+        DefaultTableModel dm = new TableModell();
         dm.addColumn("");
         try {
             ResultSet rs = null;

@@ -294,27 +294,44 @@ public class Main extends javax.swing.JFrame {
 
     private void goBackActionPerformed(java.awt.event.ActionEvent evt, JButton but) {
         System.out.println("Go back");
-        but.setEnabled(content.navBack());
+
+        but.setEnabled(content.goBack());
+        checkNavigation();
         forward.setEnabled(true);
+    }
+
+    public void checkNavigation() {
+        if (content.getCurrentPage() instanceof SearchPanel) {
+            leftPanel.menuClick(leftPanel.getButtonSearch(), false);
+        }
+        if (content.getCurrentPage() instanceof LibraryOverviewPanel) {
+            leftPanel.menuClick(leftPanel.getButtonLib(), false);
+        }
+        if (content.getCurrentPage() instanceof AdvancedSearchPanel) {
+            leftPanel.menuClick(leftPanel.getButtonAdvan(), false);
+        }
+        if (content.getCurrentPage() instanceof RecentlyAddedPanel) {
+            leftPanel.menuClick(leftPanel.getButtonRec(), false);
+        }
+
     }
 
     private void goForwardActionPerformed(java.awt.event.ActionEvent evt, JButton but) {
         System.out.println("Go back");
-        but.setEnabled(content.navForward());
+
+        but.setEnabled(content.goForward());
+        checkNavigation();
         back.setEnabled(true);
     }
 
     private void searchTableMouseClicked(java.awt.event.MouseEvent evt) {
 
         if (evt.getButton() == 1 && content.isLink()) {
-            JTable temp = content.getTable();
-           // System.out.println("ID: "+temp.getValueAt(temp.getSelectedRow(), 0));
-            System.out.println("left clicked");
+
             content.showPanel("artist");
             back.setEnabled(true);
-            forward.setEnabled(content.isLastPage());
 
-            //searchTable.getValueAt(selectedRow, selectedCol);
+
         }
     }
 
@@ -421,9 +438,9 @@ public class Main extends javax.swing.JFrame {
         if (evt.getActionCommand().equals("ApproveSelection")) {
             setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
             chosenFile = chooser.getSelectedFile();
-            
+
             metadata = new Metadata(chosenFile.getAbsolutePath());
-            
+
             metadata.getTag(Tag.IART);
 
             metaEdit.setText(Tag.IART.toString(), "s");
@@ -440,7 +457,7 @@ public class Main extends javax.swing.JFrame {
                 }
 
 
-System.out.println("2");
+                System.out.println("2");
                 //String temp = tempString.substring(0, tempString.length() - 1);
                 metaEdit.setText(s.toString(), temp);
 
@@ -468,7 +485,9 @@ System.out.println("2");
     }
 
     private void recButActionPerformed(java.awt.event.ActionEvent evt) {
-        content.showRecContent();
+        content.showPanel("recently");
+        back.setEnabled(content.canGoBack);
+        forward.setEnabled(false);
     }
 
     public void advanAction(JButton button) {
@@ -490,13 +509,16 @@ System.out.println("2");
     }
 
     private void advanActionPerformed(java.awt.event.ActionEvent evt) {
-        content.showAdvancedSearchPanel();
+        content.showPanel("advancedS");
+        back.setEnabled(content.canGoBack);
+        forward.setEnabled(false);
 
     }
 
     private void SearchButActionPerformed(java.awt.event.ActionEvent evt) {
-        content.showSearchContent();
-
+        content.showPanel("search");
+        back.setEnabled(content.canGoBack);
+        forward.setEnabled(false);
     }
 
     public void libAction(JButton button) {
@@ -509,7 +531,9 @@ System.out.println("2");
     }
 
     private void libButActionPerformed(java.awt.event.ActionEvent evt) {
-        content.showLibraryContent();
+        content.showPanel("library");
+        back.setEnabled(content.canGoBack);
+        forward.setEnabled(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
