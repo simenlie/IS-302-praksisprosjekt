@@ -82,6 +82,10 @@ public class MetaEdit extends javax.swing.JDialog {
 
     }
 
+    MetaEdit() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void loadImage(String path) throws IOException {
         square = false;
 
