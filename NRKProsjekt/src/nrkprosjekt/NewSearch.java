@@ -69,12 +69,12 @@ public class NewSearch extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Showing results for");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(60, 20, 136, 23);
+        jLabel2.setBounds(60, 13, 136, 30);
 
         searchText.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         searchText.setText("SearchText");
         jPanel1.add(searchText);
-        searchText.setBounds(200, 20, 140, 23);
+        searchText.setBounds(200, 13, 140, 30);
 
         add(jPanel1);
         jPanel1.setBounds(0, 0, 430, 70);

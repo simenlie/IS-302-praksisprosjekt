@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class ArtistPage {
 
     public static int artistID;
+    public static int songID;
     ArrayList<Album> albums;
     DBConnection db;
 

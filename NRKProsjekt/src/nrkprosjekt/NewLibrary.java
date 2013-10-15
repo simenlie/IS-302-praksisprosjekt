@@ -6,6 +6,7 @@ package nrkprosjekt;
 
 import java.awt.BorderLayout;
 import java.io.IOException;
+import javax.swing.JTable;
 
 /**
  *
@@ -16,16 +17,25 @@ public class NewLibrary extends javax.swing.JPanel {
     /**
      * Creates new form NewLibrary
      */
-    SongPanel songPanel;
+    TrackPanel songPanel;
     SearchPanel searchPanel;
 
     public NewLibrary() throws IOException {
         initComponents();
-        songPanel = new SongPanel();
+        songPanel = new TrackPanel();
         searchPanel = new SearchPanel();
         setLayout(new BorderLayout());
         add(songPanel,BorderLayout.NORTH);
         add(searchPanel,BorderLayout.CENTER);
+        searchPanel.setTags(songPanel.getTags());
+    }
+    
+    public JTable getTable() {
+        return searchPanel.getTable();
+    }
+    
+    boolean isLink() {
+        return searchPanel.isLink();
     }
 
     /**

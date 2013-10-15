@@ -8,7 +8,6 @@ import java.awt.BorderLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Stack;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
@@ -51,6 +50,10 @@ public class ContentPanel extends javax.swing.JPanel {
 
     boolean isLink() {
         return searchPanel2.isLink();
+    }
+    
+    boolean isLink2() {
+        return lib.isLink();
     }
 
     public void fillDict() {
@@ -118,6 +121,9 @@ public class ContentPanel extends javax.swing.JPanel {
 
     public JTable getTable() {
         return searchPanel2.getTable();
+    }
+    public JTable getTable2() {
+        return lib.getTable();
     }
 
     public NewSearch getSearchPanel() {

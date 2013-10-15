@@ -144,6 +144,7 @@ public class Main extends javax.swing.JFrame {
         searchButAction(leftPanel.getButtonSearch());
         addActionFileChooser(fileDialog.getFileChooser());
         addMouseListener(content.getTable());
+        addMouseListener(content.getTable2());
 
         System.out.println("1");
 
@@ -325,8 +326,8 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void searchTableMouseClicked(java.awt.event.MouseEvent evt) {
-
-        if (evt.getButton() == 1 && content.isLink()) {
+        
+        if (evt.getButton() == 1 && content.isLink() || content.isLink2()) {
 
             content.showPanel("artist");
             back.setEnabled(true);

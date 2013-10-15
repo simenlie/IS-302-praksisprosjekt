@@ -11,6 +11,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 import nrkprosjekt.TableModell;
 
@@ -127,7 +128,8 @@ public class DBConnection {
         dm.addColumn("");
         try {
             ResultSet rs = null;
-            String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
+            //String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
+            String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ICRD from SONG, METADATA, AAS, ALBUM, ARTIST";
             String QueryString = selectQ + " WHERE SONG.idSONG = AAS.idSONG AND METADATA.idMETADATA = SONG.idMETADATA AND ALBUM.idALBUM = AAS.idALBUM AND ARTIST.idARTIST = AAS.idARTIST GROUP BY SONG.idSONG";
             rs = statement.executeQuery(QueryString);
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -183,5 +185,35 @@ public class DBConnection {
         } catch (Exception e) {
             System.out.println("Unable to create." + e);
         }
+    }
+
+    public void getSongInfo(int id, HashMap<String, JLabel> tags) {
+        String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
+        String QueryString = selectQ + " WHERE SONG.idSONG = AAS.idSONG AND METADATA.idMETADATA = SONG.idMETADATA AND ALBUM.idALBUM = AAS.idALBUM AND ARTIST.idARTIST = AAS.idARTIST AND SONG.idSONG = " + id + " GROUP BY SONG.idSONG";
+
+
+        try {
+
+            ResultSet rs = null;
+            rs = statement.executeQuery(QueryString);
+
+
+            while (rs.next()) {
+                for (String s : tags.keySet()) {
+                    tags.get(s).setText(rs.getString(s));
+
+                }
+
+
+
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("Unable to create." + e);
+        }
+    }
+
+    public void getMeta() {
     }
 }
