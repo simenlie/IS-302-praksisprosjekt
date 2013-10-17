@@ -5,6 +5,7 @@
 package nrkprosjekt;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -250,6 +251,13 @@ public class Main extends javax.swing.JFrame {
                 } catch (InvocationTargetException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                 UIManager.put("ComboBox.background", new ColorUIResource(Color.yellow));
+        UIManager.put("JTextField.background", new ColorUIResource(Color.yellow));
+        UIManager.put("ComboBox.selectionBackground", new ColorUIResource(Color.magenta));
+        UIManager.put("ComboBox.selectionForeground", new ColorUIResource(Color.blue));
+        UIManager.put("ComboBox.disabledBackground", new Color(212, 212, 210));
+        UIManager.put("ComboBox.disabledForeground", Color.BLACK);
 
 
             }

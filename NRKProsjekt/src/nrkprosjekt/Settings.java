@@ -6,7 +6,9 @@ package nrkprosjekt;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
@@ -14,13 +16,31 @@ import javax.swing.JLabel;
  */
 public class Settings extends javax.swing.JDialog {
 
+    UsersPanel p;
+    JButton label;
+    boolean menuDirecion = false;
+    JPanel current;
+    SettingsMenuPanel setPan;
+    JButton close;
+
     /**
      * Creates new form Settings
      */
     public Settings(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
+        close = new JButton();
+        close.setBounds(260, 10, 30, 26);
+        close.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/exit.png")));
+        close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/exitOver.png")));
+        close.setContentAreaFilled(false);
+        close.setFocusPainted(false);
 
+        close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         //setLocationRelativeTo(null);
         //setResizable(false);
@@ -32,10 +52,45 @@ public class Settings extends javax.swing.JDialog {
         initComponents();
         changed.setVisible(false);
         setSize(344, 494);
-        JLabel jLabel1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/settingsPanel.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 400, 494);
+        label = new JButton();
+        label.setBounds(22, 40, 13, 15);
+        label.setIcon(new ImageIcon(getClass().getResource("/nrkprosjekt/graphics/forward.png")));
+        label.setContentAreaFilled(false);
+        label.setFocusPainted(false);
+        label.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        setPan = new SettingsMenuPanel();
+        setPan.setBounds(0, 0, 300, 450);
+        jPanel2.setBounds(22, 22, 300, 450);
+        //jPanel1.add(label, 0);
+        //JPanel panel = new JPanel();
+        //panel.setLayout(null);
+        jPanel1.setBounds(22, 22, 300, 450);
+        //add(panel);
+        p = new UsersPanel();
+
+        //panel.add(p);
+        //jPanel1.add(p);
+        //jPanel1.add(p, 1);
+        p.setBounds(0, 0, 300, 450);
+        p.setLocation(0, 0);
+        //jPanel1.add(setPan, 1);
+
+        //current = (JPanel)jPanel1.getComponent(1);
+        jScrollPane1.setViewportView(setPan);
+        jScrollPane1.setBounds(0, 0, 300, 450);
+        current = (JPanel) jScrollPane1.getViewport().getComponent(0);
+
+        setPan.add(label);
+        //setPan.add(label);
+        setPan.add(close);
     }
 
     /**
@@ -47,6 +102,9 @@ public class Settings extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
@@ -56,6 +114,11 @@ public class Settings extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox();
+        jButton2 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(344, 494));
@@ -63,28 +126,36 @@ public class Settings extends javax.swing.JDialog {
         setResizable(false);
         getContentPane().setLayout(null);
 
+        jPanel2.setLayout(null);
+
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        jPanel1.setLayout(null);
+
         jButton1.setText("Close");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
+        jPanel1.add(jButton1);
         jButton1.setBounds(220, 410, 59, 23);
 
         jLabel1.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         jLabel1.setText("Font:");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(40, 90, 80, 17);
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(50, 110, 80, 17);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Calibri Light", "Tahoma", "Arial" }));
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(40, 110, 110, 20);
+        jPanel1.add(jComboBox1);
+        jComboBox1.setBounds(50, 130, 110, 20);
 
         jLabel2.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         jLabel2.setText("Save local copies to:");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(40, 190, 120, 20);
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(50, 210, 120, 20);
 
         localCopiesTextField.setText("C:\\Users\\Simen");
         localCopiesTextField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -92,34 +163,101 @@ public class Settings extends javax.swing.JDialog {
                 localCopiesTextFieldKeyPressed(evt);
             }
         });
-        getContentPane().add(localCopiesTextField);
-        localCopiesTextField.setBounds(40, 210, 170, 30);
+        jPanel1.add(localCopiesTextField);
+        localCopiesTextField.setBounds(50, 230, 170, 30);
 
         changed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/sucess2.png"))); // NOI18N
-        getContentPane().add(changed);
-        changed.setBounds(220, 210, 20, 30);
+        jPanel1.add(changed);
+        changed.setBounds(230, 230, 20, 30);
 
         jLabel3.setFont(new java.awt.Font("Calibri Light", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(71, 170, 221));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Settings");
-        getContentPane().add(jLabel3);
+        jPanel1.add(jLabel3);
         jLabel3.setBounds(0, 40, 340, 40);
 
         jLabel4.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         jLabel4.setText("Welcome page:");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(40, 140, 110, 20);
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(50, 160, 110, 20);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Welcome", "Library", "Recently added", "Advanced search" }));
-        getContentPane().add(jComboBox2);
-        jComboBox2.setBounds(40, 160, 110, 20);
+        jPanel1.add(jComboBox2);
+        jComboBox2.setBounds(50, 180, 110, 20);
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2);
+        jButton2.setBounds(80, 410, 73, 23);
+
+        jScrollPane1.setViewportView(jPanel1);
+
+        jPanel2.add(jScrollPane1);
+        jScrollPane1.setBounds(0, 0, 340, 490);
+
+        jPanel3.setBackground(new java.awt.Color(53, 53, 53));
+        jPanel3.setLayout(null);
+
+        jSeparator1.setBackground(new java.awt.Color(176, 229, 255));
+        jSeparator1.setForeground(new java.awt.Color(31, 135, 189));
+        jPanel3.add(jSeparator1);
+        jSeparator1.setBounds(0, 69, 180, 10);
+
+        jLabel5.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveSmall.png"))); // NOI18N
+        jLabel5.setText("Users");
+        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel5MouseExited(evt);
+            }
+        });
+        jPanel3.add(jLabel5);
+        jLabel5.setBounds(0, 70, 120, 30);
+
+        jLabel6.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveSmall.png"))); // NOI18N
+        jLabel6.setText("General");
+        jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel6MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel6MouseExited(evt);
+            }
+        });
+        jPanel3.add(jLabel6);
+        jLabel6.setBounds(0, 40, 120, 30);
+
+        jPanel2.add(jPanel3);
+        jPanel3.setBounds(0, 0, 340, 490);
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(0, 0, 340, 490);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
+        dispose();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void localCopiesTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_localCopiesTextFieldKeyPressed
@@ -132,6 +270,76 @@ public class Settings extends javax.swing.JDialog {
 
     }//GEN-LAST:event_localCopiesTextFieldKeyPressed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        doAnimation();
+        // p.setSize(p.getSize().width - 22, p.getSize().height);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        jScrollPane1.setViewportView(setPan);
+        setPan.add(label);
+        setPan.add(close);
+        doAnimation();
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveSmall.png")));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveOverSmall.png")));
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        jScrollPane1.setViewportView(p);
+        p.add(label);
+        p.add(close);
+        doAnimation();
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveOverSmall.png")));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveSmall.png")));
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveOverSmall.png")));
+        repaint();
+        revalidate();
+    }//GEN-LAST:event_jLabel5MouseEntered
+
+    private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveSmall.png")));
+        repaint();
+        revalidate();
+    }//GEN-LAST:event_jLabel5MouseExited
+
+    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveOverSmall.png")));
+        repaint();
+        revalidate();
+    }//GEN-LAST:event_jLabel6MouseEntered
+
+    private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveSmall.png")));
+        repaint();
+        revalidate();
+    }//GEN-LAST:event_jLabel6MouseExited
+
+    public void doAnimation() {
+        if (menuDirecion) {
+            animation(-1);
+            label.setIcon(new ImageIcon(getClass().getResource("/nrkprosjekt/graphics/forward.png")));
+            menuDirecion = false;
+        } else {
+            animation(1);
+            label.setIcon(new ImageIcon(getClass().getResource("/nrkprosjekt/graphics/back.png")));
+            menuDirecion = true;
+        }
+
+    }
+
+    public void animation(int i) {
+        int h = 0;
+        while (h < 120) {
+            jScrollPane1.setLocation(jScrollPane1.getLocation().x + i, jScrollPane1.getLocation().y);
+            //label.setLocation(label.getLocation().x + i, label.getLocation().y);
+            h++;
+
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -143,7 +351,7 @@ public class Settings extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -157,6 +365,8 @@ public class Settings extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Settings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+
+
         //</editor-fold>
 
         /* Create and display the dialog */
@@ -176,12 +386,20 @@ public class Settings extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel changed;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField localCopiesTextField;
     // End of variables declaration//GEN-END:variables
 }
