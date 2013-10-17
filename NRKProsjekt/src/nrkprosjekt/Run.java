@@ -4,6 +4,7 @@
  */
 package nrkprosjekt;
 
+import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 /**
@@ -13,16 +14,23 @@ import javax.swing.JPanel;
 public class Run extends javax.swing.JFrame {
 
     JPanel songPanel;
+    
+   TrackPanel ta;
+  
 
     /**
      * Creates new form Run
      */
     public Run() {
-        initComponents();
+      initComponents();
         songPanel = new SongPanel();
+        setLayout(new BorderLayout());
+        ta = new TrackPanel();
         setSize(670, 270);
+        ta.setBounds(0, 0, 1000, 800);
         songPanel.setBounds(0, 0, 1000, 800);
-        add(songPanel);
+        //add(songPanel, BorderLayout.CENTER);
+        add(ta, BorderLayout.CENTER);
     }
 
     /**
