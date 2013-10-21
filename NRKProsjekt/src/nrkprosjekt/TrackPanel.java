@@ -6,7 +6,14 @@ package nrkprosjekt;
 
 import database.DBConnection;
 import java.awt.BorderLayout;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 
 /**
@@ -134,6 +141,11 @@ public class TrackPanel extends javax.swing.JPanel {
         jButton1.setFocusPainted(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveOverSmall.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
@@ -234,8 +246,7 @@ public class TrackPanel extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(10, 10, 10)
-                        .addComponent(ICMT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(ICMT))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addGap(3, 3, 3)
@@ -464,7 +475,7 @@ public class TrackPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton3))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -483,6 +494,30 @@ public class TrackPanel extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        File file = new File("C:\\Users\\Sindre\\Documents\\GitHub\\IS-302-praksisprosjekt\\NRKProsjekt\\src\\nrkprosjekt\\graphics\\albumcover1.jpg");
+        File file2 = new File("C:\\Users\\Sindre\\Documents\\GitHub\\IS-302-praksisprosjekt\\NRKProsjekt\\src\\nrkprosjekt\\graphics\\null.jpg");
+        Path p5 = Paths.get(System.getProperty("user.home"),"logs", "foo.log");
+        if(file.exists()){
+            
+            ;
+       }else{
+            try {
+                //extracte
+                 Desktop.getDesktop().open(file2);
+            } catch (IOException ex) {
+                Logger.getLogger(TrackPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+       };
+        try {
+            Desktop.getDesktop().open(file);
+        } catch (IOException ex) {
+            Logger.getLogger(TrackPanel.class.getName()).log(Level.SEVERE, null, ex);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IALB;
     private javax.swing.JLabel IART;
