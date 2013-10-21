@@ -44,14 +44,15 @@ public class MusicPanel extends javax.swing.JPanel {
     Animation songNameAni;
     Animation animation;
     boolean pl = false;
+    boolean hasSong = false;
 
     /**
      * Creates new form MusicPlayer
      */
-    public MusicPanel(String path) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+    public MusicPanel() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         setName("music");
 
-        musicPlayer = new MusicPlayer(path);
+        //musicPlayer = new MusicPlayer(path);
         initComponents();
         c = new Calculator();
         // setSize(100, 100);
@@ -118,7 +119,7 @@ public class MusicPanel extends javax.swing.JPanel {
 
         add(textInfo2, BorderLayout.CENTER);
 
-        totalTimet.setText(musicPlayer.getTotalTime());;
+        //totalTimet.setText(musicPlayer.getTotalTime());;
         totalTimet.setBounds(100, 27, 100, 15);
         totalTimet.setForeground(new Color(0, 0, 0));
         add(totalTimet);
@@ -156,6 +157,11 @@ public class MusicPanel extends javax.swing.JPanel {
         musicPlayer = new MusicPlayer(filepath);
         textInfo.setText(musicPlayer.getInfoSong());
         totalTimet.setText(musicPlayer.getTotalTime());
+        hasSong = true;
+    }
+
+    public void stopSong() {
+        musicPlayer.pause();
 
     }
 
@@ -176,7 +182,7 @@ public class MusicPanel extends javax.swing.JPanel {
 
                         progressing.setIcon(c.dos(i2, getPercentage(80)));
                         if (!pl) {
-                            textInfo.setBounds((getSize().width / 2) - 50, 8, 100, 15);
+                            textInfo.setBounds((getSize().width / 2) - 50, 8, 150, 15);
                         } else {
                             textInfo.setBounds(progress1.getLocation().x, 8, 100, 15);
                         }
@@ -267,33 +273,39 @@ public class MusicPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void check() {
-        if (play) {
-            if (songNameAni.isRunning()) {
-                songNameAni.stop();
-            }
-            if (animation.isRunning()) {
-                animation.stop();
-            }
+        if (hasSong) {
 
-            musicPlayer.pause();
-            play = false;
-            playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/play.png"))); // NOI18N
-            playButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/playOver.png"))); // NOI18N
+            if (play) {
+                if (songNameAni.isRunning()) {
+                    songNameAni.stop();
+                }
+                if (animation.isRunning()) {
+                    animation.stop();
+                }
+
+                musicPlayer.pause();
+                play = false;
+                playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/play.png"))); // NOI18N
+                playButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/playOver.png"))); // NOI18N
+            } else {
+                pl = true;
+                songNameAni.start();
+                animation.start();
+                textInfo.setText("Mabvuto |");
+                musicPlayer.play();
+
+
+                //System.out.println("hei");
+                play = true;
+                playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/pause.png"))); // NOI18N
+                playButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/pauseOver.png"))); // NOI18N
+                checkSong();
+
+            }
         } else {
-            pl = true;
-            songNameAni.start();
-            animation.start();
-            textInfo.setText("Mabvuto |");
-            musicPlayer.play();
-
-
-            //System.out.println("hei");
-            play = true;
-            playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/pause.png"))); // NOI18N
-            playButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/pauseOver.png"))); // NOI18N
-            checkSong();
-
+            textInfo.setText("Choose a song to play");
         }
+
     }
 
     public void checkSong() {
@@ -341,6 +353,10 @@ public class MusicPanel extends javax.swing.JPanel {
 
     }
 
+    public boolean isPlay() {
+        return play;
+    }
+
     public int doProsent(int prosent) {
         int origin = progress1.getSize().width;
         int calc = origin * prosent / 100;
@@ -356,24 +372,27 @@ public class MusicPanel extends javax.swing.JPanel {
     }
 
     private void emptyBarMouseClicked(java.awt.event.MouseEvent evt) {
-        try {
+
+        if (hasSong) {
             try {
+                try {
 
 
-                jLabel2.setLocation(FUDGE_FACTOR + emptyBar.getMousePosition().x, jLabel2.getLocation().y);
+                    jLabel2.setLocation(FUDGE_FACTOR + emptyBar.getMousePosition().x, jLabel2.getLocation().y);
 
-                progressing.setSize(emptyBar.getMousePosition().x, progressing.getSize().height);
+                    progressing.setSize(emptyBar.getMousePosition().x, progressing.getSize().height);
 
-                musicPlayer.jumpToSeconds(returnBytesToSkip());
-            } catch (UnsupportedAudioFileException ex) {
+                    musicPlayer.jumpToSeconds(returnBytesToSkip());
+                } catch (UnsupportedAudioFileException ex) {
+                    Logger.getLogger(MusicPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MusicPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(MusicPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(MusicPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(MusicPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
+        }
     }
 
     public int returnBytesToSkip() throws UnsupportedAudioFileException, IOException {

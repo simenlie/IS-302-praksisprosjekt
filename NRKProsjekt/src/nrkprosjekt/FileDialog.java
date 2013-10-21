@@ -6,6 +6,7 @@ package nrkprosjekt;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import sun.swing.FilePane;
 
 /**
  *
@@ -34,7 +35,23 @@ public class FileDialog extends javax.swing.JDialog {
         setImageFileFilters();
     }
 
-    public void setFileFilters() {
+    public void reset() {
+        //fileChooser.showOpenDialog(null);
+        //fileChooser.setSelectedFile(new File(""));
+        File file = new File("");
+        File[] files = {file};
+
+        fileChooser.setSelectedFile(file); //My mistake was 
+        fileChooser.setSelectedFiles(files); //passing null to these methods. 
+
+        
+        //fileChooser.setCurrentDirectory(new File(fileChooser.getCurrentDirectory().getAbsolutePath()));
+        repaint();
+        revalidate();
+
+    }
+
+    private void setFileFilters() {
         //fileChooser.addChoosableFileFilter(new FileFiltering("PDF Documents (*.pdf)",".pdf"));
         //fileChooser.addChoosableFileFilter(new FileFiltering("Wave (Microsoft) (*.wav)",".wav"));
         fileChooser.setFileFilter(new FileFiltering("Wave (Microsoft) (*.wav)", ".wav"));

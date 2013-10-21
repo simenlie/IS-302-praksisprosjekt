@@ -27,6 +27,7 @@ public class SearchPanel extends javax.swing.JPanel {
 
     OptionDialog dialog;
     MetaEdit metaEdit;
+    SongInformation songInfo;
     JPopupMenu popupMenu;
     String selected;
     int selectedRow;
@@ -100,13 +101,15 @@ public class SearchPanel extends javax.swing.JPanel {
 
     public void initMetaPopup() throws IOException {
         metaEdit = new MetaEdit(new javax.swing.JFrame(), true);
-
+        songInfo = new SongInformation(new javax.swing.JFrame(), true);
     }
 
     public void initPopup() {
         popupMenu = new JPopupMenu();
         JMenuItem edit = new JMenuItem("Edit");
+        JMenuItem info = new JMenuItem("Info");
         JMenuItem delete = new JMenuItem("Delete");
+        popupMenu.add(info);
         popupMenu.add(edit);
         popupMenu.add(delete);
 
@@ -122,10 +125,20 @@ public class SearchPanel extends javax.swing.JPanel {
             }
         });
 
+        info.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoActionPerformed(evt);
+            }
+        });
+
     }
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {
         metaEdit.setVisible(true);
+    }
+
+    private void infoActionPerformed(java.awt.event.ActionEvent evt) {
+        songInfo.setVisible(true);
     }
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,7 +271,7 @@ public class SearchPanel extends javax.swing.JPanel {
             searchTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             //searchTable.getColumnModel().setColumnSelectionAllowed(false);
             link = true;
-            
+
             searchTable.setValueAt(t, selectedRow, selectedCol);
 
         } else {

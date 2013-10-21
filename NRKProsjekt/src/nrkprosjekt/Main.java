@@ -38,6 +38,7 @@ import jwawfile.Tag;
 public class Main extends javax.swing.JFrame {
 
     HashMap<String, JPanel> panels;
+    MusicPanel musicPanel;
     FileDialog fileDialog;
     RecenSearchDialog recentSearchDialog;
     ArrayList<String> searches;
@@ -58,6 +59,7 @@ public class Main extends javax.swing.JFrame {
     Thread thread2;
     Loader l;
     String loaderInformation;
+    String curDir;
 
     /**
      * Creates new form Main
@@ -140,9 +142,9 @@ public class Main extends javax.swing.JFrame {
         loadPanel(topPanel, BorderLayout.NORTH);
         loadPanel(leftPanel, BorderLayout.WEST);
         String defPath = System.getProperty("user.home") + "\\Desktop";
-
+        musicPanel = new MusicPanel();
         l.setLoadingInfo("Loading Music player");
-        loadPanel(new MusicPanel(defPath + "\\Mabvuto.wav"), BorderLayout.SOUTH);
+        loadPanel(musicPanel, BorderLayout.SOUTH);
         //content.setBorder(null);
         //loadPanel(content, null);
 
@@ -382,8 +384,20 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {
+        fileDialog = new FileDialog(new javax.swing.JFrame(), true);
+        addActionFileChooser(fileDialog.getFileChooser());
+        if (curDir != null) {
+            fileDialog.getFileChooser().setCurrentDirectory(new File(curDir));
+        }
+
+
+        if (musicPanel.isPlay()) {
+            musicPanel.stopSong();
+        }
+
         fileDialog.setVisible(true);
-        fileDialog.getChosenFile();
+
+
     }
 
     private void searchBoxKeyPressed(java.awt.event.KeyEvent evt, final JTextField textBox) {
@@ -471,7 +485,7 @@ public class Main extends javax.swing.JFrame {
 
     private void fileChooserActionPerformed(java.awt.event.ActionEvent evt, JFileChooser chooser) throws BadRIFFException, IOException, UnsupportedAudioFileException, LineUnavailableException {
         fileDialog.setVisible(false);
-
+        curDir = fileDialog.getFileChooser().getCurrentDirectory().getAbsolutePath();
 
         if (evt.getActionCommand().equals("ApproveSelection")) {
             setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
@@ -495,19 +509,19 @@ public class Main extends javax.swing.JFrame {
                 }
 
 
-                System.out.println("2");
+                //System.out.println("2");
                 //String temp = tempString.substring(0, tempString.length() - 1);
                 metaEdit.setText(s.toString(), temp);
 
-                System.out.println(s.toString() + " : " + metadata.getTag(s));
+                //System.out.println(s.toString() + " : " + metadata.getTag(s));
             }
 
 
             metaEdit.setVisible(true);
             setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-            MusicPanel p = (MusicPanel) panels.get("music");
-            p.setSong(chosenFile.getAbsolutePath());
+
+            musicPanel.setSong(chosenFile.getAbsolutePath());
         } else if (evt.getActionCommand().equals("CancelSelection")) {
             //System.out.println("can");
         }
