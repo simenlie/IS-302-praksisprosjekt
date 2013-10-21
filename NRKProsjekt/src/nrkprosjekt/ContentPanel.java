@@ -25,6 +25,7 @@ public class ContentPanel extends javax.swing.JPanel {
     AdvancedSearchPanel advancedS;
     HashMap<String, JPanel> dictionary;
     WelcomePanel welcomePanel;
+    
     ArrayList<JPanel> navigation;
     int currentPage = 0;
     boolean canGoBack = false;
@@ -33,7 +34,7 @@ public class ContentPanel extends javax.swing.JPanel {
      * Creates new form ContentPanel
      */
     public ContentPanel() throws IOException {
-
+        
         welcomePanel = new WelcomePanel();
         navigation = new ArrayList<>();
 
@@ -51,7 +52,7 @@ public class ContentPanel extends javax.swing.JPanel {
     boolean isLink() {
         return searchPanel2.isLink();
     }
-    
+
     boolean isLink2() {
         return lib.isLink();
     }
@@ -122,6 +123,7 @@ public class ContentPanel extends javax.swing.JPanel {
     public JTable getTable() {
         return searchPanel2.getTable();
     }
+
     public JTable getTable2() {
         return lib.getTable();
     }

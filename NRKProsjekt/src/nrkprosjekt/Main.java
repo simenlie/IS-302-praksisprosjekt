@@ -100,11 +100,33 @@ public class Main extends javax.swing.JFrame {
         System.out.println(System.currentTimeMillis() - start);
     }
 
+    public void initContent() throws IOException {
+        Thread thread22 = new Thread(new Runnable() {
+            public void run() {
+                Load l = new Load();
+                add(l, null);
+                try {
+                    content = new ContentPanel();
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                content.setBorder(null);
+                loadPanelA(content, null);
+                remove(l);
+                addMouseListener(content.getTable());
+                addMouseListener(content.getTable2());
+                repaint();
+                revalidate();
+            }
+        });
+        thread22.start();
+    }
+
     public void initialize() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         panels = new HashMap<>();
         recentSearchDialog = new RecenSearchDialog(new javax.swing.JFrame(), false);
         searches = new ArrayList<>();
-        content = new ContentPanel();
+        //content = new ContentPanel();
         l.setLoadingInfo("Initializing UI");
         setTitle("Music Database Organizer");
         fileDialog = new FileDialog(new javax.swing.JFrame(), true);
@@ -121,8 +143,8 @@ public class Main extends javax.swing.JFrame {
 
         l.setLoadingInfo("Loading Music player");
         loadPanel(new MusicPanel(defPath + "\\Mabvuto.wav"), BorderLayout.SOUTH);
-        content.setBorder(null);
-        loadPanel(content, null);
+        //content.setBorder(null);
+        //loadPanel(content, null);
 
 
         loadScrollBar();
@@ -144,11 +166,12 @@ public class Main extends javax.swing.JFrame {
         advanAction(leftPanel.getButtonAdvan());
         searchButAction(leftPanel.getButtonSearch());
         addActionFileChooser(fileDialog.getFileChooser());
-        addMouseListener(content.getTable());
-        addMouseListener(content.getTable2());
+        //addMouseListener(content.getTable());
+        //addMouseListener(content.getTable2());
 
         System.out.println("1");
 
+        initContent();
 
     }
 
@@ -171,6 +194,12 @@ public class Main extends javax.swing.JFrame {
     public void loadPanel(JPanel panel, String pos) {
         panels.put(panel.getName(), panel);
         add(panel, pos);
+    }
+
+    public void loadPanelA(JPanel panel, String pos) {
+        panels.put(panel.getName(), panel);
+        //add(panel, pos);
+        add(panel, null, 0);
     }
 
     /**
@@ -251,13 +280,13 @@ public class Main extends javax.swing.JFrame {
                 } catch (InvocationTargetException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                 UIManager.put("ComboBox.background", new ColorUIResource(Color.yellow));
-        UIManager.put("JTextField.background", new ColorUIResource(Color.yellow));
-        UIManager.put("ComboBox.selectionBackground", new ColorUIResource(Color.magenta));
-        UIManager.put("ComboBox.selectionForeground", new ColorUIResource(Color.blue));
-        UIManager.put("ComboBox.disabledBackground", new Color(212, 212, 210));
-        UIManager.put("ComboBox.disabledForeground", Color.BLACK);
+
+                UIManager.put("ComboBox.background", new ColorUIResource(Color.yellow));
+                UIManager.put("JTextField.background", new ColorUIResource(Color.yellow));
+                UIManager.put("ComboBox.selectionBackground", new ColorUIResource(Color.magenta));
+                UIManager.put("ComboBox.selectionForeground", new ColorUIResource(Color.blue));
+                UIManager.put("ComboBox.disabledBackground", new Color(212, 212, 210));
+                UIManager.put("ComboBox.disabledForeground", Color.BLACK);
 
 
             }
@@ -334,7 +363,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void searchTableMouseClicked(java.awt.event.MouseEvent evt) {
-        
+
         if (evt.getButton() == 1 && content.isLink() || content.isLink2()) {
 
             content.showPanel("artist");
