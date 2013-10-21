@@ -60,11 +60,58 @@ public class Main extends javax.swing.JFrame {
     Loader l;
     String loaderInformation;
     String curDir;
+    Login login;
 
     /**
      * Creates new form Main
      */
     public Main() throws LineUnavailableException, IOException, IOException, UnsupportedAudioFileException, InterruptedException, InvocationTargetException {
+        authentication();
+
+    }
+
+    private void authentication() {
+        login = new Login(new javax.swing.JFrame(), true);
+        login.getButton().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
+        login.getUsername().addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordKeyPressed(evt);
+            }
+        });
+
+        login.getPassword().addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordKeyPressed(evt);
+            }
+        });
+        login.setVisible(true);
+    }
+
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {
+        loginCheck();
+    }
+
+    private void loginCheck() {
+
+        if (login.authenticate()) {
+            login.dispose();
+            startProgram();
+
+        };
+    }
+
+    private void passwordKeyPressed(java.awt.event.KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            loginCheck();
+
+        }
+    }
+
+    private void startProgram() {
         start = System.currentTimeMillis();
         System.out.println("Start");
         l = new Loader(new javax.swing.JFrame(), true);
@@ -100,6 +147,7 @@ public class Main extends javax.swing.JFrame {
         //thread.interrupt();
 
         System.out.println(System.currentTimeMillis() - start);
+
     }
 
     public void initContent() throws IOException {
@@ -115,13 +163,28 @@ public class Main extends javax.swing.JFrame {
                 content.setBorder(null);
                 loadPanelA(content, null);
                 remove(l);
-                addMouseListener(content.getTable());
-                addMouseListener(content.getTable2());
+
+                repaint();
+                revalidate();
+
+            }
+        });
+        thread22.start();
+
+    }
+
+    public void initLibraries() throws IOException {
+        Thread threads = new Thread(new Runnable() {
+            public void run() {
+
+
+
                 repaint();
                 revalidate();
             }
         });
-        thread22.start();
+        threads.start();
+
     }
 
     public void initialize() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
@@ -130,7 +193,7 @@ public class Main extends javax.swing.JFrame {
         searches = new ArrayList<>();
         //content = new ContentPanel();
         l.setLoadingInfo("Initializing UI");
-        setTitle("Music Database Organizer");
+        setTitle("Music Database Organizer - " + login.user + " " + login.rights);
         fileDialog = new FileDialog(new javax.swing.JFrame(), true);
         metaEdit = new MetaEdit(new javax.swing.JFrame(), true);
 
@@ -568,22 +631,71 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void SearchButActionPerformed(java.awt.event.ActionEvent evt) {
-        content.showPanel("search");
+
         back.setEnabled(content.canGoBack);
         forward.setEnabled(false);
+
+        Thread searchThread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    content.load();
+                    content.initPanel("search");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                addMouseListener(content.getTable());
+
+                content.showPanel("search");
+            }
+        });
+        searchThread.start();
+
+
+
     }
 
     public void libAction(JButton button) {
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                libButActionPerformed(evt);
+                try {
+                    libButActionPerformed(evt);
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
     }
 
-    private void libButActionPerformed(java.awt.event.ActionEvent evt) {
-        content.showPanel("library");
+    private void libButActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
+        // initLibraries();
+        if (content.lib == null) {
+
+
+            Thread libThread = new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        content.load();
+                        content.initPanel("lib");
+                        content.initPanel("search");
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    addMouseListener(content.getTable2());
+
+                    content.showPanel("library");
+                }
+            });
+            libThread.start();
+        } else {
+            content.lib.updateTable();
+            content.showPanel("library");
+            System.out.println("Er ikke null");
+            
+        }
+        //addMouseListener(content.getTable());
+
         back.setEnabled(content.canGoBack);
         forward.setEnabled(false);
     }

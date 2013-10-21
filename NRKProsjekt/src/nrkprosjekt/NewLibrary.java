@@ -25,17 +25,21 @@ public class NewLibrary extends javax.swing.JPanel {
         songPanel = new TrackPanel();
         searchPanel = new SearchPanel();
         setLayout(new BorderLayout());
-        add(songPanel,BorderLayout.NORTH);
-        add(searchPanel,BorderLayout.CENTER);
+        add(songPanel, BorderLayout.NORTH);
+        add(searchPanel, BorderLayout.CENTER);
         searchPanel.setTags(songPanel.getTags());
     }
-    
+
     public JTable getTable() {
         return searchPanel.getTable();
     }
-    
+
     boolean isLink() {
         return searchPanel.isLink();
+    }
+
+    public void updateTable() {
+        searchPanel.updateTable();
     }
 
     /**

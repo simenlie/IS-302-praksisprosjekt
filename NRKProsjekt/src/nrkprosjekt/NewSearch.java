@@ -33,14 +33,14 @@ public class NewSearch extends javax.swing.JPanel {
     public boolean isLink() {
         return searchPanel.isLink();
     }
-    
-     public JTable getTable() {
+
+    public JTable getTable() {
         return searchPanel.getTable();
     }
-     public void setShowResult(String text){
-     searchText.setText(text);
-     }
-     
+
+    public void setShowResult(String text) {
+        searchText.setText(text);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

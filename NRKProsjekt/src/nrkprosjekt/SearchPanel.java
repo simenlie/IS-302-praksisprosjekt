@@ -85,6 +85,19 @@ public class SearchPanel extends javax.swing.JPanel {
         this.tags = tags;
     }
 
+    public void updateTable() {
+        searchTable.setModel(db.getTable());
+        load();
+        searchTable.getColumnModel().getColumn(0).setMinWidth(20);
+        searchTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+        searchTable.getColumnModel().getColumn(0).setMaxWidth(20);
+        TableColumn c = searchTable.getColumnModel().getColumn(1);
+
+        c.setMaxWidth(0);
+        c.setMinWidth(0);
+        c.setPreferredWidth(0);
+    }
+
     public void chn() {
         searchTable.setModel(db.getTable());
 
@@ -106,24 +119,33 @@ public class SearchPanel extends javax.swing.JPanel {
 
     public void initPopup() {
         popupMenu = new JPopupMenu();
-        JMenuItem edit = new JMenuItem("Edit");
+
+
         JMenuItem info = new JMenuItem("Info");
-        JMenuItem delete = new JMenuItem("Delete");
+
         popupMenu.add(info);
-        popupMenu.add(edit);
-        popupMenu.add(delete);
+        if (!Login.restricted) {
+            JMenuItem delete = new JMenuItem("Delete");
+            JMenuItem edit = new JMenuItem("Edit");
+            popupMenu.add(edit);
+            popupMenu.add(delete);
+            edit.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    editActionPerformed(evt);
+                }
+            });
+            delete.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    deleteActionPerformed(evt);
+                }
+            });
+        }
 
-        edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editActionPerformed(evt);
-            }
-        });
 
-        delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
-            }
-        });
+
+
+
+
 
         info.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
