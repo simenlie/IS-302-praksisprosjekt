@@ -16,6 +16,7 @@ public class LeftPanel extends javax.swing.JPanel {
 
     JLabel selected;
     ArrayList<JButton> buttons;
+    JLabel label1;
 
     /**
      * Creates new form LeftPanel
@@ -26,11 +27,27 @@ public class LeftPanel extends javax.swing.JPanel {
         initButtons();
         setSize(100, 100);
         setName("Left");
+        label1 = new JLabel();
+        label1.setBounds(125, 32, 45, 10);
+        label1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/smallProgressWhite.gif"))); // NOI18N
+        add(label1);
         initSelectedComp();
         JLabel background = new JLabel();
         background.setBounds(0, 0, 202, 1000);
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/leftBack2.png")));
+        
         add(background);
+        label1.setVisible(false);
+
+    }
+
+    public void setLoadVis() {
+        if (label1.isVisible()) {
+            label1.setVisible(false);
+        } else {
+            label1.setVisible(true);
+        }
+
     }
 
     private void initButtons() {
@@ -86,6 +103,7 @@ public class LeftPanel extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(250, 250, 250));
+        setPreferredSize(new java.awt.Dimension(202, 293));
 
         adBut.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         adBut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/test.png"))); // NOI18N
@@ -152,12 +170,12 @@ public class LeftPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(recBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(libraryBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(adBut, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+            .addComponent(adBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(searchBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,7 +236,7 @@ public class LeftPanel extends javax.swing.JPanel {
         defaultButtons();
         button.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         button.setForeground(new java.awt.Color(255, 255, 255));
-        
+
 
         if (!selected.isVisible()) {
             selected.setVisible(true);

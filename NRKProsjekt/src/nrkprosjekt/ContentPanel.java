@@ -101,14 +101,16 @@ public class ContentPanel extends javax.swing.JPanel {
                 
                 break;
             case "recently":
+
                 recentlyA = new RecentlyAddedPanel();
                 dictionary.put("recently", recentlyA);
+               
                 break;
             case "artist":
                 artistPanel = new ArtistPanel();
                 dictionary.put("artist", artistPanel);
                 break;
-            case "adcanced":
+            case "advanced":
                 advancedS = new AdvancedSearchPanel();
                 dictionary.put("advancedS", advancedS);
                 break;

@@ -72,6 +72,15 @@ public class Main extends javax.swing.JFrame {
 
     private void authentication() {
         login = new Login(new javax.swing.JFrame(), true);
+        login.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                System.exit(0);
+            }
+        });
+        System.out.println("Username: admin");
+        System.out.println("Password: admin");
+
         login.getButton().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginActionPerformed(evt);
@@ -600,9 +609,31 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void recButActionPerformed(java.awt.event.ActionEvent evt) {
-        content.showPanel("recently");
+        
         back.setEnabled(content.canGoBack);
         forward.setEnabled(false);
+        
+        
+        Thread recentlyThread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    content.load();
+                    if (content.recentlyA == null) {
+                        content.initPanel("recently");
+                    } else {
+                        //content.lib.updateTable();
+                        //System.out.println("Er ikke null");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                content.showPanel("recently");
+            }
+        });
+        recentlyThread.start();
+        
+        
+        
     }
 
     public void advanAction(JButton button) {
@@ -624,9 +655,32 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void advanActionPerformed(java.awt.event.ActionEvent evt) {
-        content.showPanel("advancedS");
+        
         back.setEnabled(content.canGoBack);
         forward.setEnabled(false);
+        
+        
+        
+        Thread advanThread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    content.load();
+                    if (content.advancedS == null) {
+                        content.initPanel("advanced");
+                    } else {
+
+                        //content.lib.updateTable();
+                        //System.out.println("Er ikke null");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                content.showPanel("advancedS");
+            }
+        });
+        advanThread.start();
+        
 
     }
 
@@ -669,31 +723,31 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void libButActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
-        // initLibraries();
-        if (content.lib == null) {
-
-
-            Thread libThread = new Thread(new Runnable() {
-                public void run() {
-                    try {
+        Thread libThread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    leftPanel.setLoadVis();
+                    
+                    if (content.lib == null) {
                         content.load();
                         content.initPanel("lib");
                         content.initPanel("search");
-                    } catch (IOException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    addMouseListener(content.getTable2());
+                    } else {
 
-                    content.showPanel("library");
+                        content.lib.updateTable();
+                        //System.out.println("Er ikke null");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            });
-            libThread.start();
-        } else {
-            content.lib.updateTable();
-            content.showPanel("library");
-            System.out.println("Er ikke null");
-            
-        }
+                addMouseListener(content.getTable2());
+
+                content.showPanel("library");
+                leftPanel.setLoadVis();
+            }
+        });
+        libThread.start();
+
         //addMouseListener(content.getTable());
 
         back.setEnabled(content.canGoBack);

@@ -265,7 +265,7 @@ public class SongInformation extends javax.swing.JDialog {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-<<<<<<< HEAD
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -300,9 +300,9 @@ public class SongInformation extends javax.swing.JDialog {
                 .addComponent(jButton2)
                 .addContainerGap())
         );
-=======
+
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 316, 453, 120));
->>>>>>> ffa59f36553af0d0a7d35e0a91a16dad9573c0aa
+
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

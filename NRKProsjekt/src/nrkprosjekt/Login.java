@@ -27,6 +27,7 @@ public class Login extends javax.swing.JDialog {
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         // setUndecorated(true);
+        
         initComponents();
         setLocationRelativeTo(null);
         jLabel1.setVisible(false);
