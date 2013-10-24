@@ -20,6 +20,19 @@ public class WelcomePanel extends javax.swing.JPanel {
         jLabel3.setText("<html>Music Database Organizer lets you<br>organize music in a simple way.<br>Easily find a specific song, artist or <br>album. Edit, delete or play the content</html>");
     }
 
+    public void changeImage(String img) {
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/" + img + ".png")));
+        if (img.equals("here")) {
+            jLabel1.setText("ADD A FILE");
+            jLabel4.setText("");
+            jLabel3.setText("<html>When you add a file to the program<br>and after editing/saving the file<br>you can play the song</html>");
+        } else {
+            jLabel4.setText("Take the tour");
+            jLabel1.setText("WELCOME");
+            jLabel3.setText("<html>Music Database Organizer lets you<br>organize music in a simple way.<br>Easily find a specific song, artist or <br>album. Edit, delete or play the content</html>");
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,6 +48,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -118,9 +132,7 @@ public class WelcomePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel4MouseExited
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        
     }//GEN-LAST:event_formComponentResized
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

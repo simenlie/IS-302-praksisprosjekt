@@ -4,6 +4,7 @@
  */
 package nrkprosjekt;
 
+import Info.Style;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -65,9 +67,9 @@ public class MusicPanel extends javax.swing.JPanel {
         add(playButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
         System.out.println(getBounds().width);
 
-        jLabel2.setSize(9, 9);
-        jLabel2.setLocation(113, 29);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/progressCir.png"))); // NOI18N
+        jLabel2.setSize(16, 15);
+        jLabel2.setLocation(110, 26);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/still.png"))); // NOI18N
 
 
 
@@ -149,6 +151,10 @@ public class MusicPanel extends javax.swing.JPanel {
 
     }
 
+    public JButton getButton() {
+        return playButton;
+    }
+
     public void action() {
         animation = new Animation(textInfo2, progress1, textInfo2, 4000);
     }
@@ -156,6 +162,7 @@ public class MusicPanel extends javax.swing.JPanel {
     public void setSong(String filepath) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         musicPlayer = new MusicPlayer(filepath);
         textInfo.setText(musicPlayer.getInfoSong());
+        textInfo.setForeground(new Color(51, 51, 51));
         totalTimet.setText(musicPlayer.getTotalTime());
         hasSong = true;
     }
@@ -181,6 +188,7 @@ public class MusicPanel extends javax.swing.JPanel {
                         emptyBar.setSize(getPercentage(80), 7);
 
                         progressing.setIcon(c.dos(i2, getPercentage(80)));
+
                         if (!pl) {
                             textInfo.setBounds((getSize().width / 2) - 50, 8, 150, 15);
                         } else {
@@ -236,10 +244,19 @@ public class MusicPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(53, 53, 53));
         setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(153, 153, 153)));
 
-        playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/play.png"))); // NOI18N
+        playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/newPlay.png"))); // NOI18N
         playButton.setContentAreaFilled(false);
         playButton.setFocusPainted(false);
         playButton.setPreferredSize(new java.awt.Dimension(35, 35));
+        playButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/newPlayOver.png"))); // NOI18N
+        playButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                playButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                playButtonMouseExited(evt);
+            }
+        });
         playButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 playButtonActionPerformed(evt);
@@ -268,14 +285,23 @@ public class MusicPanel extends javax.swing.JPanel {
 
         check();
     }//GEN-LAST:event_playButtonActionPerformed
+
+    private void playButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playButtonMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_playButtonMouseEntered
+
+    private void playButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playButtonMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_playButtonMouseExited
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton playButton;
     // End of variables declaration//GEN-END:variables
 
     public void check() {
         if (hasSong) {
-
+            
             if (play) {
+                textInfo.setForeground(new Color(51, 51, 51));
                 if (songNameAni.isRunning()) {
                     songNameAni.stop();
                 }
@@ -285,9 +311,12 @@ public class MusicPanel extends javax.swing.JPanel {
 
                 musicPlayer.pause();
                 play = false;
-                playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/play.png"))); // NOI18N
-                playButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/playOver.png"))); // NOI18N
+                jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/still.png"))); // NOI18N
+                playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/newPlay.png"))); // NOI18N
+                playButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/newPlayOver.png"))); // NOI18N
             } else {
+                textInfo.setForeground(Style.getSuccessColor());
+                jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/spinner.gif"))); // NOI18N
                 pl = true;
                 songNameAni.start();
                 animation.start();
@@ -298,11 +327,12 @@ public class MusicPanel extends javax.swing.JPanel {
                 //System.out.println("hei");
                 play = true;
                 playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/pause.png"))); // NOI18N
-                playButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/pauseOver.png"))); // NOI18N
+                playButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/pauseOver.png"))); // NOI18N
                 checkSong();
 
             }
         } else {
+            textInfo.setForeground(Style.getErrorColor());
             textInfo.setText("Choose a song to play");
         }
 
@@ -316,8 +346,8 @@ public class MusicPanel extends javax.swing.JPanel {
                         //System.out.println(doProsent(musicPlayer.getProsent(musicPlayer.calc())));
 
                         currentTime.setText(musicPlayer.getTime());
-                        progressing.setSize(doProsent(musicPlayer.getProsent(musicPlayer.calc())), 7);
-                        jLabel2.setLocation(FUDGE_FACTOR + doProsent(musicPlayer.getProsent(musicPlayer.calc())), jLabel2.getLocation().y);
+                        progressing.setSize(doProsent(musicPlayer.getProsent(musicPlayer.calc())) - 1, 7);
+                        jLabel2.setLocation(FUDGE_FACTOR + doProsent(musicPlayer.getProsent(musicPlayer.calc()) - 2), jLabel2.getLocation().y);
 
                     } catch (UnsupportedAudioFileException ex) {
                         Logger.getLogger(MusicPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -398,5 +428,9 @@ public class MusicPanel extends javax.swing.JPanel {
     public int returnBytesToSkip() throws UnsupportedAudioFileException, IOException {
         return musicPlayer.test23(musicPlayer.getSeconds(prosentOf(emptyBar.getMousePosition().x)));
 
+    }
+
+    public boolean isHasSong() {
+        return hasSong;
     }
 }

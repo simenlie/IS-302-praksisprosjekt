@@ -16,7 +16,7 @@ import javax.swing.JTable;
  * @author Simen
  */
 public class ContentPanel extends javax.swing.JPanel {
-    
+
     Load loader;
     NewSearch searchPanel2;
     NewLibrary lib;
@@ -37,43 +37,45 @@ public class ContentPanel extends javax.swing.JPanel {
         loader = new Load();
         welcomePanel = new WelcomePanel();
         navigation = new ArrayList<>();
-        
-        
+
+
         dictionary = new HashMap<>();
-        
+
         initComponents();
         pane.setViewportView(welcomePanel);
         setName("Content");
         setLayout(new BorderLayout());
-        
+
         add(pane, BorderLayout.CENTER);
         dictionary.put("welcome", welcomePanel);
+        navigation.add(welcomePanel);
+        currentPage = navigation.size() - 1;
     }
-    
+
     public void initPanel(String panel) throws IOException {
-        
+
         addPanels(panel);
-        
+
     }
-    
+
     boolean isLink() {
         return searchPanel2.isLink();
     }
-    
+
     boolean isLink2() {
         return lib.isLink();
     }
-    
+
     public void fillDict() {
         dictionary.put("search", searchPanel2);
         dictionary.put("library", lib);
         dictionary.put("artist", artistPanel);
         dictionary.put("recently", recentlyA);
-        
+
         dictionary.put("advancedS", advancedS);
         dictionary.put("welcome", welcomePanel);
     }
-    
+
     public boolean goBack() {
         pane.setViewportView(navigation.get(currentPage - 1));
         currentPage -= 1;
@@ -83,7 +85,7 @@ public class ContentPanel extends javax.swing.JPanel {
         }
         return true;
     }
-    
+
     public boolean goForward() {
         pane.setViewportView(navigation.get(currentPage + 1));
         currentPage += 1;
@@ -93,18 +95,18 @@ public class ContentPanel extends javax.swing.JPanel {
         }
         return true;
     }
-    
+
     private void addPanels(String panel) throws IOException {
         switch (panel) {
             case "library":
                 libraryPanel = new LibraryOverviewPanel();
-                
+
                 break;
             case "recently":
 
                 recentlyA = new RecentlyAddedPanel();
                 dictionary.put("recently", recentlyA);
-               
+
                 break;
             case "artist":
                 artistPanel = new ArtistPanel();
@@ -122,14 +124,19 @@ public class ContentPanel extends javax.swing.JPanel {
                 lib = new NewLibrary();
                 dictionary.put("library", lib);
                 break;
+
+            case "welcome":
+                welcomePanel = new WelcomePanel();
+                dictionary.put("welcome", welcomePanel);
+                break;
         }
-        
+
     }
-    
+
     public JPanel getCurrentPage() {
         return navigation.get(currentPage);
     }
-    
+
     public void showPanel(String name) {
         if (name.equals("artist")) {
             artistPanel = new ArtistPanel();
@@ -138,27 +145,28 @@ public class ContentPanel extends javax.swing.JPanel {
         }
         JPanel temp = dictionary.get(name);
         pane.setViewportView(temp);
+        System.out.println(currentPage + " " + canGoBack);
         navigation.add(temp);
         currentPage = navigation.size() - 1;
-        if (navigation.size() > 1) {
+        if (navigation.size() > 0) {
             canGoBack = true;
         }
-        
-        
+
+
     }
-    
+
     public void load() {
         pane.setViewportView(loader);
     }
-    
+
     public JTable getTable() {
         return searchPanel2.getTable();
     }
-    
+
     public JTable getTable2() {
         return lib.getTable();
     }
-    
+
     public NewSearch getSearchPanel() {
         return searchPanel2;
     }
