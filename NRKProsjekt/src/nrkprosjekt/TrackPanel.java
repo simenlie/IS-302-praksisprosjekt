@@ -27,7 +27,9 @@ public class TrackPanel extends javax.swing.JPanel {
      */
     HashMap<String, JLabel> tags;
     DBConnection db;
-    
+    File file;
+    String home;
+
     public TrackPanel() {
         initComponents();
         setLayout(new BorderLayout());
@@ -36,17 +38,21 @@ public class TrackPanel extends javax.swing.JPanel {
         tags = new HashMap<>();
         initTags();
         db.getSongInfo(1, tags);
-        
+        jButton1.setEnabled(false);
+        home = System.getProperty("user.home");
+
+        file = new File(home + "\\Documents\\GitHub\\IS-302-praksisprosjekt\\NRKProsjekt\\src\\nrkprosjekt\\graphics\\albumcovsder1.jpg");
+
     }
-    
+
     public HashMap<String, JLabel> getTags() {
         return tags;
     }
-    
+
     public void fill(JLabel l, String text) {
         tags.put(text, l);
     }
-    
+
     private void initTags() {
         fill(INAM, "INAM");
         fill(IART, "IART");
@@ -155,6 +161,11 @@ public class TrackPanel extends javax.swing.JPanel {
         jButton3.setFocusPainted(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveOverSmall.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         IALB.setForeground(new java.awt.Color(255, 255, 255));
         IALB.setText("Album");
@@ -497,27 +508,41 @@ public class TrackPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        File file = new File("C:\\Users\\Sindre\\Documents\\GitHub\\IS-302-praksisprosjekt\\NRKProsjekt\\src\\nrkprosjekt\\graphics\\albumcover1.jpg");
-        File file2 = new File("C:\\Users\\Sindre\\Documents\\GitHub\\IS-302-praksisprosjekt\\NRKProsjekt\\src\\nrkprosjekt\\graphics\\null.jpg");
-        Path p5 = Paths.get(System.getProperty("user.home"),"logs", "foo.log");
-        if(file.exists()){
-            
-            ;
-       }else{
+        
+        File file2 = new File(home + "\\Documents\\GitHub\\IS-302-praksisprosjekt\\NRKProsjekt\\src\\nrkprosjekt\\graphics\\null.jpg");
+        Path p5 = Paths.get(System.getProperty("user.home"), "logs", "foo.log");
+
+        System.out.println(p5);
+        if (file.exists()) {
             try {
-                //extracte
-                 Desktop.getDesktop().open(file2);
+                Desktop.getDesktop().open(file);
             } catch (IOException ex) {
                 Logger.getLogger(TrackPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-       };
-        try {
-            Desktop.getDesktop().open(file);
-        } catch (IOException ex) {
-            Logger.getLogger(TrackPanel.class.getName()).log(Level.SEVERE, null, ex);
+            ;
+        } else {
+            try {
+                //extracte
+                Desktop.getDesktop().open(file2);
+            } catch (IOException ex) {
+                Logger.getLogger(TrackPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        };
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    }
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //hente fra datasea
+        //putte linken inn i datBASE
+        File newFile = new File("desktop/simen");
+        //putt på skirveborder
+        file = newFile;
+        jButton1.setEnabled(true);
+
+
+
+
+    }//GEN-LAST:event_jButton3ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IALB;
     private javax.swing.JLabel IART;
