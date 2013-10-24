@@ -312,7 +312,7 @@ public class LeftPanel extends javax.swing.JPanel {
                 button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/icon_searchWhite.png")));
             }
             if (manual) {
-                selected.setLocation(0, 171);
+                selected.setLocation(0, 222);
                 button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/icon_searchWhite.png")));
             }
         }

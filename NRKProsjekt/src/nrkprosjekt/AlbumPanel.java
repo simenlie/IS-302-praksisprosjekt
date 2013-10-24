@@ -4,6 +4,8 @@
  */
 package nrkprosjekt;
 
+import javax.swing.JTable;
+
 /**
  *
  * @author Simen
@@ -17,6 +19,10 @@ public class AlbumPanel extends javax.swing.JPanel {
         initComponents();
         jLabel1.setText(album);
         jTable1.setTableHeader(null);
+    }
+
+    public JTable getAlbumTable() {
+        return jTable1;
     }
 
     /**
@@ -55,6 +61,11 @@ public class AlbumPanel extends javax.swing.JPanel {
         });
         jTable1.setRowHeight(28);
         jTable1.setShowVerticalLines(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -82,6 +93,10 @@ public class AlbumPanel extends javax.swing.JPanel {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        jTable1.getValueAt(jTable1.getSelectedRow(), jTable1.getSelectedColumn());
+    }//GEN-LAST:event_jTable1MouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

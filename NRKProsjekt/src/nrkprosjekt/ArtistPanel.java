@@ -4,13 +4,14 @@
  */
 package nrkprosjekt;
 
+import Info.Style;
 import database.Album;
 import database.ArtistPage;
 import database.DBConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
+import javax.swing.JTable;
 
 /**
  *
@@ -24,21 +25,24 @@ public class ArtistPanel extends javax.swing.JPanel {
     DBConnection d;
     HashMap<String, String> artist;
     ArrayList<Album> albums;
-
+    ArrayList<AlbumPanel> albPanels;
+    
     public ArtistPanel() {
         initComponents();
-
-        JLabel background = new JLabel();
-        background.setBounds(0, 0, 1024, 172);
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/AlbumBack.png")));
-        jPanel1.add(background);
+        albPanels = new ArrayList<>();
+        jLabel7.setVisible(false);
+        jLabel7.setForeground(Style.getSuccessColor());
+        //JLabel background = new JLabel();
+        //background.setBounds(0, 0, 1024, 172);
+        //background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/AlbumBack.png")));
+        //jPanel1.add(background);
 
         jPanel2.setLayout(new BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
 
 
         //jScrollPane1.setViewportView(panele);
     }
-
+    
     public void doIT() {
         d = new DBConnection();
         artist = d.getArtistMap(ArtistPage.artistID);
@@ -46,12 +50,30 @@ public class ArtistPanel extends javax.swing.JPanel {
         jLabel3.setText(artist.get("ILAN"));
         d.getAlbums(ArtistPage.artistID);
         albums = d.getAlbum();
-
+        
         for (Album a : albums) {
             AlbumPanel p = new AlbumPanel(a.getIALB());
             p.setBounds(11, 245, 800, 300);
+            albPanels.add(p);
             jPanel2.add(p);
         }
+        initAlbumListeneres();
+    }
+    
+    public void initAlbumListeneres() {
+        for (final AlbumPanel a : albPanels) {
+            a.getAlbumTable().addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jTable1MouseClicked(evt, a.getAlbumTable());
+                }
+            });
+        }
+        
+    }
+    
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt, JTable t) {
+        jLabel7.setVisible(true);
+        jLabel7.setText((String) t.getValueAt(t.getSelectedRow(), t.getSelectedColumn()));
     }
 
     /**
@@ -69,27 +91,36 @@ public class ArtistPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
 
-        jPanel1.setBackground(new java.awt.Color(251, 251, 251));
+        jPanel1.setBackground(new java.awt.Color(53, 53, 53));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(171, 174, 180)));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/artist.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Calibri Light", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Hot Fingers");
 
         jLabel3.setFont(new java.awt.Font("Calibri Light", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
         jLabel3.setText("England");
 
         jLabel4.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("5 Albums");
 
-        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setText("66 songs");
+
+        jLabel7.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("jLabel7");
+        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -102,7 +133,9 @@ public class ArtistPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
@@ -116,7 +149,9 @@ public class ArtistPanel extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -177,6 +212,7 @@ public class ArtistPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
