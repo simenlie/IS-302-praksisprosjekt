@@ -53,7 +53,7 @@ public class Login extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(250, 250, 250));
+        jPanel1.setBackground(new java.awt.Color(39, 46, 48));
 
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Error message shown here");
@@ -104,6 +104,9 @@ public class Login extends javax.swing.JDialog {
                 usernameKeyPressed(evt);
             }
         });
+
+        jSeparator1.setBackground(new java.awt.Color(61, 67, 69));
+        jSeparator1.setForeground(new java.awt.Color(61, 67, 69));
 
         jLabel2.setFont(new java.awt.Font("Calibri Light", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(71, 170, 221));

@@ -26,6 +26,10 @@ public class Style {
     public static Font getFont(int size) {
         return new Font(font, 0, size);
     }
+    
+    public static Color getDefaultMenuColor() {
+        return new Color(161,167,171);
+    }
 
     public static Font getBoldFont(int size) {
         return new Font(font, 1, size);

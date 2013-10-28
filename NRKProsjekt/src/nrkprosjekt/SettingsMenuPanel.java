@@ -38,7 +38,7 @@ public class SettingsMenuPanel extends javax.swing.JPanel {
         localCopiesTextField = new javax.swing.JTextField();
         changed = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(39, 46, 48));
         setPreferredSize(new java.awt.Dimension(300, 450));
 
         jLabel1.setFont(new java.awt.Font("Calibri Light", 0, 24)); // NOI18N
@@ -47,18 +47,22 @@ public class SettingsMenuPanel extends javax.swing.JPanel {
         jLabel1.setText("General settings");
 
         jLabel2.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(161, 167, 171));
         jLabel2.setText("Font:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Calibri Light", "Tahoma", "Arial" }));
 
         jLabel4.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(161, 167, 171));
         jLabel4.setText("Welcome page:");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Welcome", "Library", "Recently added", "Advanced search" }));
 
         jLabel3.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(161, 167, 171));
         jLabel3.setText("Save local copies to:");
 
+        localCopiesTextField.setForeground(new java.awt.Color(51, 51, 51));
         localCopiesTextField.setText("C:\\Users\\Simen");
         localCopiesTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {

@@ -61,7 +61,7 @@ public class MusicPanel extends javax.swing.JPanel {
         JLabel back = new JLabel();
         back.setSize(2000, 63);
         back.setLocation(0, 1);
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/window.png")));
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/windowAlt.png")));
 
 
         add(playButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
@@ -94,7 +94,7 @@ public class MusicPanel extends javax.swing.JPanel {
 
         progress1.setSize(563, 7);
         progress1.setLocation(113, 30);
-        progress1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/barBack.png"))); // NOI18N
+        progress1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/barBackAlt.png"))); // NOI18N
         add(progress1);
 
 
@@ -242,7 +242,7 @@ public class MusicPanel extends javax.swing.JPanel {
         playButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(53, 53, 53));
-        setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(153, 153, 153)));
+        setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(204, 204, 204)));
 
         playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/newPlay.png"))); // NOI18N
         playButton.setContentAreaFilled(false);

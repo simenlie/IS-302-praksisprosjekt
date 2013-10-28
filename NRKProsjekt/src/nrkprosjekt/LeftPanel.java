@@ -4,6 +4,7 @@
  */
 package nrkprosjekt;
 
+import Info.Style;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -34,8 +35,8 @@ public class LeftPanel extends javax.swing.JPanel {
         initSelectedComp();
         JLabel background = new JLabel();
         background.setBounds(0, 0, 202, 1000);
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/leftBack2.png")));
-
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/leftBack223.png")));
+        defaultButtons();
         add(background);
         label1.setVisible(false);
         libraryBut1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -63,7 +64,7 @@ public class LeftPanel extends javax.swing.JPanel {
     private void defaultButtons() {
         for (JButton button : buttons) {
             button.setFont(new java.awt.Font("Calibri Light", 0, 14));
-            button.setForeground(new java.awt.Color(0, 0, 0));
+            button.setForeground(Style.getDefaultMenuColor());
             if (button.getText().equals("Home")) {
                 button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/library.png")));
             }
@@ -170,7 +171,8 @@ public class LeftPanel extends javax.swing.JPanel {
             }
         });
 
-        jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
+        jSeparator1.setBackground(new java.awt.Color(61, 67, 69));
+        jSeparator1.setForeground(new java.awt.Color(61, 67, 69));
 
         libraryBut1.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         libraryBut1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/library.png"))); // NOI18N
@@ -191,7 +193,8 @@ public class LeftPanel extends javax.swing.JPanel {
             }
         });
 
-        jSeparator2.setForeground(new java.awt.Color(204, 204, 204));
+        jSeparator2.setBackground(new java.awt.Color(61, 67, 69));
+        jSeparator2.setForeground(new java.awt.Color(61, 67, 69));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -202,13 +205,12 @@ public class LeftPanel extends javax.swing.JPanel {
             .addComponent(adBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(searchBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(libraryBut1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jSeparator2)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,8 +218,8 @@ public class LeftPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(libraryBut1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(libraryBut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(recBut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,7 +229,7 @@ public class LeftPanel extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchBut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

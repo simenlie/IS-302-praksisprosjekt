@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 /**
  *
@@ -203,7 +204,7 @@ public class Settings extends javax.swing.JDialog {
         jPanel2.add(jScrollPane1);
         jScrollPane1.setBounds(0, 0, 340, 490);
 
-        jPanel3.setBackground(new java.awt.Color(53, 53, 53));
+        jPanel3.setBackground(new java.awt.Color(235, 238, 240));
         jPanel3.setLayout(null);
 
         jSeparator1.setBackground(new java.awt.Color(176, 229, 255));
@@ -356,6 +357,7 @@ public class Settings extends javax.swing.JDialog {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                   
                     break;
                 }
             }
