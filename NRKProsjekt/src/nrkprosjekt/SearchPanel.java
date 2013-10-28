@@ -195,7 +195,7 @@ public class SearchPanel extends javax.swing.JPanel {
 
         pane.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(153, 153, 153)));
         pane.setMinimumSize(new java.awt.Dimension(1000, 500));
-        pane.setPreferredSize(new java.awt.Dimension(1250, 402));
+        pane.setPreferredSize(new java.awt.Dimension(1000, 402));
 
         searchTable.setAutoCreateRowSorter(true);
         searchTable.setForeground(new java.awt.Color(51, 51, 51));
@@ -227,11 +227,11 @@ public class SearchPanel extends javax.swing.JPanel {
         searchTable.setShowHorizontalLines(false);
         searchTable.setShowVerticalLines(false);
         searchTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                searchTableMouseClicked(evt);
-            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 searchTableMouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchTableMouseClicked(evt);
             }
         });
         searchTable.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -248,7 +248,7 @@ public class SearchPanel extends javax.swing.JPanel {
         searchTable.getColumnModel().getColumn(1).setMaxWidth(20);
 
         add(pane);
-        pane.setBounds(80, 50, 1250, 220);
+        pane.setBounds(80, 50, 1000, 220);
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchTableMouseReleased

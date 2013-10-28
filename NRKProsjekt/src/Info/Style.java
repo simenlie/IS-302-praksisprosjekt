@@ -13,7 +13,7 @@ import java.awt.Font;
  */
 public class Style {
 
-    static String font;
+    static String font = "Calibri light";
 
     public static Color getErrorColor() {
         return new Color(243, 69, 65);
@@ -30,8 +30,16 @@ public class Style {
     public static Color getDefaultMenuColor() {
         return new Color(161,167,171);
     }
+    
+    public static Color getDisabledColor() {
+        return new Color(61,67,69);
+    }
 
     public static Font getBoldFont(int size) {
+        return new Font(font, 1, size);
+    }
+    
+    public static Font getDefaultFont(int size) {
         return new Font(font, 1, size);
     }
 

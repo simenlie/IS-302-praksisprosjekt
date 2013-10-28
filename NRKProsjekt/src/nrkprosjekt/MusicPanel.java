@@ -109,7 +109,8 @@ public class MusicPanel extends javax.swing.JPanel {
         int temp = (getSize().width / 2) - 50;
         textInfo.setBounds(temp, 8, 150, 15);
         textInfo.setFont(new Font("Calibri Light", 0, 14));
-        textInfo.setText("Mabvuto");
+        textInfo.setText("No song selected");
+        textInfo.setForeground(Style.getDisabledColor());
         System.out.println(textInfo.getBounds().x + " temp: " + temp);
         //textInfo.setAlignmentY(TOP_ALIGNMENT);
         add(textInfo, BorderLayout.CENTER);

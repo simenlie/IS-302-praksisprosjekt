@@ -4,6 +4,7 @@
  */
 package nrkprosjekt;
 
+import Info.Style;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -188,6 +189,7 @@ jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
             }
         });
 
+        status.setFont(new java.awt.Font("Calibri Light", 0, 13)); // NOI18N
         status.setText("User created");
 
         pass.setForeground(new java.awt.Color(153, 153, 153));
@@ -357,8 +359,8 @@ jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                 model.removeRow(cha);
                 model.insertRow(cha, new Object[]{temp, jComboBox1.getSelectedItem().toString()});
-                status.setText("User'" + temp + "' updated with '" + jComboBox1.getSelectedItem().toString() + "'");
-                status.setForeground(new Color(0, 204, 51));
+                status.setText("User '" + temp + "' updated with '" + jComboBox1.getSelectedItem().toString() + "'");
+                status.setForeground(Style.getSuccessColor());
                 doBlanks();
             } else {
                 status.setText("User already exists");
@@ -368,8 +370,8 @@ jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.addRow(new Object[]{temp, jComboBox1.getSelectedItem().toString()});
 
-            status.setText("User'" + temp + "' created with '" + jComboBox1.getSelectedItem().toString() + "'");
-            status.setForeground(new Color(0, 204, 51));
+            status.setText("User '" + temp + "' created with '" + jComboBox1.getSelectedItem().toString() + "'");
+             status.setForeground(Style.getSuccessColor());
             doBlanks();
         }
         exists = false;
