@@ -8,12 +8,12 @@ package database;
  *
  * @author Simen
  */
-public class Album {
+public class Album2 {
 
     int idALBUM;
     String IALB;
 
-    public Album(int idALBUM, String IALB) {
+    public Album2(int idALBUM, String IALB) {
         this.idALBUM = idALBUM;
         this.IALB = IALB;
     }

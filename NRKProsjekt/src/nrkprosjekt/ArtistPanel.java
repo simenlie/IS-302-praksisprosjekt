@@ -4,8 +4,10 @@
  */
 package nrkprosjekt;
 
+import Entities.Album;
+import Handlers.Songhandler;
 import Info.Style;
-import database.Album;
+import database.Album2;
 import database.ArtistPage;
 import database.DBConnection;
 import java.util.ArrayList;
@@ -26,12 +28,14 @@ public class ArtistPanel extends javax.swing.JPanel {
     HashMap<String, String> artist;
     ArrayList<Album> albums;
     ArrayList<AlbumPanel> albPanels;
+    Songhandler songhandler;
     
     public ArtistPanel() {
         initComponents();
         albPanels = new ArrayList<>();
         jLabel7.setVisible(false);
         jLabel7.setForeground(Style.getSuccessColor());
+        songhandler = new Songhandler();
         //JLabel background = new JLabel();
         //background.setBounds(0, 0, 1024, 172);
         //background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/AlbumBack.png")));
@@ -48,8 +52,9 @@ public class ArtistPanel extends javax.swing.JPanel {
         artist = d.getArtistMap(ArtistPage.artistID);
         jLabel2.setText(artist.get("IART"));
         jLabel3.setText(artist.get("ILAN"));
-        d.getAlbums(ArtistPage.artistID);
-        albums = d.getAlbum();
+        //d.getAlbums(ArtistPage.artistID);
+        //albums = d.getAlbum();
+        albums = songhandler.getTrack().getAlbums();
         
         for (Album a : albums) {
             AlbumPanel p = new AlbumPanel(a.getIALB());

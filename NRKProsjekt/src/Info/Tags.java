@@ -32,11 +32,11 @@ public enum Tags {
     
     //new tags
     ICOM,
-    ILYW,
-    IPLC,
+    ILYR,
+    IPLA,
     IREG,
     IDIS,
     IVIL,
-    IPGR,
-    IODA,
+    IPEO,
+    IDIG,
 }

@@ -10,8 +10,8 @@ package Info;
  */
 public class Tag {
 
-    String name;
-    String description;
+    public String name;
+    public String description;
 
     public Tag(String name, String description) {
         this.description = description;

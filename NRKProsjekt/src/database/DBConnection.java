@@ -4,10 +4,17 @@
  */
 package database;
 
+import Entities.Album;
+import Entities.Artist;
+import Entities.Metadata;
+import Entities.Track;
+import Info.Tags;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,16 +30,10 @@ public class DBConnection {
 
     private Connection connection;
     private Statement statement;
-    ListHandler artists;
-    ListHandler albums;
-    final int ARTIST_CHOSEN = 0;
-    final int ALBUM_CHOSEN = 1;
     HashMap<String, String> artist;
-    ArrayList<Album> albumss;
+    ArrayList<Album2> albumss;
 
     public DBConnection() {
-        artists = new ListHandler();
-        albums = new ListHandler();
         artist = new HashMap<>();
         albumss = new ArrayList<>();
         load();
@@ -41,14 +42,6 @@ public class DBConnection {
     public HashMap<String, String> getArtistMap(int id) {
         getArtist(id);
         return artist;
-    }
-
-    public ListHandler getArtists() {
-        return artists;
-    }
-
-    public ListHandler getAlbums() {
-        return albums;
     }
 
     public void load() {
@@ -60,40 +53,6 @@ public class DBConnection {
         }
 
 
-    }
-
-    public void getManyRelation(int id, int choose) {
-        String query;
-        String albumQuery = "select IALB, ALBUM.idALBUM from ALBUM, AAS, SONG where ALBUM.idALBUM = AAS.idALBUM and SONG.idSONG = AAS.idSONG AND SONG.idSONG = " + id + " group by ALBUM.idALBUM;";
-        String artistQuery = "select ARTIST.idARTIST,IART, ICON, ILAN from ARTIST, AAS, SONG where ARTIST.idARTIST = AAS.idARTIST and SONG.idSONG = AAS.idSONG AND SONG.idSONG = " + id + " group by ARTIST.idARTIST;";
-        if (choose == ALBUM_CHOSEN) {
-            query = albumQuery;
-        } else {
-            query = artistQuery;
-        }
-
-        try {
-
-            ResultSet rs = null;
-            rs = statement.executeQuery(query);
-
-
-            while (rs.next()) {
-                if (choose == ALBUM_CHOSEN) {
-                    albums.add(new Artist(rs.getInt("idALBUM"), rs.getString("IALB")));
-                    albums.put(rs.getString("IALB"), rs.getInt("idALBUM"));
-                } else {
-                    artists.add(new Artist(rs.getInt("idARTIST"), rs.getString("IART")));
-                    artists.put(rs.getString("IART"), rs.getInt("idARTIST"));
-
-                }
-
-            }
-
-
-        } catch (Exception e) {
-            System.out.println("Unable to create." + e);
-        }
     }
 
     public void getArtist(int id) {
@@ -152,7 +111,7 @@ public class DBConnection {
 
             }
             while (teller < 10) {
-                dm.addRow(new Object[]{"", ""});
+                // dm.addRow(new Object[]{"", ""});
                 teller++;
             }
             System.out.println(dm.getColumnCount());
@@ -164,13 +123,140 @@ public class DBConnection {
         return dm;
     }
 
-    public ArrayList<Album> getAlbum() {
+    public ArrayList<Album2> getAlbum() {
         return albumss;
     }
 
-    public void getAlbums(int id) {
-        String query = "select IALB, ALBUM.idALBUM from ALBUM, AAS, ARTIST where ALBUM.idALBUM = AAS.idALBUM and ARTIST.idARTIST = AAS.idARTIST AND ARTIST.idARTIST = " + id + " group by ALBUM.idALBUM;";
+    public Track getSong(int id) {
+        String query = "select * from SONG SONG where idSONG =" + id + ";";
+        Track track = new Track();
+        try {
+            ResultSet rs = null;
+            rs = statement.executeQuery(query);
+            while (rs.next()) {
+                track.setId(rs.getInt("idSONG"));
+                track.setMetaId(rs.getInt("idMETADATA"));
+                track.setICOM(rs.getString(Tags.ICOM.toString()));
+                track.setIDIS(rs.getString(Tags.IDIS.toString()));
+                track.setIGNR(rs.getString(Tags.IGNR.toString()));
+                track.setIKEY(rs.getString(Tags.IKEY.toString()));
+                track.setILEN(rs.getString(Tags.ILEN.toString()));
+                track.setILYR(rs.getString(Tags.ILYR.toString()));
+                track.setINAM(rs.getString(Tags.INAM.toString()));
+                track.setIPEO(rs.getString(Tags.IPEO.toString()));
+                track.setIREG(rs.getString(Tags.IREG.toString()));
+                track.setISON(rs.getString(Tags.ISON.toString()));
+                track.setIVIL(rs.getString(Tags.IVIL.toString()));
+            }
 
+        } catch (Exception e) {
+            System.out.println("Unable to create." + e);
+        }
+        return track;
+    }
+
+    public Metadata getMetadata(int metaId) {
+        String query = "select * from METADATA where idMETADATA = " + metaId + ";";
+        Metadata metadata = new Metadata();
+        try {
+            ResultSet rs = null;
+            rs = statement.executeQuery(query);
+            while (rs.next()) {
+                metadata.setId(rs.getInt("idMETADATA"));
+                metadata.setICMT(rs.getString(Tags.ICMT.toString()));
+                metadata.setICOP(rs.getString(Tags.ICOP.toString()));
+                metadata.setICRD(rs.getString(Tags.ICRD.toString()));
+                metadata.setIDIG(rs.getString(Tags.IDIG.toString()));
+                metadata.setIENG(rs.getString(Tags.IENG.toString()));
+                metadata.setIMED(rs.getString(Tags.IMED.toString()));
+                metadata.setISBJ(rs.getString(Tags.ISBJ.toString()));
+                metadata.setISFT(rs.getString(Tags.ISFT.toString()));
+                metadata.setISRC(rs.getString(Tags.ISRC.toString()));
+                metadata.setISRF(rs.getString(Tags.ISRF.toString()));
+                metadata.setITCH(rs.getString(Tags.ITCH.toString()));
+            }
+
+        } catch (Exception e) {
+            System.out.println("Unable to create." + e);
+        }
+        return metadata;
+    }
+
+    public ArrayList<Album> getAlbum(int id) {
+        String query = "select IALB, ALBUM.idALBUM from ALBUM, AAS, ARTIST where ALBUM.idALBUM = AAS.idALBUM and ARTIST.idARTIST = AAS.idARTIST AND ARTIST.idARTIST = " + id + " group by ALBUM.idALBUM;";
+        ArrayList<Album> album = new ArrayList<>();
+
+        try {
+            ResultSet rs = null;
+            rs = statement.executeQuery(query);
+            while (rs.next()) {
+                album.add(new Album(rs.getInt("idALBUM"), rs.getString("IALB")));
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("Unable to create." + e);
+        }
+        return album;
+    }
+
+    public ArrayList<Track> getTracksInAlbum(int id) {
+
+        String query = "select * from SONG,AAS,ALBUM where SONG.idSONG = AAS.idSONG and ALBUM.idALBUM = AAS.idALBUM and ALBUM.idALBUM =" + id + ";";
+        ArrayList<Track> tracks = new ArrayList<>();
+
+        try {
+            ResultSet rs = null;
+            rs = statement.executeQuery(query);
+            while (rs.next()) {
+                Track track = new Track();
+                track.setId(rs.getInt("idSONG"));
+                track.setMetaId(rs.getInt("idMETADATA"));
+                track.setICOM(rs.getString(Tags.ICOM.toString()));
+                track.setIDIS(rs.getString(Tags.IDIS.toString()));
+                track.setIGNR(rs.getString(Tags.IGNR.toString()));
+                track.setIKEY(rs.getString(Tags.IKEY.toString()));
+                track.setILEN(rs.getString(Tags.ILEN.toString()));
+                track.setILYR(rs.getString(Tags.ILYR.toString()));
+                track.setINAM(rs.getString(Tags.INAM.toString()));
+                track.setIPEO(rs.getString(Tags.IPEO.toString()));
+                track.setIREG(rs.getString(Tags.IREG.toString()));
+                track.setISON(rs.getString(Tags.ISON.toString()));
+                track.setIVIL(rs.getString(Tags.IVIL.toString()));
+                tracks.add(track);
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("Unable to create." + e);
+        }
+        return tracks;
+    }
+
+    public ArrayList<Album> getSongAlbums(int id) {
+
+        String query = "select IALB, ALBUM.idALBUM from ALBUM, AAS, SONG where ALBUM.idALBUM = AAS.idALBUM and SONG.idSONG = AAS.idSONG AND SONG.idSONG = " + id + " group by ALBUM.idALBUM;";
+
+        ArrayList<Album> album = new ArrayList<>();
+        try {
+            ResultSet rs = null;
+            rs = statement.executeQuery(query);
+            while (rs.next()) {
+                album.add(new Album(rs.getInt("idALBUM"), rs.getString("IALB")));
+            }
+
+        } catch (Exception e) {
+            System.out.println("Unable to create." + e);
+        }
+        return album;
+    }
+
+    public ArrayList<Artist> getSongArtists(int id) {
+
+
+        String query = "select ARTIST.idARTIST,IART, ICON, ILAN, IPLA from ARTIST, AAS, SONG where ARTIST.idARTIST = AAS.idARTIST and SONG.idSONG = AAS.idSONG AND SONG.idSONG = " + id + " group by ARTIST.idARTIST;";
+
+        ArrayList<Artist> artista = new ArrayList<>();
         try {
 
             ResultSet rs = null;
@@ -178,42 +264,79 @@ public class DBConnection {
 
 
             while (rs.next()) {
-                albumss.add(new Album(rs.getInt("idALBUM"), rs.getString("IALB")));
+                artista.add(new Artist(rs.getInt("idARTIST"), rs.getString("ILAN"), rs.getString("ICON"), rs.getString("IART"), rs.getString("IPLA")));
             }
 
 
         } catch (Exception e) {
             System.out.println("Unable to create." + e);
         }
+        return artista;
     }
 
-    public void getSongInfo(int id, HashMap<String, JLabel> tags) {
-        String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
-        String QueryString = selectQ + " WHERE SONG.idSONG = AAS.idSONG AND METADATA.idMETADATA = SONG.idMETADATA AND ALBUM.idALBUM = AAS.idALBUM AND ARTIST.idARTIST = AAS.idARTIST AND SONG.idSONG = " + id + " GROUP BY SONG.idSONG";
-
+    public ArrayList<Track> getTableNew() {
+        ArrayList<Track> tracks = new ArrayList<>();
 
         try {
-
             ResultSet rs = null;
+            //String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
+            String selectQ = "select * from SONG, METADATA, AAS, ALBUM, ARTIST";
+            String QueryString = selectQ + " WHERE SONG.idSONG = AAS.idSONG AND METADATA.idMETADATA = SONG.idMETADATA AND ALBUM.idALBUM = AAS.idALBUM AND ARTIST.idARTIST = AAS.idARTIST GROUP BY SONG.idSONG";
             rs = statement.executeQuery(QueryString);
 
 
             while (rs.next()) {
-                for (String s : tags.keySet()) {
-                    tags.get(s).setText(rs.getString(s));
-
-                }
-
-
-
+                Track track = new Track();
+                track.setId(rs.getInt("idSONG"));
+                track.setMetaId(rs.getInt("idMETADATA"));
+                track.setICOM(rs.getString(Tags.ICOM.toString()));
+                track.setIDIS(rs.getString(Tags.IDIS.toString()));
+                track.setIGNR(rs.getString(Tags.IGNR.toString()));
+                track.setIKEY(rs.getString(Tags.IKEY.toString()));
+                track.setILEN(rs.getString(Tags.ILEN.toString()));
+                track.setILYR(rs.getString(Tags.ILYR.toString()));
+                track.setINAM(rs.getString(Tags.INAM.toString()));
+                track.setIPEO(rs.getString(Tags.IPEO.toString()));
+                track.setIREG(rs.getString(Tags.IREG.toString()));
+                track.setISON(rs.getString(Tags.ISON.toString()));
+                track.setIVIL(rs.getString(Tags.IVIL.toString()));
+                tracks.add(track);
             }
 
 
+
+
         } catch (Exception e) {
-            System.out.println("Unable to create." + e);
+            System.out.println(e);
         }
+        return tracks;
     }
 
-    public void getMeta() {
+    public void update(String table, String idType, int id, HashMap<String, String> data) throws SQLException {
+
+        String startQ = "update " + table + " set ";
+        int index = 0;
+        for (String s : data.keySet()) {
+            if (index < data.size() - 1) {
+                startQ += s + " = " + "'" + data.get(s) + "',";
+            } else {
+                startQ += s + " = " + "'" + data.get(s) + "'";
+            }
+            index++;
+        }
+        startQ += " where " + idType + " = " + id + ";";
+        System.out.println(startQ);
+
+
+
+        statement = connection.createStatement();
+
+        PreparedStatement pstmt = connection.prepareStatement(startQ);
+        pstmt.executeUpdate();
+
+
+
+
+
     }
 }

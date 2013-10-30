@@ -4,15 +4,19 @@
  */
 package nrkprosjekt;
 
+import Entities.Album;
+import Entities.Artist;
+import Handlers.Songhandler;
+import Info.Tags;
 import database.UpdateHandler;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -25,6 +29,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -50,6 +55,7 @@ public class MetaEdit extends javax.swing.JDialog {
     Icon fullRes;
     double fileSize;
     boolean square;
+    Songhandler songhandler;
 
     /**
      * Creates new form metaEdit
@@ -71,13 +77,15 @@ public class MetaEdit extends javax.swing.JDialog {
         calc = new Calculator();
         crop.setVisible(false);
 
-
+        songhandler = new Songhandler();
         filedialog = new FileDialog(new javax.swing.JFrame(), true, 1);
 
         addActionFileChooser(filedialog.getFileChooser());
         setTabbed();
         jTabbedPane1.setBackgroundAt(0, new Color(255, 255, 255));
         jTabbedPane1.setBackgroundAt(1, new Color(235, 235, 235));
+        jTabbedPane2.setBackgroundAt(0, new Color(255, 255, 255));
+        jTabbedPane2.setBackgroundAt(1, new Color(235, 235, 235));
         imageStatus.setVisible(false);
 
     }
@@ -165,11 +173,19 @@ public class MetaEdit extends javax.swing.JDialog {
 
         //DISSE er ikke initialisert
         JTextField ISON = new JTextField();
-        JTextField ILEN = new JTextField();
-        JTextField ICON = new JTextField();
+
         fill(ISON, "ISON");
         fill(ILEN, "ILEN");
         fill(ICON, "ICON");
+
+        fill(ICOM, "ICOM");
+        fill(ILYR, "ILYR");
+        fill(IPLA, "IPLA");
+        fill(IREG, "IREG");
+        fill(IDIS, "IDIS");
+        fill(IVIL, "IVIL");
+        fill(IPEO, "IPEO");
+        fill(IDIG, "IDIG");
 
     }
 
@@ -190,6 +206,17 @@ public class MetaEdit extends javax.swing.JDialog {
         mouseTextField(ILAN);
         //mouseTextField(ICMT);
         mouseTextField(ISBJ);
+
+        mouseTextField(ILEN);
+        mouseTextField(ICON);
+        mouseTextField(ICOM);
+        mouseTextField(ILYR);
+        mouseTextField(IPLA);
+        mouseTextField(IREG);
+        mouseTextField(IDIS);
+        mouseTextField(IVIL);
+        mouseTextField(IPEO);
+        mouseTextField(IDIG);
     }
 
     public void setText(String tag, String data) {
@@ -210,6 +237,7 @@ public class MetaEdit extends javax.swing.JDialog {
                 tags.get(tag).setBackground(new java.awt.Color(232, 255, 232));
             }
 
+        } else {
         }
     }
 
@@ -245,8 +273,32 @@ public class MetaEdit extends javax.swing.JDialog {
 
     public void loadMetaEditDialog() {
         setResizable(false);
-        setSize(500, 650);
+        setSize(690, 700);
         setLocationRelativeTo(null);
+    }
+
+    public void dos(ArrayList<Artist> artists) {
+        DefaultTableModel dm = new DefaultTableModel();
+        dm.addColumn("Artists");
+        Object row[] = new Object[1];
+        for (Artist a : artists) {
+            row[0] = a.getIART();
+            dm.addRow(row);
+        }
+        artistTable.setModel(dm);
+
+    }
+    
+     public void dos2(ArrayList<Album> albums) {
+        DefaultTableModel dm = new DefaultTableModel();
+        dm.addColumn("ALbums");
+        Object row[] = new Object[1];
+        for (Album a : albums) {
+            row[0] = a.getIALB();
+            dm.addRow(row);
+        }
+        albumTable.setModel(dm);
+
     }
 
     public void initProgressBar() {
@@ -282,6 +334,24 @@ public class MetaEdit extends javax.swing.JDialog {
     }
 
     public void setTabbed() {
+        jTabbedPane2.setUI(new BasicTabbedPaneUI() {
+            @Override
+            protected void installDefaults() {
+                super.installDefaults();
+                highlight = Color.pink;
+                lightHighlight = new Color(213, 223, 229);
+                shadow = new Color(240, 240, 240);
+                darkShadow = new Color(213, 223, 229);
+                focus = new Color(213, 223, 229);
+                //tabPane.setBackgroundAt(tabPane.getSelectedIndex(), darkShadow);
+                //getBackground();
+                //tabPane.setBackground(UIManager.getColor("TabbedPane.selected"));
+                //tabPane.getSelectedComponent().setBackground(focus);
+                ;
+
+
+            }
+        });
         jTabbedPane1.setUI(new BasicTabbedPaneUI() {
             @Override
             protected void installDefaults() {
@@ -315,17 +385,31 @@ public class MetaEdit extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         checkCopy = new javax.swing.JCheckBox();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ICMT = new javax.swing.JTextArea();
-        IENG = new javax.swing.JTextField();
         ILAN = new javax.swing.JTextField();
         IKEY = new javax.swing.JTextField();
-        ICRD = new javax.swing.JTextField();
         IGNR = new javax.swing.JTextField();
-        IALB = new javax.swing.JTextField();
         INAM = new javax.swing.JTextField();
+        IDIS = new javax.swing.JTextField();
+        ICOM = new javax.swing.JTextField();
+        ILYR = new javax.swing.JTextField();
+        IPLA = new javax.swing.JTextField();
+        IREG = new javax.swing.JTextField();
+        IDIG = new javax.swing.JTextField();
+        IVIL = new javax.swing.JTextField();
+        IPEO = new javax.swing.JTextField();
+        ICON = new javax.swing.JTextField();
+        ILEN = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
         IART = new javax.swing.JTextField();
+        IALB = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        albumTable = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        artistTable = new javax.swing.JTable();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         ISRC = new javax.swing.JTextField();
@@ -335,6 +419,8 @@ public class MetaEdit extends javax.swing.JDialog {
         ISRF = new javax.swing.JTextField();
         ICOP = new javax.swing.JTextField();
         ITCH = new javax.swing.JTextField();
+        ICRD = new javax.swing.JTextField();
+        IENG = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         IMG = new javax.swing.JTextField();
@@ -388,8 +474,15 @@ public class MetaEdit extends javax.swing.JDialog {
         checkCopy.setBackground(new java.awt.Color(250, 250, 250));
         checkCopy.setText("Create a copy on the harddrive");
 
+        jTabbedPane2.setBackground(new java.awt.Color(250, 250, 250));
+        jTabbedPane2.setFocusable(false);
+        jTabbedPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane2MouseClicked(evt);
+            }
+        });
+
         jPanel6.setBackground(new java.awt.Color(250, 250, 250));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("General information"));
         jPanel6.setLayout(null);
 
         ICMT.setColumns(20);
@@ -410,15 +503,7 @@ public class MetaEdit extends javax.swing.JDialog {
         jScrollPane1.setViewportView(ICMT);
 
         jPanel6.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 180, 410, 60);
-
-        IENG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        IENG.setForeground(new java.awt.Color(153, 153, 153));
-        IENG.setText("Engineers");
-        IENG.setToolTipText("Engineers");
-        IENG.setPreferredSize(new java.awt.Dimension(170, 30));
-        jPanel6.add(IENG);
-        IENG.setBounds(20, 140, 190, 30);
+        jScrollPane1.setBounds(20, 220, 610, 60);
 
         ILAN.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ILAN.setForeground(new java.awt.Color(153, 153, 153));
@@ -426,7 +511,7 @@ public class MetaEdit extends javax.swing.JDialog {
         ILAN.setToolTipText("Language");
         ILAN.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel6.add(ILAN);
-        ILAN.setBounds(240, 140, 190, 30);
+        ILAN.setBounds(230, 140, 190, 30);
 
         IKEY.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         IKEY.setForeground(new java.awt.Color(153, 153, 153));
@@ -434,15 +519,7 @@ public class MetaEdit extends javax.swing.JDialog {
         IKEY.setToolTipText("Keywords");
         IKEY.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel6.add(IKEY);
-        IKEY.setBounds(20, 100, 190, 30);
-
-        ICRD.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        ICRD.setForeground(new java.awt.Color(153, 153, 153));
-        ICRD.setText("Creation Date");
-        ICRD.setToolTipText("Creation Date");
-        ICRD.setPreferredSize(new java.awt.Dimension(170, 30));
-        jPanel6.add(ICRD);
-        ICRD.setBounds(240, 100, 190, 30);
+        IKEY.setBounds(20, 60, 190, 30);
 
         IGNR.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         IGNR.setForeground(new java.awt.Color(153, 153, 153));
@@ -450,15 +527,7 @@ public class MetaEdit extends javax.swing.JDialog {
         IGNR.setToolTipText("Genre");
         IGNR.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel6.add(IGNR);
-        IGNR.setBounds(20, 60, 190, 30);
-
-        IALB.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        IALB.setForeground(new java.awt.Color(153, 153, 153));
-        IALB.setText("Album");
-        IALB.setToolTipText("Album");
-        IALB.setPreferredSize(new java.awt.Dimension(170, 30));
-        jPanel6.add(IALB);
-        IALB.setBounds(240, 60, 190, 30);
+        IGNR.setBounds(230, 20, 190, 30);
 
         INAM.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         INAM.setForeground(new java.awt.Color(153, 153, 153));
@@ -473,13 +542,196 @@ public class MetaEdit extends javax.swing.JDialog {
         jPanel6.add(INAM);
         INAM.setBounds(20, 20, 190, 30);
 
+        IDIS.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        IDIS.setForeground(new java.awt.Color(153, 153, 153));
+        IDIS.setText("District");
+        IDIS.setToolTipText("District");
+        IDIS.setPreferredSize(new java.awt.Dimension(170, 30));
+        IDIS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IDISActionPerformed(evt);
+            }
+        });
+        jPanel6.add(IDIS);
+        IDIS.setBounds(440, 140, 190, 30);
+
+        ICOM.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ICOM.setForeground(new java.awt.Color(153, 153, 153));
+        ICOM.setText("Composer");
+        ICOM.setToolTipText("Composer");
+        ICOM.setPreferredSize(new java.awt.Dimension(170, 30));
+        ICOM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ICOMActionPerformed(evt);
+            }
+        });
+        jPanel6.add(ICOM);
+        ICOM.setBounds(440, 20, 190, 30);
+
+        ILYR.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ILYR.setForeground(new java.awt.Color(153, 153, 153));
+        ILYR.setText("Lyric Writer");
+        ILYR.setToolTipText("Lyric Writer");
+        ILYR.setPreferredSize(new java.awt.Dimension(170, 30));
+        ILYR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ILYRActionPerformed(evt);
+            }
+        });
+        jPanel6.add(ILYR);
+        ILYR.setBounds(440, 60, 190, 30);
+
+        IPLA.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        IPLA.setForeground(new java.awt.Color(153, 153, 153));
+        IPLA.setText("Place");
+        IPLA.setToolTipText("Place");
+        IPLA.setPreferredSize(new java.awt.Dimension(170, 30));
+        IPLA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IPLAActionPerformed(evt);
+            }
+        });
+        jPanel6.add(IPLA);
+        IPLA.setBounds(20, 100, 190, 30);
+
+        IREG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        IREG.setForeground(new java.awt.Color(153, 153, 153));
+        IREG.setText("Region");
+        IREG.setToolTipText("Region");
+        IREG.setPreferredSize(new java.awt.Dimension(170, 30));
+        IREG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IREGActionPerformed(evt);
+            }
+        });
+        jPanel6.add(IREG);
+        IREG.setBounds(230, 100, 190, 30);
+
+        IDIG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        IDIG.setForeground(new java.awt.Color(153, 153, 153));
+        IDIG.setText("Original date");
+        IDIG.setToolTipText("Original date");
+        IDIG.setPreferredSize(new java.awt.Dimension(170, 30));
+        IDIG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IDIGActionPerformed(evt);
+            }
+        });
+        jPanel6.add(IDIG);
+        IDIG.setBounds(230, 60, 190, 30);
+
+        IVIL.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        IVIL.setForeground(new java.awt.Color(153, 153, 153));
+        IVIL.setText("Village");
+        IVIL.setToolTipText("Village");
+        IVIL.setPreferredSize(new java.awt.Dimension(170, 30));
+        IVIL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IVILActionPerformed(evt);
+            }
+        });
+        jPanel6.add(IVIL);
+        IVIL.setBounds(20, 140, 190, 30);
+
+        IPEO.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        IPEO.setForeground(new java.awt.Color(153, 153, 153));
+        IPEO.setText("People Group");
+        IPEO.setToolTipText("People Group");
+        IPEO.setPreferredSize(new java.awt.Dimension(170, 30));
+        IPEO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IPEOActionPerformed(evt);
+            }
+        });
+        jPanel6.add(IPEO);
+        IPEO.setBounds(440, 100, 190, 30);
+
+        ICON.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ICON.setForeground(new java.awt.Color(153, 153, 153));
+        ICON.setText("Country/Area");
+        ICON.setToolTipText("Country/Area");
+        ICON.setPreferredSize(new java.awt.Dimension(170, 30));
+        jPanel6.add(ICON);
+        ICON.setBounds(20, 180, 190, 30);
+
+        ILEN.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ILEN.setForeground(new java.awt.Color(153, 153, 153));
+        ILEN.setText("Length");
+        ILEN.setToolTipText("Length");
+        ILEN.setPreferredSize(new java.awt.Dimension(170, 30));
+        jPanel6.add(ILEN);
+        ILEN.setBounds(230, 180, 190, 30);
+
+        jTabbedPane2.addTab("General information", jPanel6);
+
+        jPanel5.setBackground(new java.awt.Color(250, 250, 250));
+        jPanel5.setLayout(null);
+
         IART.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         IART.setForeground(new java.awt.Color(153, 153, 153));
         IART.setText("Artist");
         IART.setToolTipText("Artist");
         IART.setPreferredSize(new java.awt.Dimension(170, 30));
-        jPanel6.add(IART);
-        IART.setBounds(240, 20, 190, 30);
+        jPanel5.add(IART);
+        IART.setBounds(20, 30, 260, 30);
+
+        IALB.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        IALB.setForeground(new java.awt.Color(153, 153, 153));
+        IALB.setText("Album");
+        IALB.setToolTipText("Album");
+        IALB.setPreferredSize(new java.awt.Dimension(170, 30));
+        jPanel5.add(IALB);
+        IALB.setBounds(360, 30, 260, 30);
+
+        albumTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null}
+            },
+            new String [] {
+                "Albums"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        albumTable.setRowHeight(26);
+        albumTable.setShowHorizontalLines(false);
+        albumTable.setShowVerticalLines(false);
+        jScrollPane3.setViewportView(albumTable);
+
+        jPanel5.add(jScrollPane3);
+        jScrollPane3.setBounds(360, 70, 260, 200);
+
+        artistTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null}
+            },
+            new String [] {
+                "Artists"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        artistTable.setRowHeight(26);
+        artistTable.setShowHorizontalLines(false);
+        artistTable.setShowVerticalLines(false);
+        jScrollPane4.setViewportView(artistTable);
+
+        jPanel5.add(jScrollPane4);
+        jScrollPane4.setBounds(20, 70, 260, 200);
+
+        jTabbedPane2.addTab("Artists and Albums", jPanel5);
 
         jTabbedPane1.setBackground(new java.awt.Color(250, 250, 250));
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -488,10 +740,10 @@ public class MetaEdit extends javax.swing.JDialog {
             }
         });
         jTabbedPane1.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 jTabbedPane1CaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -505,7 +757,7 @@ public class MetaEdit extends javax.swing.JDialog {
         ISRC.setToolTipText("Source Supplier");
         ISRC.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(ISRC);
-        ISRC.setBounds(10, 10, 190, 30);
+        ISRC.setBounds(20, 10, 190, 30);
 
         ISFT.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ISFT.setForeground(new java.awt.Color(153, 153, 153));
@@ -513,7 +765,7 @@ public class MetaEdit extends javax.swing.JDialog {
         ISFT.setToolTipText("Software Package");
         ISFT.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(ISFT);
-        ISFT.setBounds(10, 50, 190, 30);
+        ISFT.setBounds(20, 50, 190, 30);
 
         ISBJ.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ISBJ.setForeground(new java.awt.Color(153, 153, 153));
@@ -521,7 +773,7 @@ public class MetaEdit extends javax.swing.JDialog {
         ISBJ.setToolTipText("Subjects");
         ISBJ.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(ISBJ);
-        ISBJ.setBounds(10, 90, 190, 30);
+        ISBJ.setBounds(20, 90, 190, 30);
 
         IMED.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         IMED.setForeground(new java.awt.Color(153, 153, 153));
@@ -529,7 +781,7 @@ public class MetaEdit extends javax.swing.JDialog {
         IMED.setToolTipText("Original Medium");
         IMED.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel1.add(IMED);
-        IMED.setBounds(10, 130, 190, 30);
+        IMED.setBounds(440, 10, 190, 30);
 
         ISRF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ISRF.setForeground(new java.awt.Color(153, 153, 153));
@@ -565,6 +817,22 @@ public class MetaEdit extends javax.swing.JDialog {
         jPanel1.add(ITCH);
         ITCH.setBounds(230, 10, 190, 30);
 
+        ICRD.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ICRD.setForeground(new java.awt.Color(153, 153, 153));
+        ICRD.setText("Creation Date");
+        ICRD.setToolTipText("Creation Date");
+        ICRD.setPreferredSize(new java.awt.Dimension(170, 30));
+        jPanel1.add(ICRD);
+        ICRD.setBounds(440, 50, 190, 30);
+
+        IENG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        IENG.setForeground(new java.awt.Color(153, 153, 153));
+        IENG.setText("Engineers");
+        IENG.setToolTipText("Engineers");
+        IENG.setPreferredSize(new java.awt.Dimension(170, 30));
+        jPanel1.add(IENG);
+        IENG.setBounds(440, 90, 190, 30);
+
         jTabbedPane1.addTab("Technical information", jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(250, 250, 250));
@@ -587,7 +855,7 @@ public class MetaEdit extends javax.swing.JDialog {
             }
         });
         jPanel2.add(jButton3);
-        jButton3.setBounds(220, 10, 40, 30);
+        jButton3.setBounds(410, 10, 40, 30);
 
         IMG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         IMG.setForeground(new java.awt.Color(153, 153, 153));
@@ -596,7 +864,7 @@ public class MetaEdit extends javax.swing.JDialog {
         IMG.setEnabled(false);
         IMG.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel2.add(IMG);
-        IMG.setBounds(10, 10, 210, 30);
+        IMG.setBounds(10, 10, 390, 30);
 
         jPanel3.setBackground(new java.awt.Color(250, 250, 250));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -625,11 +893,13 @@ public class MetaEdit extends javax.swing.JDialog {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imgPreview, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imgPreview, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel3);
-        jPanel3.setBounds(280, 10, 150, 150);
+        jPanel3.setBounds(470, 10, 150, 150);
 
         sizeInfo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         sizeInfo.setText("N/A");
@@ -662,7 +932,7 @@ public class MetaEdit extends javax.swing.JDialog {
         imageStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/sucess.png"))); // NOI18N
         imageStatus.setToolTipText("Good match");
         jPanel2.add(imageStatus);
-        imageStatus.setBounds(12, 120, 40, 40);
+        imageStatus.setBounds(160, 120, 40, 40);
 
         crop.setFont(new java.awt.Font("Calibri Light", 0, 13)); // NOI18N
         crop.setForeground(new java.awt.Color(255, 255, 255));
@@ -678,7 +948,7 @@ public class MetaEdit extends javax.swing.JDialog {
             }
         });
         jPanel2.add(crop);
-        crop.setBounds(60, 120, 130, 40);
+        crop.setBounds(10, 120, 130, 40);
 
         jTabbedPane1.addTab("Cover", jPanel2);
 
@@ -690,37 +960,35 @@ public class MetaEdit extends javax.swing.JDialog {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(checkCopy, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(24, Short.MAX_VALUE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane2))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkCopy)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addContainerGap(276, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -752,7 +1020,14 @@ public class MetaEdit extends javax.swing.JDialog {
         if (checkCopy.isSelected()) {
             System.out.println("Skriver kopi...");
         }
-
+        for (Tags t : Tags.values()) {
+            songhandler.updateField(t.toString(), getText(t.toString()));
+        }
+        try {
+            songhandler.updateSong();
+        } catch (SQLException ex) {
+            Logger.getLogger(MetaEdit.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -869,6 +1144,50 @@ public class MetaEdit extends javax.swing.JDialog {
     private void ICOPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ICOPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ICOPActionPerformed
+
+    private void IDISActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDISActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IDISActionPerformed
+
+    private void ICOMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ICOMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ICOMActionPerformed
+
+    private void ILYRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ILYRActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ILYRActionPerformed
+
+    private void IPLAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IPLAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IPLAActionPerformed
+
+    private void IREGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IREGActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IREGActionPerformed
+
+    private void IDIGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDIGActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IDIGActionPerformed
+
+    private void IVILActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IVILActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IVILActionPerformed
+
+    private void IPEOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IPEOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IPEOActionPerformed
+
+    private void jTabbedPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane2MouseClicked
+        if (jTabbedPane2.getSelectedIndex() == 0) {
+            jTabbedPane2.setBackgroundAt(0, new Color(255, 255, 255));
+            jTabbedPane2.setBackgroundAt(1, new Color(235, 235, 235));
+
+        } else {
+            jTabbedPane2.setBackgroundAt(1, new Color(255, 255, 255));
+            jTabbedPane2.setBackgroundAt(0, new Color(235, 235, 235));
+
+        }
+    }//GEN-LAST:event_jTabbedPane2MouseClicked
 
     private void tekstClicked(java.awt.event.MouseEvent evt, JTextField text) {
         if (text.getText().equals(text.getToolTipText())) {
@@ -999,20 +1318,32 @@ public class MetaEdit extends javax.swing.JDialog {
     private javax.swing.JTextField IALB;
     private javax.swing.JTextField IART;
     private javax.swing.JTextArea ICMT;
+    private javax.swing.JTextField ICOM;
+    private javax.swing.JTextField ICON;
     private javax.swing.JTextField ICOP;
     private javax.swing.JTextField ICRD;
+    private javax.swing.JTextField IDIG;
+    private javax.swing.JTextField IDIS;
     private javax.swing.JTextField IENG;
     private javax.swing.JTextField IGNR;
     private javax.swing.JTextField IKEY;
     private javax.swing.JTextField ILAN;
+    private javax.swing.JTextField ILEN;
+    private javax.swing.JTextField ILYR;
     private javax.swing.JTextField IMED;
     private javax.swing.JTextField IMG;
     private javax.swing.JTextField INAM;
+    private javax.swing.JTextField IPEO;
+    private javax.swing.JTextField IPLA;
+    private javax.swing.JTextField IREG;
     private javax.swing.JTextField ISBJ;
     private javax.swing.JTextField ISFT;
     private javax.swing.JTextField ISRC;
     private javax.swing.JTextField ISRF;
     private javax.swing.JTextField ITCH;
+    private javax.swing.JTextField IVIL;
+    private javax.swing.JTable albumTable;
+    private javax.swing.JTable artistTable;
     private javax.swing.JCheckBox checkCopy;
     private javax.swing.JButton crop;
     private javax.swing.JLabel filS;
@@ -1028,9 +1359,13 @@ public class MetaEdit extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel jlabels;
     private javax.swing.JLabel sizeInfo;
     private javax.swing.JLabel squareInfo;

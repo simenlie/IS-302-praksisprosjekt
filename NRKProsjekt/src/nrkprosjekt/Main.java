@@ -4,6 +4,7 @@
  */
 package nrkprosjekt;
 
+import Info.Path;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -320,6 +321,11 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -334,6 +340,12 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        Path.width = getContentPane().getSize().width;
+        Path.height = getContentPane().getSize().height;
+        Path.point = evt.getComponent().getLocation();
+    }//GEN-LAST:event_formComponentResized
 
     /**
      * @param args the command line arguments
@@ -676,7 +688,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void recButActionPerformed(java.awt.event.ActionEvent evt) {
-
+        System.out.println(getContentPane().getSize().width);
         back.setEnabled(content.canGoBack);
         forward.setEnabled(false);
 

@@ -14,7 +14,7 @@ public class ArtistPage {
 
     public static int artistID;
     public static int songID;
-    ArrayList<Album> albums;
+    ArrayList<Album2> albums;
     DBConnection db;
 
     public ArtistPage() {
@@ -22,7 +22,7 @@ public class ArtistPage {
         db = new DBConnection();
     }
 
-    public void addAlbum(ArrayList<Album> a) {
+    public void addAlbum(ArrayList<Album2> a) {
         albums = a;
     }
 }

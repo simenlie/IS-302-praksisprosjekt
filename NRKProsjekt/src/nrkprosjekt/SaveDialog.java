@@ -31,7 +31,7 @@ public class SaveDialog extends javax.swing.JDialog {
         setUndecorated(true);
 
         initComponents();
-        setSize(490, 100);
+        setSize(680, 100);
         setLocationRelativeTo(null);
         textInfo = new JLabel();
         textInfo.setBounds(55, 50, 70, 10);

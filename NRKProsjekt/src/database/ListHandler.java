@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 public class ListHandler {
 
-    ArrayList<Artist> collection;
+    ArrayList<Artist2> collection;
     HashMap<String, Integer> collectionLookup;
 
     public ListHandler() {
@@ -22,7 +22,7 @@ public class ListHandler {
 
     }
 
-    public ArrayList<Artist> getCollection() {
+    public ArrayList<Artist2> getCollection() {
         return collection;
     }
 
@@ -33,7 +33,7 @@ public class ListHandler {
     public String getCollectionInString() {
         String output = "";
         int index = 0;
-        for (Artist s : collection) {
+        for (Artist2 s : collection) {
             if (index == collection.size() - 1) {
                 output += s.IART;
             } else {
@@ -53,7 +53,7 @@ public class ListHandler {
         collectionLookup.put(string, i);
     }
 
-    public void add(Artist artist) {
+    public void add(Artist2 artist) {
         collection.add(artist);
     }
 }

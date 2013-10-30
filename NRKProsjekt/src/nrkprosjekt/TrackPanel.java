@@ -4,6 +4,7 @@
  */
 package nrkprosjekt;
 
+import Handlers.Songhandler;
 import database.DBConnection;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
@@ -29,6 +30,7 @@ public class TrackPanel extends javax.swing.JPanel {
     DBConnection db;
     File file;
     String home;
+    Songhandler songhandler;
 
     public TrackPanel() {
         initComponents();
@@ -37,7 +39,11 @@ public class TrackPanel extends javax.swing.JPanel {
         db = new DBConnection();
         tags = new HashMap<>();
         initTags();
-        db.getSongInfo(1, tags);
+        songhandler = new Songhandler();
+        songhandler.loadSongInfo(1);
+        songhandler.getTopInfo(tags);
+        //db.getSongInfo(1, tags);
+
         jButton1.setEnabled(false);
         home = System.getProperty("user.home");
 
@@ -508,7 +514,7 @@ public class TrackPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         File file2 = new File(home + "\\Documents\\GitHub\\IS-302-praksisprosjekt\\NRKProsjekt\\src\\nrkprosjekt\\graphics\\null.jpg");
         Path p5 = Paths.get(System.getProperty("user.home"), "logs", "foo.log");
 
