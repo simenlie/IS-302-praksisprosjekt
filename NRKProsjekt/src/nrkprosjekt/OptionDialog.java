@@ -4,8 +4,10 @@
  */
 package nrkprosjekt;
 
+import Handlers.Songhandler;
 import java.awt.Color;
 import java.awt.Point;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -16,46 +18,49 @@ import javax.swing.JLabel;
  * @author Simen
  */
 public class OptionDialog extends javax.swing.JDialog {
-    
+
     JLabel pros2;
     Thread thread;
     JLabel label;
     JLabel pros;
     JButton button;
     JButton button2;
+    Songhandler songhandler;
 
     /**
      * Creates new form OptionDialog
      */
-    public OptionDialog(java.awt.Frame parent, boolean modal) {
-        
+    public OptionDialog(java.awt.Frame parent, boolean modal) throws SQLException {
+
         super(parent, modal);
         setLocationRelativeTo(null);
         init();
+        songhandler = new Songhandler();
     }
-    
-    public OptionDialog(java.awt.Frame parent, boolean modal, Point pos) {
-        
+
+    public OptionDialog(java.awt.Frame parent, boolean modal, Point pos) throws SQLException {
+
         super(parent, modal);
         setSize(300, 150);
         setLocationRelativeTo(null);
         //setLocation(pos);
         init();
+        songhandler = new Songhandler();
     }
-    
+
     public void init() {
         label = new JLabel();
         pros = new JLabel();
         pros.setVisible(false);
         pros.setBounds(75, 60, 300, 10);
         pros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/prosessed.png")));
-        
+
         pros2 = new JLabel();
         pros2.setBounds(75, 60, 0, 10);
         pros2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/prosessedBar.png")));
-        
-        
-        
+
+
+
         label.setText("fdff");
         label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/messageS.png")));
         button = new JButton("Cancel");
@@ -68,7 +73,7 @@ public class OptionDialog extends javax.swing.JDialog {
         button.setFocusPainted(false);
         button.setIconTextGap(-108);
         button.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveOver.png")));
-        
+
         button2 = new JButton("Delete");
         button2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         button2.setForeground(new java.awt.Color(255, 255, 255));
@@ -79,14 +84,14 @@ public class OptionDialog extends javax.swing.JDialog {
         button2.setFocusPainted(false);
         button2.setIconTextGap(-108);
         button2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonCancelOver.png")));
-        
-        
+
+
         setUndecorated(true);
-        
+
         getRootPane().setOpaque(false);
         getContentPane().setBackground(new Color(0, 0, 0, 0));
         setBackground(new Color(0, 0, 0, 0));
-        
+
         initComponents();
         jLabel2.add(button);
         jLabel2.add(button2);
@@ -102,13 +107,13 @@ public class OptionDialog extends javax.swing.JDialog {
         jLabel2.add(pros);
         //setContentPane(jLabel1);
         getContentPane().setBackground(new Color(0, 0, 0, 0));
-        
+
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonActionPerformed(evt);
             }
         });
-        
+
         button2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
@@ -119,19 +124,21 @@ public class OptionDialog extends javax.swing.JDialog {
             }
         });
     }
-    
+
     private void jButtonActionPerformed(java.awt.event.ActionEvent evt) {
         //this.setVisible(false);
         this.dispose();
     }
-    
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException {
-        
-        
+
+
         thread = new Thread(new Runnable() {
             public void run() {
                 pros.setVisible(true);
                 label.setText("Deleting file...");
+                songhandler.deleteSong();
+
                 while (pros2.getSize().width < 300) {
                     pros2.setSize(pros2.getSize().width + 1, 10);
                 }
@@ -204,7 +211,12 @@ public class OptionDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                OptionDialog dialog = new OptionDialog(new javax.swing.JFrame(), true);
+                OptionDialog dialog = null;
+                try {
+                    dialog = new OptionDialog(new javax.swing.JFrame(), true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OptionDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

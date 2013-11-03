@@ -5,6 +5,9 @@
 package nrkprosjekt;
 
 import java.awt.BorderLayout;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -21,7 +24,7 @@ public class Run extends javax.swing.JFrame {
     /**
      * Creates new form Run
      */
-    public Run() {
+    public Run() throws SQLException {
       initComponents();
         songPanel = new SongPanel();
         setLayout(new BorderLayout());
@@ -88,7 +91,11 @@ public class Run extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Run().setVisible(true);
+                try {
+                    new Run().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

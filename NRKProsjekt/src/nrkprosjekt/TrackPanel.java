@@ -9,9 +9,11 @@ import database.DBConnection;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +34,7 @@ public class TrackPanel extends javax.swing.JPanel {
     String home;
     Songhandler songhandler;
 
-    public TrackPanel() {
+    public TrackPanel() throws SQLException, FileNotFoundException, IOException {
         initComponents();
         setLayout(new BorderLayout());
         add(jPanel1, BorderLayout.CENTER);
@@ -40,7 +42,7 @@ public class TrackPanel extends javax.swing.JPanel {
         tags = new HashMap<>();
         initTags();
         songhandler = new Songhandler();
-        songhandler.loadSongInfo(1);
+        songhandler.loadSongInfo(6);
         songhandler.getTopInfo(tags);
         //db.getSongInfo(1, tags);
 
@@ -78,6 +80,7 @@ public class TrackPanel extends javax.swing.JPanel {
         fill(ISBJ, "ISBJ");
         fill(ILEN, "ILEN");
         fill(ICON, "ICON");
+        fill(jLabel2, "PIC");
     }
 
     /**
@@ -210,7 +213,7 @@ public class TrackPanel extends javax.swing.JPanel {
 
         jLabel2.setBackground(new java.awt.Color(53, 53, 53));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/art.png"))); // NOI18N
-        jLabel2.setPreferredSize(new java.awt.Dimension(106, 220));
+        jLabel2.setPreferredSize(new java.awt.Dimension(206, 220));
         jPanel2.add(jLabel2);
 
         jPanel3.setBackground(new java.awt.Color(53, 53, 53));
@@ -418,7 +421,7 @@ public class TrackPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(INAM)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(IART, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(IART, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,25 +434,28 @@ public class TrackPanel extends javax.swing.JPanel {
                                         .addComponent(IALB))
                                     .addComponent(jLabel6)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(11, 11, 11)
-                                        .addComponent(IGNR))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(1, 1, 1)
-                                        .addComponent(ICON))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(7, 7, 7)
-                                        .addComponent(ILEN))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel9)
                                         .addGap(13, 13, 13)
                                         .addComponent(IKEY))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(10, 10, 10)
-                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel8)
+                                                .addGap(7, 7, 7)
+                                                .addComponent(ILEN))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addGap(11, 11, 11)
+                                                .addComponent(IGNR))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addGap(1, 1, 1)
+                                                .addComponent(ICON)))
+                                        .addGap(27, 27, 27)))))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -492,7 +498,7 @@ public class TrackPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)

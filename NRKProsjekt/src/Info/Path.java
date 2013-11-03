@@ -12,7 +12,8 @@ import java.awt.Point;
  */
 public class Path {
 
-    String home = System.getProperty("user.home");
+    public static final String home = System.getProperty("user.home");
+    public static String path = home + "\\MDOrganizer\\";
     public static int width;
     public static int height;
     public static Point point;

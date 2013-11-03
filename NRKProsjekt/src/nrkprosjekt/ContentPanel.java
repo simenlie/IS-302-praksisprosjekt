@@ -6,10 +6,12 @@ package nrkprosjekt;
 
 import java.awt.BorderLayout;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -52,7 +54,7 @@ public class ContentPanel extends javax.swing.JPanel {
         currentPage = navigation.size() - 1;
     }
 
-    public void initPanel(String panel) throws IOException {
+    public void initPanel(String panel) throws IOException, SQLException {
 
         addPanels(panel);
 
@@ -96,7 +98,7 @@ public class ContentPanel extends javax.swing.JPanel {
         return true;
     }
 
-    private void addPanels(String panel) throws IOException {
+    private void addPanels(String panel) throws IOException, SQLException {
         switch (panel) {
             case "library":
                 libraryPanel = new LibraryOverviewPanel();
@@ -117,8 +119,11 @@ public class ContentPanel extends javax.swing.JPanel {
                 dictionary.put("advancedS", advancedS);
                 break;
             case "search":
-                searchPanel2 = new NewSearch();
-                dictionary.put("search", searchPanel2);
+                if (searchPanel2 == null) {
+                    searchPanel2 = new NewSearch();
+                    dictionary.put("search", searchPanel2);
+                }
+
                 break;
             case "lib":
                 lib = new NewLibrary();
@@ -137,7 +142,7 @@ public class ContentPanel extends javax.swing.JPanel {
         return navigation.get(currentPage);
     }
 
-    public void showPanel(String name) {
+    public void showPanel(String name) throws SQLException {
         if (name.equals("artist")) {
             artistPanel = new ArtistPanel();
             dictionary.put("artist", artistPanel);
@@ -169,6 +174,18 @@ public class ContentPanel extends javax.swing.JPanel {
 
     public NewSearch getSearchPanel() {
         return searchPanel2;
+    }
+
+    public void sok(String words) {
+        searchPanel2.searchPanel.searchTable(words);
+    }
+    
+     public void sok2(HashMap<String, JTextField> tags) {
+        searchPanel2.searchPanel.searchAdvancedTable(tags);
+    }
+
+    public AdvancedSearchPanel getAdvancedS() {
+        return advancedS;
     }
 
     /**

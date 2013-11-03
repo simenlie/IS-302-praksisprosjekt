@@ -5,6 +5,7 @@
 package Entities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 public class Album {
 
     ArrayList<Track> tracks;
+    
     int id;
     String IALB;
     

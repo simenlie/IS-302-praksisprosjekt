@@ -4,6 +4,7 @@
  */
 package database;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,7 @@ public class ArtistPage {
     ArrayList<Album2> albums;
     DBConnection db;
 
-    public ArtistPage() {
+    public ArtistPage() throws SQLException {
         albums = new ArrayList<>();
         db = new DBConnection();
     }

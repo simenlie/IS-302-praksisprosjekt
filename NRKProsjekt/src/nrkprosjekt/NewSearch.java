@@ -7,6 +7,7 @@ package nrkprosjekt;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.swing.JTable;
 
 /**
@@ -20,7 +21,7 @@ public class NewSearch extends javax.swing.JPanel {
      */
     SearchPanel searchPanel;
 
-    public NewSearch() throws IOException {
+    public NewSearch() throws IOException, SQLException {
         searchPanel = new SearchPanel();
         initComponents();
         setLayout(new BorderLayout());
@@ -29,6 +30,8 @@ public class NewSearch extends javax.swing.JPanel {
         add(jPanel1, BorderLayout.NORTH);
         add(searchPanel, BorderLayout.CENTER);
     }
+    
+    
 
     public boolean isLink() {
         return searchPanel.isLink();
@@ -74,10 +77,10 @@ public class NewSearch extends javax.swing.JPanel {
         searchText.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         searchText.setText("SearchText");
         jPanel1.add(searchText);
-        searchText.setBounds(200, 13, 140, 30);
+        searchText.setBounds(200, 13, 400, 30);
 
         add(jPanel1);
-        jPanel1.setBounds(0, 0, 430, 70);
+        jPanel1.setBounds(0, 0, 570, 70);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

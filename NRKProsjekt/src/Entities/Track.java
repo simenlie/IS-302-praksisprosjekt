@@ -22,6 +22,15 @@ public class Track {
     Metadata metadata;
     String artist;
     String album;
+    Picture pic;
+
+    public Picture getPic() {
+        return pic;
+    }
+
+    public void setPic(Picture pic) {
+        this.pic = pic;
+    }
 
     public Track() {
         values = new HashMap<>();
@@ -84,6 +93,7 @@ public class Track {
         values.put("ISFT", metadata.ISFT);
         values.put("ICRD", metadata.ICRD);
         values.put("IALB", album);
+        System.out.println(id + " id som ikke funker");
         values.put("ILAN", artists.get(0).ILAN);
         values.put("ICMT", metadata.ICMT);
         values.put("ISBJ", metadata.ISBJ);

@@ -10,6 +10,7 @@ import Info.Style;
 import database.Album2;
 import database.ArtistPage;
 import database.DBConnection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.BoxLayout;
@@ -30,7 +31,7 @@ public class ArtistPanel extends javax.swing.JPanel {
     ArrayList<AlbumPanel> albPanels;
     Songhandler songhandler;
     
-    public ArtistPanel() {
+    public ArtistPanel() throws SQLException {
         initComponents();
         albPanels = new ArrayList<>();
         jLabel7.setVisible(false);
@@ -47,7 +48,7 @@ public class ArtistPanel extends javax.swing.JPanel {
         //jScrollPane1.setViewportView(panele);
     }
     
-    public void doIT() {
+    public void doIT() throws SQLException {
         d = new DBConnection();
         artist = d.getArtistMap(ArtistPage.artistID);
         jLabel2.setText(artist.get("IART"));

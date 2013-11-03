@@ -5,6 +5,7 @@
 package database;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import nrkprosjekt.MetaEdit;
 
@@ -17,7 +18,7 @@ public class DBHandler {
     Insert insert;
     MetaEdit temp;
 
-    public DBHandler() throws IOException {
+    public DBHandler() throws IOException, SQLException {
         temp = new MetaEdit(new JFrame(), true);
         insert = new Insert(temp.getTags());
     }
@@ -31,7 +32,7 @@ public class DBHandler {
     public void delete() {
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
         new DBHandler();
     }
 }

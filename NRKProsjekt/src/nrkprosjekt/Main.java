@@ -4,6 +4,7 @@
  */
 package nrkprosjekt;
 
+import Info.Dictionary;
 import Info.Path;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -156,7 +158,11 @@ public class Main extends javax.swing.JFrame {
                 initComponents();
 
                 try {
-                    initialize();
+                    try {
+                        initialize();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     l.dispose();
                 } catch (LineUnavailableException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -228,8 +234,11 @@ public class Main extends javax.swing.JFrame {
         //loadImageIcon("small");
     }
 
-    public void initialize() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-
+    public void initialize() throws LineUnavailableException, IOException, UnsupportedAudioFileException, SQLException {
+        File file = new File(Path.path);
+        if (!file.exists()) {
+            file.mkdir();
+        }
         panels = new HashMap<>();
         recentSearchDialog = new RecenSearchDialog(new javax.swing.JFrame(), false);
         searches = new ArrayList<>();
@@ -417,7 +426,11 @@ public class Main extends javax.swing.JFrame {
 
         textBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                searchBoxKeyPressed(evt, textBox);
+                try {
+                    searchBoxKeyPressed(evt, textBox);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -426,7 +439,11 @@ public class Main extends javax.swing.JFrame {
     public void addMouseListener(JTable table) {
         table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                searchTableMouseClicked(evt);
+                try {
+                    searchTableMouseClicked(evt);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -491,7 +508,7 @@ public class Main extends javax.swing.JFrame {
         back.setEnabled(true);
     }
 
-    private void searchTableMouseClicked(java.awt.event.MouseEvent evt) {
+    private void searchTableMouseClicked(java.awt.event.MouseEvent evt) throws SQLException {
 
         if (evt.getButton() == 1 && content.isLink() || content.isLink2()) {
 
@@ -527,7 +544,7 @@ public class Main extends javax.swing.JFrame {
 
     }
 
-    private void searchBoxKeyPressed(java.awt.event.KeyEvent evt, final JTextField textBox) {
+    private void searchBoxKeyPressed(java.awt.event.KeyEvent evt, final JTextField textBox) throws SQLException {
         int keyCode = evt.getKeyCode();
 
         if (keyCode == KeyEvent.VK_ENTER && topPanel.isCtrlDown()) {
@@ -542,10 +559,31 @@ public class Main extends javax.swing.JFrame {
             System.out.println(textBox.getLocation().x);
         } else if (keyCode == KeyEvent.VK_ENTER) {
             searches.add(0, textBox.getText());
-            System.out.println("Searching");
-            content.showPanel("search");
-            content.getSearchPanel().setShowResult(textBox.getText());
+            // System.out.println("Searching");
+            //content.showPanel("search");
 
+            Thread thread = new Thread(new Runnable() {
+                public void run() {
+                    content.load();
+                    try {
+                        content.initPanel("search");
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    addMouseListener(content.getTable());
+
+                    content.sok(textBox.getText());
+                    try {
+                        content.showPanel("search");
+                        content.getSearchPanel().setShowResult(textBox.getText());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+            thread.start();
 
 
             leftPanel.menuClick(leftPanel.getButton(), true);
@@ -556,7 +594,11 @@ public class Main extends javax.swing.JFrame {
 
         label.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt, label);
+                try {
+                    jLabel1MouseClicked(evt, label);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -571,6 +613,55 @@ public class Main extends javax.swing.JFrame {
 
     }
 
+    public void searchAdvanced(JButton button) {
+        button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    searchAdvancedActionPerformed(evt);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
+
+    private void searchAdvancedActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+                content.load();
+                try {
+                    content.initPanel("search");
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                addMouseListener(content.getTable());
+
+
+                try {
+                    content.showPanel("search");
+                    HashMap<String, JTextField> advSearchTags = content.advancedS.getTags();
+                    content.sok2(advSearchTags);
+                    String searchBuilder = "";
+                    for (String s : advSearchTags.keySet()) {
+
+                        if (!advSearchTags.get(s).getText().equals("")) {
+                            searchBuilder += Dictionary.getDictionaryString().get(s).name + " : " + advSearchTags.get(s).getText() + " | ";
+                        }
+
+                    }
+                    content.getSearchPanel().setShowResult(searchBuilder);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        thread.start();
+
+
+    }
+
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt, JLabel label) {
         label.setFont(new java.awt.Font("Tahoma", 1, 11));
     }
@@ -579,13 +670,25 @@ public class Main extends javax.swing.JFrame {
         label.setFont(new java.awt.Font("Tahoma", 0, 11));
     }
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt, JLabel label) {
-        searches.add(0, label.getText());
-        System.out.println("Searching");
-        content.showPanel("search");
-        content.getSearchPanel().setShowResult(label.getText());
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt, final JLabel label) throws SQLException {
 
 
+        Thread thread3 = new Thread(new Runnable() {
+            public void run() {
+                searches.add(0, label.getText());
+                System.out.println("Searching");
+                try {
+                    content.showPanel("search");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                content.getSearchPanel().setShowResult(label.getText());
+
+                content.sok(label.getText());
+            }
+        });
+
+        thread3.start();
 
         leftPanel.menuClick(leftPanel.getButton(), true);
         recentSearchDialog.dispose();
@@ -619,6 +722,7 @@ public class Main extends javax.swing.JFrame {
             chosenFile = chooser.getSelectedFile();
 
             metadata = new Metadata(chosenFile.getAbsolutePath());
+            metaEdit.setUpdating(false);
 
             metadata.getTag(Tag.IART);
 
@@ -667,7 +771,11 @@ public class Main extends javax.swing.JFrame {
         button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
-                    homeButActionPerformed(evt);
+                    try {
+                        homeButActionPerformed(evt);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } catch (IOException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -676,7 +784,7 @@ public class Main extends javax.swing.JFrame {
 
     }
 
-    private void homeButActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
+    private void homeButActionPerformed(java.awt.event.ActionEvent evt) throws IOException, SQLException {
         back.setEnabled(content.canGoBack);
         forward.setEnabled(false);
         content.initPanel("welcome");
@@ -698,7 +806,11 @@ public class Main extends javax.swing.JFrame {
                 try {
                     content.load();
                     if (content.recentlyA == null) {
-                        content.initPanel("recently");
+                        try {
+                            content.initPanel("recently");
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     } else {
                         //content.lib.updateTable();
                         //System.out.println("Er ikke null");
@@ -706,7 +818,11 @@ public class Main extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                content.showPanel("recently");
+                try {
+                    content.showPanel("recently");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         recentlyThread.start();
@@ -745,7 +861,11 @@ public class Main extends javax.swing.JFrame {
                 try {
                     content.load();
                     if (content.advancedS == null) {
-                        content.initPanel("advanced");
+                        try {
+                            content.initPanel("advanced");
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     } else {
                         //content.lib.updateTable();
                         //System.out.println("Er ikke null");
@@ -753,8 +873,12 @@ public class Main extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                content.showPanel("advancedS");
+                try {
+                    content.showPanel("advancedS");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                searchAdvanced(content.getAdvancedS().getAdvancedSearchButton());
             }
         });
         advanThread.start();
@@ -771,14 +895,21 @@ public class Main extends javax.swing.JFrame {
             public void run() {
                 try {
                     content.load();
-                    content.initPanel("search");
+                    try {
+                        content.initPanel("search");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
                 } catch (IOException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 addMouseListener(content.getTable());
-
-                content.showPanel("search");
+                try {
+                    content.showPanel("search");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         searchThread.start();
@@ -805,14 +936,25 @@ public class Main extends javax.swing.JFrame {
         Thread libThread = new Thread(new Runnable() {
             public void run() {
                 try {
+                    System.out.println("yooooo");
                     leftPanel.setLoadVis();
 
                     if (content.lib == null) {
                         content.load();
-                        content.initPanel("lib");
-                        content.initPanel("search");
+                        try {
+                            System.out.println("dsfsdfsdf");
+                            content.initPanel("lib");
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        try {
+                            System.out.println("dsfsdfsdf");
+                            content.initPanel("search");
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     } else {
-
+                        System.out.println("dsfsdfsdf");
                         content.lib.updateTable();
                         //System.out.println("Er ikke null");
                     }
@@ -820,8 +962,11 @@ public class Main extends javax.swing.JFrame {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 addMouseListener(content.getTable2());
-
-                content.showPanel("library");
+                try {
+                    content.showPanel("library");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 leftPanel.setLoadVis();
                 back.setEnabled(content.canGoBack);
                 forward.setEnabled(false);
