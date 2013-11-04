@@ -4,6 +4,7 @@
  */
 package nrkprosjekt;
 
+import Entities.Artist;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,6 +32,7 @@ public class ContentPanel extends javax.swing.JPanel {
     ArrayList<JPanel> navigation;
     int currentPage = 0;
     boolean canGoBack = false;
+    boolean libIsShowing;
 
     /**
      * Creates new form ContentPanel
@@ -66,6 +68,10 @@ public class ContentPanel extends javax.swing.JPanel {
 
     boolean isLink2() {
         return lib.isLink();
+    }
+
+    public ArtistPanel getArtistPanel() {
+        return artistPanel;
     }
 
     public void fillDict() {
@@ -146,7 +152,12 @@ public class ContentPanel extends javax.swing.JPanel {
         if (name.equals("artist")) {
             artistPanel = new ArtistPanel();
             dictionary.put("artist", artistPanel);
-            artistPanel.doIT();
+            //artistPanel.doIT();
+        }
+        if (name.equals("lib")) {
+            libIsShowing = true;
+        } else {
+            libIsShowing = false;
         }
         JPanel temp = dictionary.get(name);
         pane.setViewportView(temp);
@@ -176,11 +187,34 @@ public class ContentPanel extends javax.swing.JPanel {
         return searchPanel2;
     }
 
+    public Artist getArtist() {
+        if (libIsShowing ) {
+            
+                return lib.getArtist();
+            
+        }
+
+
+        return searchPanel2.getArtist();
+    }
+
+    public void setConta() {
+        lib.setContent(this);
+    }
+
+    public void setConta2() {
+        searchPanel2.setContent(this);
+    }
+
+    public void artistPanel(Artist artist) throws SQLException {
+        artistPanel.setArtist(artist);
+    }
+
     public void sok(String words) {
         searchPanel2.searchPanel.searchTable(words);
     }
-    
-     public void sok2(HashMap<String, JTextField> tags) {
+
+    public void sok2(HashMap<String, JTextField> tags) {
         searchPanel2.searchPanel.searchAdvancedTable(tags);
     }
 

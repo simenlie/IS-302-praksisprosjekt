@@ -36,16 +36,21 @@ public class TableHandler {
         table.setModel(dm);
         System.out.println("HER");
         ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/show2.png"));
-        ImageIcon icon2 = new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/info.png"));
+        ImageIcon icon2 = new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/Information/Info0.png"));
         ImageIcon icon3 = new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/info4.png"));
         ImageIcon icon4 = new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/info7.png"));
-        dm.addColumn("Information");
+        //dm.addColumn("Information");
         table.getColumnModel().getColumn(0).setCellRenderer(new ImageRenderer());
         table.getColumnModel().getColumn(8).setCellRenderer(new ImageRenderer());
         int rowCount = table.getRowCount();
         for (int i = 0; i < rowCount; i++) {
             table.setValueAt(icon, i, 0);
-            table.setValueAt(icon2, i, 8);
+
+            //table.setValueAt(table.getValueAt(i, 8) + "simen", i, 8);
+
+            int nullAmount = Integer.parseInt((String)table.getValueAt(i, 8)) ;
+            ImageIcon iconIt = new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/Information/Info" + nullAmount + ".png"));
+            table.setValueAt(iconIt, i, 8);
         }
         table.getColumnModel().getColumn(0).setMinWidth(20);
         table.getColumnModel().getColumn(0).setPreferredWidth(20);
@@ -138,7 +143,7 @@ public class TableHandler {
             }
 
         }
-
+table.getColumn("sum_null").setHeaderValue("Information");
 
     }
 }

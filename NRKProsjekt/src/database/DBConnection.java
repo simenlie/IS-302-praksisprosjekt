@@ -102,6 +102,29 @@ public class DBConnection {
         }
     }
 
+    public void calc(HashMap<String, Tag> tags) {
+        System.out.println("------------------");
+        String starter = "(";
+        int index = 0;
+        for (String s : tags.keySet()) {
+            if (index == tags.size() - 1) {
+                starter += " (" + s + " IS NULL)";
+            } else {
+                starter += " (" + s + " IS NULL) +";
+            }
+
+            index++;
+        }
+        starter += ") AS sum_null";
+        System.out.println(starter);
+        System.out.println("------------------");
+    }
+
+    public String getLargeString() {
+        String du = "((ISBJ IS NULL) + (ICOM IS NULL) + (ICON IS NULL) + (IGNR IS NULL) + (ISFT IS NULL) + (ICOP IS NULL) + (IART IS NULL) + (IVIL IS NULL) + (IDIS IS NULL) + (IENG IS NULL) + (IALB IS NULL) + (IPEO IS NULL) + (IPLA IS NULL) + (ITCH IS NULL) + (IKEY IS NULL) + (ISON IS NULL) + (ILYR IS NULL) + (IREG IS NULL) + (IDIG IS NULL) + (INAM IS NULL) + (ICMT IS NULL) + (ICRD IS NULL) + (ISRF IS NULL) + (ILAN IS NULL) + (ISRC IS NULL) + (ILEN IS NULL) + (IMED IS NULL)) AS sum_null";
+        return du;
+    }
+
     public DefaultTableModel getTable() {
 
         DefaultTableModel dm = new TableModell();
@@ -109,7 +132,7 @@ public class DBConnection {
         try {
             ResultSet rs = null;
             //String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
-            String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ICRD from SONG, METADATA, AAS, ALBUM, ARTIST";
+            String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ICRD," + getLargeString() + " from SONG, METADATA, AAS, ALBUM, ARTIST";
             String QueryString = selectQ + " WHERE SONG.idSONG = AAS.idSONG AND METADATA.idMETADATA = SONG.idMETADATA AND ALBUM.idALBUM = AAS.idALBUM AND ARTIST.idARTIST = AAS.idARTIST GROUP BY SONG.idSONG";
             rs = statement.executeQuery(QueryString);
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -692,5 +715,80 @@ public class DBConnection {
 
 
         return pic;
+    }
+
+    public ArrayList<Album> findAnArtistAlbums(int id) {
+        ArrayList<Album> tempAlbums = new ArrayList<>();
+        String query = "select ALBUM.idALBUM, IALB, IART, ARTIST.idARTIST from ALBUM,ARTIST,AAS where AAS.idALBUM = ALBUM.idALBUM and AAS.idARTIST = ARTIST.idARTIST and ARTIST.idARTIST = " + id + " group by ALBUM.idALBUM;";
+        try {
+            ResultSet rs = null;
+
+            rs = statement.executeQuery(query);
+            while (rs.next()) {
+                tempAlbums.add(new Album(rs.getInt(1), rs.getString("IALB")));
+            }
+
+        } catch (Exception e) {
+            System.out.println("Unable to create." + e);
+        }
+        return tempAlbums;
+    }
+
+    public void getTracksInAlbums(int idAlb) {
+        String query = "select SONG.idSONG,INAM, ILEN, ISON, IALB from SONG, ALBUM, AAS where AAS.idSONG = SONG.idSONG and AAS.idALBUM = ALBUM.idALBUM and ALBUM.idALBUM = " + idAlb + " group by SONG.idSONG";
+        ArrayList<Track> tempTracks = new ArrayList<>();
+        try {
+            ResultSet rs = null;
+
+            rs = statement.executeQuery(query);
+            while (rs.next()) {
+                Track track = new Track();
+                //track.setid
+                //tempAlbums.add(new Album(rs.getInt(1), rs.getString("IALB")));
+            }
+
+        } catch (Exception e) {
+            System.out.println("Unable to create." + e);
+        }
+
+    }
+
+    public DefaultTableModel getTracks(int idAlb) {
+
+        DefaultTableModel dm = new TableModell();
+        dm.addColumn("");
+        try {
+            ResultSet rs = null;
+            //String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
+            String query = "select SONG.idSONG,INAM, ILEN, IALB from SONG, ALBUM, AAS where AAS.idSONG = SONG.idSONG and AAS.idALBUM = ALBUM.idALBUM and ALBUM.idALBUM = " + idAlb + " group by SONG.idSONG";
+
+            rs = statement.executeQuery(query);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            //Coding to get columns-
+            int cols = rsmd.getColumnCount();
+            String c[] = new String[cols];
+            for (int i = 1; i < cols; i++) {
+                c[i] = rsmd.getColumnName(i + 1);
+                dm.addColumn(c[i]);
+            }
+            //get data from rows
+            Object row[] = new Object[cols + 1];
+
+            while (rs.next()) {
+                for (int i = 1; i < cols + 1; i++) {
+                    row[i] = rs.getString(i);
+                }
+                dm.addRow(row);
+
+
+            }
+
+            System.out.println(dm.getColumnCount());
+
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return dm;
     }
 }

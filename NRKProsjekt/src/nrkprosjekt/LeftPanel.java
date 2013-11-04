@@ -18,6 +18,7 @@ public class LeftPanel extends javax.swing.JPanel {
     JLabel selected;
     ArrayList<JButton> buttons;
     JLabel label1;
+    boolean noGo;
 
     /**
      * Creates new form LeftPanel
@@ -92,6 +93,10 @@ public class LeftPanel extends javax.swing.JPanel {
         selected.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/homeButA3.png")));
         add(selected);
         selected.setVisible(true);
+    }
+
+    public void test(boolean what) {
+        noGo = what;
     }
 
     /**
@@ -268,7 +273,11 @@ public class LeftPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_libraryButFocusLost
 
     private void searchButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButActionPerformed
-        menuClick(searchBut, false);
+        if (!noGo) {
+            menuClick(searchBut, false);
+        }
+        
+
     }//GEN-LAST:event_searchButActionPerformed
 
     private void libraryBut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_libraryBut1ActionPerformed

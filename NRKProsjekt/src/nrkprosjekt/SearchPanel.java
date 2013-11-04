@@ -11,7 +11,7 @@ import Handlers.TableHandler;
 import Info.Dictionary;
 import Info.PriorityTags;
 import Info.Tags;
-import database.ArtistPage;
+
 import database.DBConnection;
 import java.awt.BorderLayout;
 import java.awt.MouseInfo;
@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -51,6 +52,11 @@ public class SearchPanel extends javax.swing.JPanel {
     boolean flag;
     TableHandler tableHandler;
     Processing processing;
+    Artist curArtist;
+    Album curAlbum;
+    boolean artistClicked;
+    ContentPanel content;
+    int curId;
 
     /**
      * Creates new form SearchPanel
@@ -78,6 +84,10 @@ public class SearchPanel extends javax.swing.JPanel {
         this.tags = tags;
     }
 
+    public void setContent(ContentPanel content) {
+        this.content = content;
+    }
+
     public void updateTable() {
         System.out.println("HE NA");
         tableHandler.getTableModel(searchTable);
@@ -86,7 +96,7 @@ public class SearchPanel extends javax.swing.JPanel {
     public void searchTable(String words) {
         tableHandler.getSearchModel(searchTable, words);
     }
-    
+
     public void searchAdvancedTable(HashMap<String, JTextField> tags) {
         tableHandler.searchAdvanced(searchTable, tags);
     }
@@ -150,11 +160,14 @@ public class SearchPanel extends javax.swing.JPanel {
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {
         searchTable.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        final SearchPanel s = this;
         Thread metaThread = new Thread(new Runnable() {
             public void run() {
                 try {
                     try {
                         metaEdit = new MetaEdit(new javax.swing.JFrame(), true);
+                        metaEdit.setCurRow(searchTable.getSelectedRow());
+                        metaEdit.setSearchPanel(s);
                         metaEdit.setUpdating(true);
                     } catch (SQLException ex) {
                         Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -297,8 +310,20 @@ public class SearchPanel extends javax.swing.JPanel {
         //System.out.println(searchTable.getValueAt(searchTable.getSelectedRow(), 0));
         if (evt.getButton() == 3) {
             System.out.println("righ clicked");
+            int id = Integer.parseInt((String) searchTable.getModel().getValueAt(searchTable.getSelectedRow(), searchTable.getColumn("idSONG").getModelIndex()));
 
-
+            if (curId != id) {
+                try {
+                    songhandler.loadSongInfo(id);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                curId = id;
+            }
         }
 
         if (evt.isPopupTrigger()) {
@@ -332,7 +357,11 @@ public class SearchPanel extends javax.swing.JPanel {
             String t = parse((String) searchTable.getValueAt(selectedRow, selectedCol));
             searchTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             //searchTable.getColumnModel().setColumnSelectionAllowed(false);
-            link = true;
+            if (songhandler.getTrack().getArtists().size() == 1) {
+                curArtist = songhandler.getTrack().getArtists().get(0);
+                link = true;
+            }
+
 
             searchTable.setValueAt(t, selectedRow, selectedCol);
 
@@ -345,26 +374,50 @@ public class SearchPanel extends javax.swing.JPanel {
         //searchTable.getSelectedRow();
 
     }//GEN-LAST:event_searchTableMouseMoved
+    public void checkOneArt(java.awt.event.MouseEvent evt) {
+        if (songhandler.getTrack().getArtists().size() > 1) {
+            link = false;
+        }
+        if (evt.getButton() == 1 && link) {
+            try {
+                //content.getArtistPanel().setArtist(content.getArtist());
+                content.showPanel("artist");
+                System.out.println("djal 1");
+            } catch (SQLException ex) {
+                Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            System.out.println("djal 2");
+
+            try {
+                content.artistPanel(content.getArtist());
+            } catch (SQLException ex) {
+                Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            link = false;
+        }
+    }
+
     public void checkArtistAlbum(java.awt.event.MouseEvent evt) throws FileNotFoundException, SQLException, IOException {
         int id = Integer.parseInt((String) searchTable.getModel().getValueAt(searchTable.getSelectedRow(), searchTable.getColumn("idSONG").getModelIndex()));
-
+        curId = id;
+        System.out.println("IDEN ER SOM FØLGER:  " + id);
         songhandler.loadSongInfo(id);
-
+        checkOneArt(evt);
         selectedRow = searchTable.rowAtPoint(evt.getPoint());
         selectedCol = searchTable.columnAtPoint(evt.getPoint());
 
-
-        ArtistPage.songID = Integer.parseInt((String) searchTable.getValueAt(selectedRow, 1));
         if (selectedCol == searchTable.getColumn("Album").getModelIndex()) {
 //idLOader
 
 
             albumPop = new JPopupMenu();
-            for (final Artist a : songhandler.getTrack().getArtists()) {
-                JMenuItem temps = new JMenuItem(a.getIART());
+            for (final Album a : songhandler.getTrack().getAlbums()) {
+                JMenuItem temps = new JMenuItem(a.getIALB());
                 temps.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        jMenuItem1ActionPerformed(evt, a.getIART());
+                        jMenuItem1ActionPerformed2(evt, a.getIALB(), a.getId());
                     }
                 });
                 albumPop.add(temps);
@@ -385,11 +438,17 @@ public class SearchPanel extends javax.swing.JPanel {
 
 
             artistPop = new JPopupMenu();
-            for (final Album a : songhandler.getTrack().getAlbums()) {
-                JMenuItem temps = new JMenuItem(a.getIALB());
+
+            for (final Artist a : songhandler.getTrack().getArtists()) {
+                JMenuItem temps = new JMenuItem(a.getIART());
                 temps.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        jMenuItem1ActionPerformed(evt, a.getIALB());
+                        try {
+                            jMenuItem1ActionPerformed(evt, a.getIART(), a.getId());
+                        } catch (SQLException ex) {
+                            Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
                     }
                 });
                 artistPop.add(temps);
@@ -421,9 +480,40 @@ public class SearchPanel extends javax.swing.JPanel {
 
     }
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt, String s) {
+    public Artist getCurArtist() {
+        return curArtist;
+    }
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt, String s, int id) throws SQLException {
         //System.out.println(d.getAlbums().getId(s));
         //System.out.println(searchTable.getColumn("IART").getModelIndex());
+        System.out.println("her " + id);
+        for (Artist a : songhandler.getTrack().getArtists()) {
+            if (a.getId() == id) {
+                //riktig artist
+                curArtist = a;
+            }
+
+        }
+
+        content.showPanel("artist");
+        content.artistPanel(curArtist);
+        //vise artist
+
+    }
+
+    private void jMenuItem1ActionPerformed2(java.awt.event.ActionEvent evt, String s, int id) {
+        //System.out.println(d.getAlbums().getId(s));
+        //System.out.println(searchTable.getColumn("IART").getModelIndex());
+
+        for (Album a : songhandler.getTrack().getAlbums()) {
+            if (a.getId() == id) {
+                //riktig artist
+                curAlbum = a;
+            }
+
+        }
+
     }
 
     public void load() throws SQLException {
@@ -442,12 +532,14 @@ public class SearchPanel extends javax.swing.JPanel {
 
 
     }
+
     private void searchTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchTableMouseClicked
         if (thread != null) {
             if (thread.isAlive()) {
             }
 
         }
+
 
         final MouseEvent e = evt;
         thread = new Thread(new Runnable() {

@@ -4,6 +4,7 @@
  */
 package nrkprosjekt;
 
+import Entities.Artist;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -25,9 +26,9 @@ public class NewLibrary extends javax.swing.JPanel {
         initComponents();
         System.out.println("1");
         songPanel = new TrackPanel();
-         System.out.println("1");
+        System.out.println("1");
         searchPanel = new SearchPanel();
-         System.out.println("1");
+        System.out.println("1");
         setLayout(new BorderLayout());
         add(songPanel, BorderLayout.NORTH);
         add(searchPanel, BorderLayout.CENTER);
@@ -41,6 +42,14 @@ public class NewLibrary extends javax.swing.JPanel {
 
     boolean isLink() {
         return searchPanel.isLink();
+    }
+
+    public Artist getArtist() {
+        return searchPanel.getCurArtist();
+    }
+
+    public void setContent(ContentPanel content) {
+        searchPanel.setContent(content);
     }
 
     public void updateTable() {

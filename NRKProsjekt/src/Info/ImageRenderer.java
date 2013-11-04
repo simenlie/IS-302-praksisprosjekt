@@ -35,10 +35,9 @@ public class ImageRenderer extends DefaultTableCellRenderer {
             lbl.setBackground(new Color(51, 153, 255));
         }
         lbl.setIcon((ImageIcon) value);
-        if (column == 8) {
-        } else {
+        if (column != 8) {
             lbl.setHorizontalAlignment(JLabel.CENTER);
-        }
+        } 
 
 
 

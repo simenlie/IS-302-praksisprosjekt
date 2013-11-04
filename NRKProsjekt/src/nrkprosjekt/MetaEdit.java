@@ -24,12 +24,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -67,6 +67,8 @@ public class MetaEdit extends javax.swing.JDialog {
     ArrayList<Integer> artistDeletions;
     ImageIcon imageArt;
     File coverArt;
+    SearchPanel searchPanel;
+    int curRow;
 
     /**
      * Creates new form metaEdit
@@ -106,6 +108,14 @@ public class MetaEdit extends javax.swing.JDialog {
 
     MetaEdit() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setCurRow(int row) {
+        curRow = row;
+    }
+
+    public void setSearchPanel(SearchPanel searchPanel) {
+        this.searchPanel = searchPanel;
     }
 
     public void loadImage(String path) throws IOException {
@@ -174,6 +184,10 @@ public class MetaEdit extends javax.swing.JDialog {
         filS.setText(pic.getSize() + "");
         squareInfo.setText("Yes");
         imgPreview.setIcon(pic.getBilde());
+    }
+
+    public JButton getSaveButton() {
+        return jButton2;
     }
 
     public void fillMap() {
@@ -486,7 +500,6 @@ public class MetaEdit extends javax.swing.JDialog {
         albumTable = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         artistTable = new javax.swing.JTable();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -861,11 +874,6 @@ public class MetaEdit extends javax.swing.JDialog {
         jPanel5.add(jScrollPane4);
         jScrollPane4.setBounds(20, 110, 290, 150);
 
-        jCheckBox1.setBackground(new java.awt.Color(250, 250, 250));
-        jCheckBox1.setText("Replace artists in database with the same name");
-        jPanel5.add(jCheckBox1);
-        jCheckBox1.setBounds(20, 260, 290, 23);
-
         jCheckBox2.setBackground(new java.awt.Color(250, 250, 250));
         jCheckBox2.setText("No album");
         jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
@@ -1235,12 +1243,16 @@ public class MetaEdit extends javax.swing.JDialog {
             }
 
         }
-        
-        
+
+
         for (String s : tempMap.keySet()) {
             System.out.println(tempMap.get(s).delete());
             //tempMap.get(s).delete();
         }
+
+        searchPanel.content.lib.updateTable();
+        searchPanel.getTable().setRowSelectionInterval(curRow,curRow);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public boolean isUpdating() {
@@ -1336,10 +1348,10 @@ public class MetaEdit extends javax.swing.JDialog {
         g2.dispose();
         String path = Path.path + filedialog.getFileChooser().getSelectedFile().getName();
         ImageIO.write(bi, "jpg", new File(path));
-        
+
         System.out.println(path);
-     
-        coverArt =  new File(path);
+
+        coverArt = new File(path);
 
 
 
@@ -1789,7 +1801,6 @@ public class MetaEdit extends javax.swing.JDialog {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

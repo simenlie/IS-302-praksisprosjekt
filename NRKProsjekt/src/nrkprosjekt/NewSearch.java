@@ -4,6 +4,7 @@
  */
 package nrkprosjekt;
 
+import Entities.Artist;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
@@ -32,13 +33,19 @@ public class NewSearch extends javax.swing.JPanel {
     }
     
     
-
+ public void setContent(ContentPanel content) {
+        searchPanel.setContent(content);
+    }
     public boolean isLink() {
         return searchPanel.isLink();
     }
 
     public JTable getTable() {
         return searchPanel.getTable();
+    }
+    
+    public Artist getArtist() {
+        return searchPanel.getCurArtist();
     }
 
     public void setShowResult(String text) {
