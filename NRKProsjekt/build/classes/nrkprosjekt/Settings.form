@@ -211,7 +211,7 @@
         <Container class="javax.swing.JPanel" name="jPanel3">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="35" green="35" red="35" type="rgb"/>
+              <Color blue="f0" green="ee" red="eb" type="rgb"/>
             </Property>
           </Properties>
           <Constraints>

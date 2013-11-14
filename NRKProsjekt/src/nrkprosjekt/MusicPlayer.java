@@ -28,6 +28,10 @@ public class MusicPlayer {
     AudioPlayer player;
     AudioDataStream audioStream;
     boolean playing;
+    FileInputStream in;
+    int size;
+    byte[] byteArray;
+    AudioData audiodata;
 
     /**
      * @param args the command line arguments
@@ -78,14 +82,15 @@ public class MusicPlayer {
     }
 
     public void initSong() throws FileNotFoundException, IOException {
-        FileInputStream in = new FileInputStream(file);
-        int size = (int) file.length();
-        byte[] byteArray = new byte[size];
-        in.read(byteArray);
-
-
-        AudioData audiodata = new AudioData(byteArray);
-
+        if (in == null) {
+            in = new FileInputStream(file);
+            size = (int) file.length();
+            byteArray = new byte[size];
+            in.read(byteArray);
+            audiodata = new AudioData(byteArray);
+        }
+        
+        System.gc();
         audioStream = new AudioDataStream(audiodata);
 
 
@@ -108,16 +113,22 @@ public class MusicPlayer {
     public void jumpToSeconds(int sec) throws FileNotFoundException, IOException {
         if (player.isAlive()) {
             player.stop(audioStream);
+            player = null;
+            audioStream = null;
+
+            System.gc();
+            player = AudioPlayer.player;
+
             //System.out.println("JA lever");
         }
-
+        System.gc();
         initSong();
         audioStream.skip(sec);
 
         if (playing) {
             player.player.start(audioStream);
         }
-
+        System.gc();
 
 
 

@@ -42,7 +42,7 @@ public class TrackPanel extends javax.swing.JPanel {
         tags = new HashMap<>();
         initTags();
         songhandler = new Songhandler();
-        songhandler.loadSongInfo(6);
+        songhandler.initFirstTime();
         songhandler.getTopInfo(tags);
         //db.getSongInfo(1, tags);
 

@@ -35,14 +35,12 @@ public class Animation {
 
     }
     
-    public Animation(JLabel label, JLabel label2, JLabel label3, int i) {
+    public Animation(JLabel label, JLabel label2, JLabel label3, int i,Queue<String> s) {
         this.label = label;
         this.label2 = label2;
         songNameTimer = new Timer(i, tim);
         this.label3 = label3;
-        strings = new LinkedList<>();
-        strings.add("2007");
-        strings.add("Hot Fingers");
+        strings = s;
 
 
     }

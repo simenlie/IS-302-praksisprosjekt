@@ -72,7 +72,11 @@ public class Songhandler {
         findArtists();
         findAlbums();
         findImage();
-       
+        
+    }
+    
+    public void initFirstTime() throws SQLException, FileNotFoundException, IOException {
+        loadSongInfo(database.getFirst());
     }
     
     public void findImage() throws FileNotFoundException, SQLException, IOException {
@@ -486,8 +490,8 @@ public class Songhandler {
         artist.setAlbums(database.findAnArtistAlbums(artist.getId()));
     }
     
-    public DefaultTableModel getTracks(int id){
+    public DefaultTableModel getTracks(int id) {
         return database.getTracks(id);
-    
+        
     }
 }

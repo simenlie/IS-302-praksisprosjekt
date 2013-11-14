@@ -41,10 +41,11 @@ public class FileDialog extends javax.swing.JDialog {
         File file = new File("");
         File[] files = {file};
 
-        fileChooser.setSelectedFile(file); //My mistake was 
-        fileChooser.setSelectedFiles(files); //passing null to these methods. 
+        fileChooser.setSelectedFile(file);
+        fileChooser.setSelectedFiles(files);
+        fileChooser = new JFileChooser();
+        setFileFilters();
 
-        
         //fileChooser.setCurrentDirectory(new File(fileChooser.getCurrentDirectory().getAbsolutePath()));
         repaint();
         revalidate();

@@ -102,6 +102,24 @@ public class DBConnection {
         }
     }
 
+    public int getFirst() throws SQLException {
+        String query = "select idSONG FROM SONG  order by idSONG ASC limit 1";
+        int id = 0;
+        try {
+            ResultSet rs = null;
+            rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+               id =  rs.getInt("idSONG");
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("Unable to create." + e);
+        }
+        return id;
+    }
+
     public void calc(HashMap<String, Tag> tags) {
         System.out.println("------------------");
         String starter = "(";
@@ -514,7 +532,7 @@ public class DBConnection {
         try {
             ResultSet rs = null;
             //String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
-            String initialQuery = "select SONG.idSONG,INAM, IART,IALB, ILEN, IGNR,ICRD from ARTIST, ALBUM, SONG, METADATA, AAS where METADATA.idMETADATA = SONG.idMETADATA and SONG.idSONG = AAS.idSONG and ALBUM.idALBUM = AAS.idALBUM and ARTIST.idARTIST = AAS.idARTIST and (";
+            String initialQuery = "select SONG.idSONG,INAM, IART,IALB, ILEN, IGNR,ICRD, " + getLargeString() + " from ARTIST, ALBUM, SONG, METADATA, AAS where METADATA.idMETADATA = SONG.idMETADATA and SONG.idSONG = AAS.idSONG and ALBUM.idALBUM = AAS.idALBUM and ARTIST.idARTIST = AAS.idARTIST and (";
             String whereLines = "";
             int index = 0;
             for (String tag : tags.keySet()) {

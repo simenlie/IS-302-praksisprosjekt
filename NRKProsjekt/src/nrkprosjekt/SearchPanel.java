@@ -11,7 +11,6 @@ import Handlers.TableHandler;
 import Info.Dictionary;
 import Info.PriorityTags;
 import Info.Tags;
-
 import database.DBConnection;
 import java.awt.BorderLayout;
 import java.awt.MouseInfo;
@@ -22,7 +21,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -67,6 +65,7 @@ public class SearchPanel extends javax.swing.JPanel {
         setLayout(new BorderLayout());
 
         songhandler = new Songhandler();
+        songhandler.initFirstTime();
         tableHandler = new TableHandler();
         tableHandler.getTableModel(searchTable);
 

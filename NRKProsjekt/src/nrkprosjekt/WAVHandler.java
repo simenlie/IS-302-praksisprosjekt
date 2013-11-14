@@ -19,11 +19,11 @@ public class WAVHandler {
     Metadata metadata;
 
     public WAVHandler(File file) throws BadRIFFException, IOException {
-        metadata = new Metadata(file.getAbsolutePath());
+        //metadata = new Metadata(file.getAbsolutePath());
     }
 
     public void setMetadata(File file) throws BadRIFFException, IOException {
-        metadata = new Metadata(file.getAbsolutePath());
+        //metadata = new Metadata(file.getAbsolutePath());
     }
 
     public void getMetaInfo() {

@@ -48,7 +48,7 @@ public class TableHandler {
 
             //table.setValueAt(table.getValueAt(i, 8) + "simen", i, 8);
 
-            int nullAmount = Integer.parseInt((String)table.getValueAt(i, 8)) ;
+            int nullAmount = Integer.parseInt((String) table.getValueAt(i, 8));
             ImageIcon iconIt = new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/Information/Info" + nullAmount + ".png"));
             table.setValueAt(iconIt, i, 8);
         }
@@ -76,7 +76,7 @@ public class TableHandler {
         ImageIcon icon2 = new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/info.png"));
         ImageIcon icon3 = new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/info4.png"));
         ImageIcon icon4 = new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/info7.png"));
-        dm.addColumn("Information");
+        //dm.addColumn("Information");
         table.getColumnModel().getColumn(0).setCellRenderer(new ImageRenderer());
         table.getColumnModel().getColumn(8).setCellRenderer(new ImageRenderer());
         int rowCount = table.getRowCount();
@@ -143,7 +143,10 @@ public class TableHandler {
             }
 
         }
-table.getColumn("sum_null").setHeaderValue("Information");
+        if (table.getColumn("sum_null") != null) {
+            table.getColumn("sum_null").setHeaderValue("Information");
+        }
+
 
     }
 }
