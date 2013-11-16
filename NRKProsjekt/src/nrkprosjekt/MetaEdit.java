@@ -1249,9 +1249,11 @@ public class MetaEdit extends javax.swing.JDialog {
             System.out.println(tempMap.get(s).delete());
             //tempMap.get(s).delete();
         }
+        if (updating) {
+            searchPanel.content.lib.updateTable();
+            searchPanel.getTable().setRowSelectionInterval(curRow, curRow);
+        }
 
-        searchPanel.content.lib.updateTable();
-        searchPanel.getTable().setRowSelectionInterval(curRow,curRow);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 

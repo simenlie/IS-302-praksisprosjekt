@@ -4,9 +4,13 @@
  */
 package nrkprosjekt;
 
+import Handlers.LoginHandler;
 import Info.Style;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,19 +19,22 @@ import javax.swing.table.DefaultTableModel;
  * @author Simen
  */
 public class UsersPanel extends javax.swing.JPanel {
-
+    
     final int MIN_PASSWORD = 4;
     boolean exists = false;
     int editing;
     int cha;
+    LoginHandler loginHandler;
+    int id;
 
     /**
      * Creates new form UsersPanel
      */
-    public UsersPanel() {
+    public UsersPanel() throws SQLException {
         initComponents();
-jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
-
+        jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
+        loginHandler = new LoginHandler();
+        loginHandler.getUsers(jTable1);
         jPanel1.setVisible(false);
         jTextField1.setName("username");
         pass.setName("password");
@@ -37,22 +44,22 @@ jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
         jScrollPane1.setSize(jScrollPane1.getSize().width, 254);
         jButton1.setLocation(jButton1.getLocation().x, jButton1.getLocation().y + 100);
         jButton2.setLocation(jButton2.getLocation().x, jButton2.getLocation().y + 100);
-
-
-
+        
+        
+        
     }
-
+    
     private void addActionListeners(final JTextField j) {
         j.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField1FocusGained(evt, j);
             }
-
+            
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextField1FocusLost(evt, j);
             }
         });
-
+        
     }
 
     /**
@@ -237,8 +244,8 @@ jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-
+        
+        
         if (jPanel1.isVisible()) {
             jButton3.setText("CREATE USER");
             jScrollPane1.setSize(jScrollPane1.getSize().width, 254);
@@ -250,26 +257,27 @@ jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
             doBlanks();
         } else {
             jScrollPane1.setSize(jScrollPane1.getSize().width, 154);
-
+            
             jButton1.setLocation(jButton1.getLocation().x, 230);
             jButton2.setLocation(jButton2.getLocation().x, 230);
             jPanel1.setVisible(true);
             jButton1.setText("CANCEL");
         }
-
+        
     }//GEN-LAST:event_jButton1ActionPerformed
     private void doBlanks() {
         jTextField1.setText("Username");
         pass.setText("Password");
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setForeground(new Color(153, 153, 153));
-
+        
         pass.setBackground(new java.awt.Color(255, 255, 255));
         pass.setForeground(new Color(153, 153, 153));
         jComboBox1.setSelectedIndex(0);
-
+        
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       loginHandler.deleteUser(id);
         jButton2.setEnabled(false);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.removeRow(jTable1.getSelectedRow());
@@ -280,7 +288,7 @@ jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
         }
         doBlanks();
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         jButton3.setText("UPDATE USER");
         editing = jTable1.getSelectedRow();
@@ -294,9 +302,11 @@ jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
         //jPanel1.setVisible(false);
         //CHANGE THINGS
         jTable1.setSelectionBackground(new Color(51, 153, 255));
-
-        String temp = jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString();
-        String temp2 = jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString();
+        
+        String temp = jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString();
+        String temp2 = jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString();
+        String temp3 = jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString();
+        id = Integer.parseInt(temp3);
         jTextField1.setText(temp);
         jTextField1.setForeground(new Color(51, 51, 51));
         jTextField1.setBackground(new java.awt.Color(232, 255, 232));
@@ -305,42 +315,42 @@ jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
         //jTextField2.setForeground(new Color(51, 51, 51));
         //jTextField2.setBackground(new java.awt.Color(232, 255, 232));
 
-
+        
     }//GEN-LAST:event_jTable1MouseClicked
-
+    
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         if (!jPanel1.isVisible()) {
             jButton1.setText("ADD");
-
+            
         }
         jTable1.setSelectionBackground(new Color(230, 230, 230));
         jButton2.setEnabled(false);
         status.setVisible(false);
     }//GEN-LAST:event_formMouseClicked
-
+    
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-
+        
         if (jComboBox1.getSelectedItem().toString().equals("[Choose rights]")) {
             jComboBox1.setForeground(new Color(153, 153, 153));
         } else {
             jComboBox1.setForeground(new Color(51, 51, 51));
         }
-
+        
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
+    
     private void jTable1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusLost
         jTable1.setSelectionBackground(new Color(230, 230, 230));
     }//GEN-LAST:event_jTable1FocusLost
-
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         jButton2.setEnabled(false);
         jButton3.setText("CREATE USER");
         for (int i = 0; i < jTable1.getModel().getRowCount(); i++) {
-            if (jTextField1.getText().equals(jTable1.getValueAt(i, 0).toString())) {
+            if (jTextField1.getText().equals(jTable1.getValueAt(i, 2).toString())) {
                 exists = true;
                 cha = i;
             }
-
+            
         }
         status.setForeground(new Color(255, 51, 0));
         status.setVisible(true);
@@ -348,37 +358,46 @@ jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
         String temp2 = pass.getText();
         if (temp.equals("") || temp.equals("Username") || temp2.equals("") || temp2.equals("Password")) {
             status.setText("Fill out all fields");
-
+            
         } else if (temp2.length() > 1 && temp2.length() < MIN_PASSWORD) {
             status.setText("Password is too short");
         } else if (jComboBox1.getSelectedItem().toString().equals("[Choose rights]")) {
             status.setText("Choose user rights");
-
+            
         } else if (exists) {
             if (editing == cha) {
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                 model.removeRow(cha);
-                model.insertRow(cha, new Object[]{temp, jComboBox1.getSelectedItem().toString()});
+                model.insertRow(cha, new Object[]{null,id,temp,temp2, jComboBox1.getSelectedItem().toString()});
+                try {
+                    loginHandler.updateUser(id, temp2, jComboBox1.getSelectedItem().toString(),null,false);
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsersPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 status.setText("User '" + temp + "' updated with '" + jComboBox1.getSelectedItem().toString() + "'");
                 status.setForeground(Style.getSuccessColor());
                 doBlanks();
             } else {
                 status.setText("User already exists");
             }
-
+            
         } else {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.addRow(new Object[]{temp, jComboBox1.getSelectedItem().toString()});
-
+            model.addRow(new Object[]{null,null,temp,temp2, jComboBox1.getSelectedItem().toString()});
+            try {
+                loginHandler.updateUser(id, temp2, jComboBox1.getSelectedItem().toString(),temp,true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UsersPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             status.setText("User '" + temp + "' created with '" + jComboBox1.getSelectedItem().toString() + "'");
-             status.setForeground(Style.getSuccessColor());
+            status.setForeground(Style.getSuccessColor());
             doBlanks();
         }
         exists = false;
-
-
+        
+        
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    
     private void passKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyReleased
         if (pass.getText().length() < MIN_PASSWORD) {
             pass.setBackground(new Color(255, 204, 204));
@@ -388,14 +407,14 @@ jTable1.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
             pass.setBackground(new java.awt.Color(232, 255, 232));
         }
     }//GEN-LAST:event_passKeyReleased
-
+    
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt, JTextField j) {
         if (j.getText().equals("Username") || j.getText().equals("Password")) {
             j.setText("");
             j.setForeground(new Color(51, 51, 51));
         }
     }
-
+    
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt, JTextField j) {
         if (j.getText().equals("")) {
             j.setBackground(new java.awt.Color(255, 255, 255));

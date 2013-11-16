@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -33,6 +35,8 @@ public class ContentPanel extends javax.swing.JPanel {
     int currentPage = 0;
     boolean canGoBack = false;
     boolean libIsShowing;
+    Queue<JPanel> waitingToShow;
+    JPanel current;
 
     /**
      * Creates new form ContentPanel
@@ -41,7 +45,7 @@ public class ContentPanel extends javax.swing.JPanel {
         loader = new Load();
         welcomePanel = new WelcomePanel();
         navigation = new ArrayList<>();
-
+        waitingToShow = new LinkedList<>();
 
         dictionary = new HashMap<>();
 
@@ -54,6 +58,7 @@ public class ContentPanel extends javax.swing.JPanel {
         dictionary.put("welcome", welcomePanel);
         navigation.add(welcomePanel);
         currentPage = navigation.size() - 1;
+        pane.getVerticalScrollBar().setUnitIncrement(16);
     }
 
     public void initPanel(String panel) throws IOException, SQLException {
@@ -120,7 +125,7 @@ public class ContentPanel extends javax.swing.JPanel {
                 artistPanel = new ArtistPanel();
                 dictionary.put("artist", artistPanel);
                 break;
-            case "advanced":
+            case "advancedS":
                 advancedS = new AdvancedSearchPanel();
                 dictionary.put("advancedS", advancedS);
                 break;
@@ -149,6 +154,7 @@ public class ContentPanel extends javax.swing.JPanel {
     }
 
     public void showPanel(String name) throws SQLException {
+
         if (name.equals("artist")) {
             artistPanel = new ArtistPanel();
             dictionary.put("artist", artistPanel);
@@ -167,8 +173,20 @@ public class ContentPanel extends javax.swing.JPanel {
         if (navigation.size() > 0) {
             canGoBack = true;
         }
+        if (current != null) {
+            pane.setViewportView(current);
+        }
 
+        
 
+    }
+
+    public JPanel getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(String name) {
+        this.current = dictionary.get(name);
     }
 
     public void load() {
@@ -188,10 +206,10 @@ public class ContentPanel extends javax.swing.JPanel {
     }
 
     public Artist getArtist() {
-        if (libIsShowing ) {
-            
-                return lib.getArtist();
-            
+        if (libIsShowing) {
+
+            return lib.getArtist();
+
         }
 
 
@@ -220,6 +238,28 @@ public class ContentPanel extends javax.swing.JPanel {
 
     public AdvancedSearchPanel getAdvancedS() {
         return advancedS;
+    }
+
+    public JPanel getPanel(String panel) {
+        switch (panel) {
+            case "library":
+                return libraryPanel;
+            case "recently":
+                return recentlyA;
+            case "artist":
+                return artistPanel;
+            case "advancedS":
+                return advancedS;
+            case "search":
+                if (searchPanel2 == null) {
+                    return searchPanel2;
+                }
+            case "lib":
+                return lib;
+            case "welcome":
+                return welcomePanel;
+        }
+        return null;
     }
 
     /**

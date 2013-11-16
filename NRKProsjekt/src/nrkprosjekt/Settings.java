@@ -6,6 +6,9 @@ package nrkprosjekt;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,7 +19,7 @@ import javax.swing.UIManager;
  * @author Simen
  */
 public class Settings extends javax.swing.JDialog {
-    
+
     UsersPanel p;
     JButton label;
     boolean menuDirecion = false;
@@ -27,16 +30,16 @@ public class Settings extends javax.swing.JDialog {
     /**
      * Creates new form Settings
      */
-    public Settings(java.awt.Frame parent, boolean modal) {
+    public Settings(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
-        
+
         close = new JButton();
         close.setBounds(260, 10, 30, 26);
         close.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/exit.png")));
         close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/exitOver.png")));
         close.setContentAreaFilled(false);
         close.setFocusPainted(false);
-        
+
         close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -46,7 +49,7 @@ public class Settings extends javax.swing.JDialog {
         //setLocationRelativeTo(null);
         //setResizable(false);
         setUndecorated(true);
-        
+
         getRootPane().setOpaque(false);
         getContentPane().setBackground(new Color(0, 0, 0, 0));
         setBackground(new Color(0, 0, 0, 0));
@@ -88,7 +91,7 @@ public class Settings extends javax.swing.JDialog {
         jScrollPane1.setViewportView(setPan);
         jScrollPane1.setBounds(0, 0, 300, 450);
         current = (JPanel) jScrollPane1.getViewport().getComponent(0);
-        
+
         setPan.add(label);
         //setPan.add(label);
         setPan.add(close);
@@ -261,24 +264,24 @@ public class Settings extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     private void localCopiesTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_localCopiesTextFieldKeyPressed
         int h = evt.getKeyCode();
-        
+
         if (h == KeyEvent.VK_ENTER) {
             localCopiesTextField.setFocusable(false);
             changed.setVisible(true);
         }
-        
+
     }//GEN-LAST:event_localCopiesTextFieldKeyPressed
-    
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         doAnimation();
         // p.setSize(p.getSize().width - 22, p.getSize().height);
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         jScrollPane1.setViewportView(setPan);
         setPan.add(label);
@@ -287,7 +290,7 @@ public class Settings extends javax.swing.JDialog {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveSmall.png")));
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveOverSmall.png")));
     }//GEN-LAST:event_jLabel6MouseClicked
-    
+
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         jScrollPane1.setViewportView(p);
         p.add(label);
@@ -296,31 +299,31 @@ public class Settings extends javax.swing.JDialog {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveOverSmall.png")));
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveSmall.png")));
     }//GEN-LAST:event_jLabel5MouseClicked
-    
+
     private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveOverSmall.png")));
         repaint();
         revalidate();
     }//GEN-LAST:event_jLabel5MouseEntered
-    
+
     private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveSmall.png")));
         repaint();
         revalidate();
     }//GEN-LAST:event_jLabel5MouseExited
-    
+
     private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveOverSmall.png")));
         repaint();
         revalidate();
     }//GEN-LAST:event_jLabel6MouseEntered
-    
+
     private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/buttonSaveSmall.png")));
         repaint();
         revalidate();
     }//GEN-LAST:event_jLabel6MouseExited
-    
+
     public void doAnimation() {
         if (menuDirecion) {
             animation(-1);
@@ -331,16 +334,16 @@ public class Settings extends javax.swing.JDialog {
             label.setIcon(new ImageIcon(getClass().getResource("/nrkprosjekt/graphics/back.png")));
             menuDirecion = true;
         }
-        
+
     }
-    
+
     public void animation(int i) {
         int h = 0;
         while (h < 120) {
             jScrollPane1.setLocation(jScrollPane1.getLocation().x + i, jScrollPane1.getLocation().y);
             //label.setLocation(label.getLocation().x + i, label.getLocation().y);
             h++;
-            
+
         }
     }
 
@@ -357,7 +360,7 @@ public class Settings extends javax.swing.JDialog {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                   
+
                     break;
                 }
             }
@@ -377,14 +380,20 @@ public class Settings extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Settings dialog = new Settings(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                Settings dialog;
+                try {
+                    dialog = new Settings(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                        @Override
+                        public void windowClosing(java.awt.event.WindowEvent e) {
+                            System.exit(0);
+                        }
+                    });
+                    dialog.setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         });
     }

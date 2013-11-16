@@ -179,7 +179,7 @@ public class TrackPanel extends javax.swing.JPanel {
         IALB.setForeground(new java.awt.Color(255, 255, 255));
         IALB.setText("Album");
 
-        IART.setForeground(new java.awt.Color(255, 255, 255));
+        IART.setForeground(new java.awt.Color(71, 170, 221));
         IART.setText("Artist");
 
         jSeparator1.setBackground(new java.awt.Color(102, 102, 102));
@@ -442,20 +442,17 @@ public class TrackPanel extends javax.swing.JPanel {
                                         .addGap(10, 10, 10)
                                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel8)
-                                                .addGap(7, 7, 7)
-                                                .addComponent(ILEN))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel7)
-                                                .addGap(11, 11, 11)
-                                                .addComponent(IGNR))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel3)
-                                                .addGap(1, 1, 1)
-                                                .addComponent(ICON)))
-                                        .addGap(27, 27, 27)))))
+                                        .addComponent(jLabel8)
+                                        .addGap(7, 7, 7)
+                                        .addComponent(ILEN))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(11, 11, 11)
+                                        .addComponent(IGNR))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(1, 1, 1)
+                                        .addComponent(ICON)))))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

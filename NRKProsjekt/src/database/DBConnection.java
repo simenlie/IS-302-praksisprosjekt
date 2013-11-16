@@ -9,6 +9,7 @@ import Entities.Artist;
 import Entities.Metadata;
 import Entities.Picture;
 import Entities.Track;
+import Entities.User;
 import Info.Path;
 import Info.Tag;
 import Info.Tags;
@@ -28,8 +29,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -76,6 +77,60 @@ public class DBConnection {
 
     }
 
+    public User getUser(String username, String password) {
+        String query = "select * from users where username = '" + username + "' and user_password = '" + password + "'";
+        User u = null;
+        try {
+            ResultSet rs = null;
+            rs = statement.executeQuery(query);
+            if (rs.next()) {
+
+                u = new User(rs.getInt("idUSER"), rs.getString("username"), rs.getString("user_password"), rs.getBoolean("admin"));
+            }
+        } catch (Exception e) {
+            System.out.println("Unable to create." + e);
+        }
+        return u;
+    }
+
+    public DefaultTableModel getUsers() {
+
+        DefaultTableModel dm = new TableModell();
+        dm.addColumn("");
+        try {
+            ResultSet rs = null;
+            String query = "select * from users";
+            rs = statement.executeQuery(query);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            //Coding to get columns-
+            int cols = rsmd.getColumnCount();
+            String c[] = new String[cols];
+            for (int i = 0; i < cols; i++) {
+                c[i] = rsmd.getColumnName(i + 1);
+                dm.addColumn(c[i]);
+            }
+            //get data from rows
+            Object row[] = new Object[cols + 1];
+            int teller = 1;
+            while (rs.next()) {
+                for (int i = 1; i < cols + 1; i++) {
+                    row[i] = rs.getString(i);
+                }
+                dm.addRow(row);
+                teller++;
+
+            }
+            while (teller < 10) {
+                // dm.addRow(new Object[]{"", ""});
+                teller++;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return dm;
+    }
+
     public void getArtist(int id) {
         String query = "select ARTIST.idARTIST,IART, ICON, ILAN from ARTIST, AAS, SONG where ARTIST.idARTIST = AAS.idARTIST and SONG.idSONG = AAS.idSONG AND ARTIST.idARTIST = " + id + " group by ARTIST.idARTIST;";
 
@@ -110,7 +165,7 @@ public class DBConnection {
             rs = statement.executeQuery(query);
 
             while (rs.next()) {
-               id =  rs.getInt("idSONG");
+                id = rs.getInt("idSONG");
             }
 
 
@@ -372,6 +427,36 @@ public class DBConnection {
             System.out.println(e);
         }
         return tracks;
+    }
+
+    public void updateUser(int id, String password, String admin, String username, boolean insert) throws SQLException {
+        int bo;
+        if (admin.equals("All rights")) {
+            bo = 0;
+        } else {
+            bo = 1;
+        }
+        String query;
+        if (insert) {
+            query = "insert into users(username,user_password,admin) values('" + username + "','" + password + "'," + bo + ");";
+        } else {
+            query = "update users set user_password = '" + password + "',admin = '" + bo + "' where idUSER = " + id + ";";
+        }
+        statement = connection.createStatement();
+        PreparedStatement pstmt = connection.prepareStatement(query);
+        pstmt.executeUpdate();
+    }
+    public void deleteUser(int id) {
+        String query = "delete from users where idUSER = " + id + ";";
+
+        try {
+            statement = connection.createStatement();
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Unable to create." + e);
+        }
+
     }
 
     public void update(String table, String idType, int id, HashMap<String, String> data) throws SQLException {

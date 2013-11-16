@@ -68,7 +68,7 @@ public class NewSearch extends javax.swing.JPanel {
 
         setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(39, 46, 48));
         jPanel1.setLayout(null);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/searchPage.png"))); // NOI18N
@@ -76,12 +76,13 @@ public class NewSearch extends javax.swing.JPanel {
         jLabel1.setBounds(10, 11, 30, 30);
 
         jLabel2.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setForeground(new java.awt.Color(153, 153, 153));
         jLabel2.setText("Showing results for");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(60, 13, 136, 30);
 
         searchText.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        searchText.setForeground(new java.awt.Color(255, 255, 255));
         searchText.setText("SearchText");
         jPanel1.add(searchText);
         searchText.setBounds(200, 13, 400, 30);

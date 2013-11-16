@@ -232,7 +232,7 @@
         <Component class="javax.swing.JLabel" name="IART">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+              <Color blue="dd" green="aa" red="47" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Artist"/>
           </Properties>

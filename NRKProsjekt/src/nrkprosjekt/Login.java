@@ -4,9 +4,13 @@
  */
 package nrkprosjekt;
 
+import Handlers.LoginHandler;
 import Info.Style;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
@@ -19,19 +23,26 @@ public class Login extends javax.swing.JDialog {
     /**
      * Creates new form Login
      */
-    String user = "admin";
-    String pass = "admin";
-    String rights = "[All rights]";
+    String rights;
     static boolean restricted;
+    LoginHandler loginHandler;
 
-    public Login(java.awt.Frame parent, boolean modal) {
+    public Login(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         // setUndecorated(true);
-        
         initComponents();
         setLocationRelativeTo(null);
         jLabel1.setVisible(false);
+        loginHandler = new LoginHandler();
 
+    }
+
+    public String getRights() {
+        return rights;
+    }
+
+    public void setRights(String rights) {
+        this.rights = rights;
     }
 
     /**
@@ -218,11 +229,17 @@ public class Login extends javax.swing.JDialog {
     public boolean authenticate() {
         jButton1.setText("Checking information...");
 
-        if (password.getText().equals(pass) && username.getText().equals(user)) {
+        if (loginHandler.checkUser(username.getText(), password.getText())) {
             jLabel1.setVisible(true);
             jLabel1.setForeground(Style.getSuccessColor());
             jLabel1.setText("Successful");
-            restricted = false;
+            restricted = loginHandler.getUser().isAdmin();
+            if (restricted) {
+                rights = "[Guest]";
+            } else {
+                rights = "[Administrator]";
+            }
+
             return true;
         } else {
             jLabel1.setVisible(true);
@@ -263,14 +280,21 @@ public class Login extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Login dialog = new Login(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                Login dialog;
+                try {
+                    dialog = new Login(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                        @Override
+                        public void windowClosing(java.awt.event.WindowEvent e) {
+                            System.exit(0);
+                        }
+                    });
+                    dialog.setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+
             }
         });
     }

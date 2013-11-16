@@ -381,19 +381,11 @@ public class SearchPanel extends javax.swing.JPanel {
             try {
                 //content.getArtistPanel().setArtist(content.getArtist());
                 content.showPanel("artist");
-                System.out.println("djal 1");
+                curArtist = songhandler.getTrack().getArtists().get(0);
+                content.artistPanel(curArtist);
             } catch (SQLException ex) {
                 Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            System.out.println("djal 2");
-
-            try {
-                content.artistPanel(content.getArtist());
-            } catch (SQLException ex) {
-                Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
             link = false;
         }
     }
