@@ -146,7 +146,7 @@ public class TrackPanel extends javax.swing.JPanel {
         INAM.setText("Mabvuto");
 
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel3.setText("Country");
+        jLabel3.setText("Country:");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -186,16 +186,16 @@ public class TrackPanel extends javax.swing.JPanel {
         jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel7.setText("Genre");
+        jLabel7.setText("Genre:");
 
         jLabel8.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel8.setText("Length");
+        jLabel8.setText("Length:");
 
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel9.setText("Keywords");
+        jLabel9.setText("Keywords:");
 
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel6.setText("Album");
+        jLabel6.setText("Album:");
 
         IGNR.setForeground(new java.awt.Color(255, 255, 255));
         IGNR.setText("Album");
@@ -224,34 +224,34 @@ public class TrackPanel extends javax.swing.JPanel {
         ICMT.setText("jLabel1");
 
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setText("Comments");
+        jLabel1.setText("Comments:");
 
         jLabel19.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel19.setText("Language");
+        jLabel19.setText("Language:");
 
         ILAN.setForeground(new java.awt.Color(255, 255, 255));
         ILAN.setText("jLabel1");
 
         jLabel18.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel18.setText("Subjects");
+        jLabel18.setText("Subjects:");
 
         ISBJ.setForeground(new java.awt.Color(255, 255, 255));
         ISBJ.setText("jLabel1");
 
         jLabel16.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel16.setText("Software");
+        jLabel16.setText("Software:");
 
         ISFT.setForeground(new java.awt.Color(255, 255, 255));
         ISFT.setText("jLabel1");
 
         jLabel15.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel15.setText("Copyright");
+        jLabel15.setText("Copyright:");
 
         ICOP.setForeground(new java.awt.Color(255, 255, 255));
         ICOP.setText("jLabel1");
 
         jLabel17.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel17.setText("Creation date");
+        jLabel17.setText("Creation date:");
 
         ICRD.setForeground(new java.awt.Color(255, 255, 255));
         ICRD.setText("jLabel1");
@@ -329,16 +329,16 @@ public class TrackPanel extends javax.swing.JPanel {
         ISRF.setText("jLabel1");
 
         jLabel11.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel11.setText("Digitization Source");
+        jLabel11.setText("Digitization Source:");
 
         jLabel12.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel12.setText("Engineer");
+        jLabel12.setText("Engineer:");
 
         jLabel13.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel13.setText("Sampled by");
+        jLabel13.setText("Sampled by:");
 
         jLabel14.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel14.setText("Supplier");
+        jLabel14.setText("Supplier:");
 
         ISRC.setForeground(new java.awt.Color(255, 255, 255));
         ISRC.setText("jLabel1");
@@ -353,7 +353,7 @@ public class TrackPanel extends javax.swing.JPanel {
         IMED.setText("Album");
 
         jLabel10.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel10.setText("Original Medium");
+        jLabel10.setText("Original Medium:");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -454,7 +454,7 @@ public class TrackPanel extends javax.swing.JPanel {
                                         .addGap(1, 1, 1)
                                         .addComponent(ICON)))))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -495,7 +495,7 @@ public class TrackPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton3))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)

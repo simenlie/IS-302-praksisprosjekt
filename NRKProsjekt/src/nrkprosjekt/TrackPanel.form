@@ -90,7 +90,7 @@
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Component id="jPanel6" pref="154" max="32767" attributes="0"/>
+                          <Component id="jPanel6" pref="158" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -172,7 +172,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Country"/>
+            <Property name="text" type="java.lang.String" value="Country:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
@@ -252,7 +252,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Genre"/>
+            <Property name="text" type="java.lang.String" value="Genre:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
@@ -260,7 +260,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Length"/>
+            <Property name="text" type="java.lang.String" value="Length:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
@@ -268,7 +268,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Keywords"/>
+            <Property name="text" type="java.lang.String" value="Keywords:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
@@ -276,7 +276,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Album"/>
+            <Property name="text" type="java.lang.String" value="Album:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="IGNR">
@@ -443,7 +443,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Comments"/>
+                    <Property name="text" type="java.lang.String" value="Comments:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel19">
@@ -451,7 +451,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Language"/>
+                    <Property name="text" type="java.lang.String" value="Language:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="ILAN">
@@ -467,7 +467,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Subjects"/>
+                    <Property name="text" type="java.lang.String" value="Subjects:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="ISBJ">
@@ -483,7 +483,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Software"/>
+                    <Property name="text" type="java.lang.String" value="Software:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="ISFT">
@@ -499,7 +499,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Copyright"/>
+                    <Property name="text" type="java.lang.String" value="Copyright:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="ICOP">
@@ -515,7 +515,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Creation date"/>
+                    <Property name="text" type="java.lang.String" value="Creation date:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="ICRD">
@@ -631,7 +631,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Digitization Source"/>
+                    <Property name="text" type="java.lang.String" value="Digitization Source:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel12">
@@ -639,7 +639,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Engineer"/>
+                    <Property name="text" type="java.lang.String" value="Engineer:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel13">
@@ -647,7 +647,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Sampled by"/>
+                    <Property name="text" type="java.lang.String" value="Sampled by:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel14">
@@ -655,7 +655,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Supplier"/>
+                    <Property name="text" type="java.lang.String" value="Supplier:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="ISRC">
@@ -695,7 +695,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Original Medium"/>
+                    <Property name="text" type="java.lang.String" value="Original Medium:"/>
                   </Properties>
                 </Component>
               </SubComponents>
