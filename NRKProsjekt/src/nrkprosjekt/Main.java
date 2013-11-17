@@ -157,8 +157,8 @@ public class Main extends javax.swing.JFrame {
         thread = new Thread(new Runnable() {
             public void run() {
                 System.out.println("a");
-                
-               // setUndecorated(true);
+
+                // setUndecorated(true);
                 initComponents();
 
                 try {
@@ -198,17 +198,19 @@ public class Main extends javax.swing.JFrame {
     public void initContent() throws IOException {
         Thread thread22 = new Thread(new Runnable() {
             public void run() {
-                Load l = new Load();
-                add(l, null);
                 try {
                     content = new ContentPanel();
+                    content.load();
                 } catch (IOException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 content.setBorder(null);
                 loadPanelA(content, null);
-                remove(l);
-
+                try {
+                    content.showPanel("welcome");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 repaint();
                 revalidate();
 
@@ -315,6 +317,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void loadPanel(JPanel panel, String pos) {
+
         panels.put(panel.getName(), panel);
         add(panel, pos);
     }
@@ -397,7 +400,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-       // und.formMouseReleased(evt, this);
+        // und.formMouseReleased(evt, this);
     }//GEN-LAST:event_formMouseReleased
 
     /**
@@ -625,6 +628,7 @@ public class Main extends javax.swing.JFrame {
 
                     content.sok(textBox.getText());
                     try {
+                        content.setCurrent(null);
                         content.showPanel("search");
                         content.getSearchPanel().setShowResult(textBox.getText());
                         content.setConta2();
