@@ -5,10 +5,8 @@
 package nrkprosjekt;
 
 import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.SQLException;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -27,14 +25,15 @@ public class TopPanel extends javax.swing.JPanel {
     /**
      * Creates new form TopPanel
      */
-    public TopPanel() {
+    public TopPanel() throws SQLException {
         statis = new StatisticDialog(new javax.swing.JFrame(), true);
         initComponents();
         initComp();
         setName("Top");
         JLabel label = new JLabel("df");
         label.setBounds(0, 0, 2000, 73);
-        label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/topPanelAlt.png")));
+        
+        label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/topPanelAlt.PNG")));
         add(label);
         settings = new Settings(new javax.swing.JFrame(), true);
 
@@ -197,10 +196,10 @@ public class TopPanel extends javax.swing.JPanel {
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(seperator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(15, 15, 15))))
         );
     }// </editor-fold>//GEN-END:initComponents

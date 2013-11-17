@@ -64,7 +64,10 @@ public class DBConnection {
     public HashMap<String, String> getArtistMap(int id) {
         getArtist(id);
         return artist;
+
     }
+
+    
 
     public void load() {
         try {
@@ -446,6 +449,7 @@ public class DBConnection {
         PreparedStatement pstmt = connection.prepareStatement(query);
         pstmt.executeUpdate();
     }
+
     public void deleteUser(int id) {
         String query = "delete from users where idUSER = " + id + ";";
 
