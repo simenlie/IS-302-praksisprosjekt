@@ -380,7 +380,7 @@ public class MusicPanel extends javax.swing.JPanel {
 
                         currentTime.setText(musicPlayer.getTime());
                         progressing.setSize(doProsent(musicPlayer.getProsent(musicPlayer.calc())) - 1, 7);
-                        jLabel2.setLocation(FUDGE_FACTOR + doProsent(musicPlayer.getProsent(musicPlayer.calc()) - 2), jLabel2.getLocation().y);
+                        jLabel2.setLocation(FUDGE_FACTOR + doProsent(musicPlayer.getProsent(musicPlayer.calc()) - 1), jLabel2.getLocation().y);
                         
                     } catch (UnsupportedAudioFileException ex) {
                         Logger.getLogger(MusicPanel.class.getName()).log(Level.SEVERE, null, ex);
