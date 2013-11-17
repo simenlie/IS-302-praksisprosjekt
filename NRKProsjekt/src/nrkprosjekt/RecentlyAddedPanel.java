@@ -1,5 +1,8 @@
 package nrkprosjekt;
 
+import Handlers.TableHandler;
+import java.sql.SQLException;
+
 
 /**
  *
@@ -8,13 +11,13 @@ package nrkprosjekt;
 public class RecentlyAddedPanel extends javax.swing.JPanel {
 
   
-    public RecentlyAddedPanel() {
+    public RecentlyAddedPanel() throws SQLException {
         initComponents(); 
         jTable1.setAutoCreateRowSorter(true);
         jTable1.getTableHeader().setToolTipText(
         "Click to sort; Shift-Click to sort in reverse order");
-        
-        
+        TableHandler recentlyHandler = new TableHandler();
+        recentlyHandler.getTableModel(jTable1);
     }
     
  
@@ -98,8 +101,9 @@ public class RecentlyAddedPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
-       
+
     
+               
        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
