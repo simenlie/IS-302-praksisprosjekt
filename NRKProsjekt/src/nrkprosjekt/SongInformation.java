@@ -4,6 +4,8 @@
  */
 package nrkprosjekt;
 
+import Entities.Album;
+import Entities.Artist;
 import Handlers.Songhandler;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,36 +30,65 @@ public class SongInformation extends javax.swing.JDialog {
     public SongInformation(java.awt.Frame parent, boolean modal) throws SQLException, FileNotFoundException, IOException {
         
         initComponents();
+        setLocationRelativeTo(null);
         tags = new HashMap<>();
         initTags();
-        Songhandler songhandler = new Songhandler();
-        songhandler.initFirstTime();
-        
-        INAM.setText(songhandler.getTrack().getINAM());
-       // IART.setText(songhandler.getTrack().getArtists().get(0));
-        IGNR.setText(songhandler.getTrack().getIGNR());
-        IKEY.setText(songhandler.getTrack().getIKEY());
-        ISRF.setText(songhandler.getTrack().getValues().get(ISRF));
-        IMED.setText(songhandler.getTrack().getValues().get(IMED));
-        ICOM.setText(songhandler.getTrack().getICOM());
-        ILYR.setText(songhandler.getTrack().getILYR());
-        ISRC.setText(songhandler.getTrack().getValues().get(ISRC));
-        IPEO.setText(songhandler.getTrack().getIPEO());
-        IDIS.setText(songhandler.getTrack().getIDIS());
-        ICRD.setText(songhandler.getTrack().getValues().get(ICRD));
-        //IALB.setText(songhandler.getTrack().getAlbums().get(0));
-        ILAN.setText(songhandler.getTrack().getValues().get(ILAN));
-        IREG.setText(songhandler.getTrack().getIREG());
-        IVIL.setText(songhandler.getTrack().getIVIL());
-        ICRD.setText(songhandler.getTrack().getValues().get(ICRD));
-        ICON.setText(songhandler.getTrack().getValues().get(ICON));
-        ILYR.setText(songhandler.getTrack().getILYR());
-        IDIG.setText(songhandler.getTrack().getValues().get(IDIG));
+       
         
         
         
               
     }
+    
+    
+    public void getstaticInfo() throws SQLException{
+    
+        Songhandler songhandler = new Songhandler();
+        String allartist = "";
+        int index = 0;
+        String allalbum = "";
+       
+        for(Artist a : songhandler.getTrack().getArtists()){
+        if(index != songhandler.getTrack().getArtists().size() -1){
+            
+            allartist += a.getIART() + ",";
+        }
+        else{
+            allartist += a.getIART();
+        }
+        }
+        
+        for (Album a : songhandler.getTrack().getAlbums()){
+            if(index != songhandler.getTrack().getAlbums().size() -1){
+            allalbum += a.getIALB() + ",";
+        }
+            else{
+                allalbum += a.getIALB();
+            }
+        }
+        
+        IART.setText(allartist);
+        INAM.setText(songhandler.getTrack().getValues().get("INAM"));
+        IART.setText(allartist);
+        IGNR.setText(songhandler.getTrack().getValues().get("IGNR"));
+        IKEY.setText(songhandler.getTrack().getValues().get("IKEY"));
+        ISRF.setText(songhandler.getTrack().getValues().get("ISRF"));
+        IMED.setText(songhandler.getTrack().getValues().get("IMED"));
+        ICOM.setText(songhandler.getTrack().getValues().get("ICOM"));
+        ILYR.setText(songhandler.getTrack().getValues().get("ILYR"));
+        ISRC.setText(songhandler.getTrack().getValues().get("ISRC"));
+        IPEO.setText(songhandler.getTrack().getValues().get("IPEO"));
+        IDIS.setText(songhandler.getTrack().getValues().get("IDIS"));
+        ICRD.setText(songhandler.getTrack().getValues().get("ICRD"));
+        IALB.setText(allalbum);
+        ILAN.setText(songhandler.getTrack().getValues().get("ILAN"));
+        IREG.setText(songhandler.getTrack().getValues().get("IREG"));
+        IVIL.setText(songhandler.getTrack().getValues().get("IVIL"));
+        ICRD.setText(songhandler.getTrack().getValues().get("ICRD"));
+        ICON.setText(songhandler.getTrack().getValues().get("ICON"));
+        ILYR.setText(songhandler.getTrack().getValues().get("ILYR"));
+        IDIG.setText(songhandler.getTrack().getValues().get("IDIG"));
+}
     
     public HashMap<String, JLabel> getTags() {
         return tags;
@@ -166,107 +197,52 @@ public class SongInformation extends javax.swing.JDialog {
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 56, 473, 10));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel15.setText("People group:");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
 
         jLabel14.setText("Village:");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 58, -1, -1));
 
         jLabel13.setText("District:");
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 33, -1, -1));
 
         jLabel12.setText("Region:");
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 58, -1, -1));
 
         jLabel8.setText("Country:");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 13, -1, -1));
 
         jLabel9.setText("Place:");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 33, -1, -1));
 
         jLabel10.setText("Language:");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 83, -1, -1));
 
         IPEO.setText("People group");
+        jPanel2.add(IPEO, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 13, -1, -1));
 
         ICON.setText("ICON");
-
-        IDIS.setText("District");
-
-        IPLA.setText("Place");
-
-        IVIL.setText("Village");
-
-        IREG.setText("Region");
-
-        ILAN.setText("Language");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ILAN)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(IREG))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(IDIS)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(IPLA)
-                            .addComponent(IVIL))
-                        .addGap(132, 132, 132))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(IPEO)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ICON)
-                        .addGap(127, 127, 127))))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel8)
-                    .addComponent(IPEO)
-                    .addComponent(ICON))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel9)
-                    .addComponent(IDIS)
-                    .addComponent(IPLA))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel14)
-                    .addComponent(IVIL)
-                    .addComponent(IREG))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(ILAN))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
+        jPanel2.add(ICON, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 13, -1, -1));
         ICON.getAccessibleContext().setAccessibleDescription("");
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 195, 453, -1));
+        IDIS.setText("District");
+        jPanel2.add(IDIS, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 33, -1, -1));
+
+        IPLA.setText("Place");
+        jPanel2.add(IPLA, new org.netbeans.lib.awtextra.AbsoluteConstraints(289, 33, -1, -1));
+
+        IVIL.setText("Village");
+        jPanel2.add(IVIL, new org.netbeans.lib.awtextra.AbsoluteConstraints(289, 58, -1, -1));
+
+        IREG.setText("Region");
+        jPanel2.add(IREG, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 58, -1, -1));
+
+        ILAN.setText("Language");
+        jPanel2.add(ILAN, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 83, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 195, 453, 110));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -351,11 +327,12 @@ public class SongInformation extends javax.swing.JDialog {
                         .addComponent(jLabel3)
                         .addComponent(ICOM)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel7)
-                    .addComponent(ILYR)
-                    .addComponent(ISRC, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ISRC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel7)
+                        .addComponent(ILYR)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -409,34 +386,36 @@ public class SongInformation extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ISRF))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(IMED))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(IKEY)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ICRD)
-                        .addGap(83, 83, 83))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ISRF))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(IMED))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(IGNR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel19))
+                                .addComponent(IGNR, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ICRD)
+                                .addGap(83, 83, 83))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(IDIG)
+                                .addContainerGap())))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(IDIG)
-                        .addContainerGap())))
+                        .addComponent(IKEY)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -448,18 +427,21 @@ public class SongInformation extends javax.swing.JDialog {
                     .addComponent(ISRF)
                     .addComponent(ICRD))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(IDIG, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel18)
+                        .addComponent(jLabel19)
+                        .addComponent(IMED)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel19)
-                    .addComponent(IMED)
-                    .addComponent(IDIG, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel11)
+                    .addComponent(IGNR))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jLabel11)
-                    .addComponent(IKEY)
-                    .addComponent(IGNR))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(IKEY))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 316, 453, 120));

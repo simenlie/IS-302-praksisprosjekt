@@ -151,7 +151,11 @@ public class SearchPanel extends javax.swing.JPanel {
 
         info.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                infoActionPerformed(evt);
+                try {
+                    infoActionPerformed(evt);
+                } catch (SQLException ex) {
+                    Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -193,8 +197,10 @@ public class SearchPanel extends javax.swing.JPanel {
         metaThread.start();
     }
 
-    private void infoActionPerformed(java.awt.event.ActionEvent evt) {
+    private void infoActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        songInfo.getstaticInfo();
         songInfo.setVisible(true);
+        
     }
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
