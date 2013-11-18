@@ -684,6 +684,7 @@ public class Main extends javax.swing.JFrame {
             public void run() {
                 content.load();
                 try {
+                    content.setCurrent(null);
                     content.initPanel("search");
                 } catch (IOException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

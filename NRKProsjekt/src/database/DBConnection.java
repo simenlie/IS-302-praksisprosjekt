@@ -678,7 +678,9 @@ public class DBConnection {
             HashMap<String, String> tempChecker = new HashMap<>();
             ResultSet rs = null;
             //String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
-            String initialQuery = "select SONG.idSONG,INAM, IART,IALB, ILEN, IGNR,ICRD from ARTIST, ALBUM, SONG, METADATA, AAS where METADATA.idMETADATA = SONG.idMETADATA and SONG.idSONG = AAS.idSONG and ALBUM.idALBUM = AAS.idALBUM and ARTIST.idARTIST = AAS.idARTIST and (";
+           String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ICRD," + getLargeString() + " from SONG, METADATA, AAS, ALBUM, ARTIST";
+           
+            String initialQuery = selectQ + " where METADATA.idMETADATA = SONG.idMETADATA and SONG.idSONG = AAS.idSONG and ALBUM.idALBUM = AAS.idALBUM and ARTIST.idARTIST = AAS.idARTIST and (";
             String whereLines = "";
             int index = 0;
             for (String tag : tags.keySet()) {
