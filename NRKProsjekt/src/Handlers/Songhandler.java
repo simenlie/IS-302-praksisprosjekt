@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -26,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Simen
  */
 public class Songhandler {
-    
+
     static Track track;
     DBConnection database;
     static HashMap<String, JLabel> tags;
@@ -43,7 +44,7 @@ public class Songhandler {
     ArrayList<Integer> newAlbums;
     File picture;
     int pictureID;
-    
+
     public Songhandler() throws SQLException {
         if (track == null) {
             track = new Track();
@@ -59,63 +60,63 @@ public class Songhandler {
         newArtists = new ArrayList<>();
         newAlbums = new ArrayList<>();
         values = new HashMap<>();
-        
+
         if (oldValues == null) {
             oldValues = new HashMap<>();
         }
-        
+
     }
-    
+
     public void loadSongInfo(int id) throws FileNotFoundException, SQLException, IOException {
         findSong(id);
         findMetadata();
         findArtists();
         findAlbums();
         findImage();
-        
+
     }
-    
+
     public void initFirstTime() throws SQLException, FileNotFoundException, IOException {
         loadSongInfo(database.getFirst());
     }
-    
+
     public void findImage() throws FileNotFoundException, SQLException, IOException {
         System.out.println(track.getId() + " " + track.getArtists().get(0).getId() + " " + track.getAlbums().get(0).getId());
         track.setPic(database.hentFil(track.getId(), track.getArtists().get(0).getId(), track.getAlbums().get(0).getId()));
         System.out.println("NASSS");
     }
-    
+
     public void getTopInfo() {
         if (tags != null) {
             getTopInfo(tags);
             setImage();
         }
     }
-    
+
     private void findSong(int id) {
         track = database.getSong(id);
     }
-    
+
     private void findMetadata() {
         //findSONG må være kalt først
         track.setMetadata(database.getMetadata(track.getMetaId()));
         if (track.getMetadata() == null) {
         }
-        
-        
+
+
     }
-    
+
     private void findArtists() {
         track.setArtists(database.getSongArtists(track.getId()));
     }
-    
+
     private void findAlbums() {
         track.setAlbums(database.getSongAlbums(track.getId()));
         track.setArtistsAndAlbums();
         track.fillHashMap();
         oldValues = track.getValues();
     }
-    
+
     public void saveSong() throws SQLException, FileNotFoundException {
         newArtists = new ArrayList<>();
         newAlbums = new ArrayList<>();
@@ -131,18 +132,25 @@ public class Songhandler {
          *
          */
         whereToInsert();
-        
+
         database.insert("METADATA", metaUp);
-        
+
         trackUp.put("idMETADATA", database.getLastID() + "");
-        
+        trackUp.put("added_date", getCurrentDate());
         database.insert("SONG", trackUp);
         idSong = database.getLastID();
         //AAS.put("idSONG", database.getLastID() + "");
         albumUpdater(idSong);
-        
+
     }
-    
+
+    public String getCurrentDate() {
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d = new Date();
+        String currentTime = sdf.format(d);
+        return currentTime;
+    }
+
     private void albumUpdater(int idSong) throws SQLException, FileNotFoundException {
         System.out.println(track.getAlbums().size() + " STORRELSE");
         for (Album a : track.getAlbums()) {
@@ -163,11 +171,11 @@ public class Songhandler {
                     database.insert("ALBUM", temp);
                     newAlbums.add(database.getLastID());
                 }
-                
+
             }
-            
+
         }
-        
+
         for (Artist a : track.getArtists()) {
             HashMap<String, String> temp = new HashMap<>();
             temp.put("IART", a.getIART());
@@ -187,14 +195,14 @@ public class Songhandler {
                     database.insert("ARTIST", temp);
                     newArtists.add(database.getLastID());
                 }
-                
+
             }
-            
+
         }
         if (picture != null) {
             pictureID = insertFile(picture);
         }
-        
+
         for (int i : newAlbums) {
             for (int j : newArtists) {
                 HashMap<String, String> temp = new HashMap<>();
@@ -206,12 +214,12 @@ public class Songhandler {
                 }
                 database.insert("AAS", temp);
             }
-            
+
         }
-        
+
         if (newAlbums.isEmpty() && !newArtists.isEmpty()) {
             for (Album a : track.getAlbums()) {
-                
+
                 for (int j : newArtists) {
                     HashMap<String, String> temp = new HashMap<>();
                     temp.put("idARTIST", j + "");
@@ -222,14 +230,14 @@ public class Songhandler {
                     }
                     database.insert("AAS", temp);
                 }
-                
+
             }
-            
+
         }
-        
+
         if (!newAlbums.isEmpty() && newArtists.isEmpty()) {
             for (Artist a : track.getArtists()) {
-                
+
                 for (int j : newAlbums) {
                     HashMap<String, String> temp = new HashMap<>();
                     temp.put("idARTIST", a.getId() + "");
@@ -240,15 +248,15 @@ public class Songhandler {
                     }
                     database.insert("AAS", temp);
                 }
-                
+
             }
         }
         if (pictureID != 0) {
             check();
         }
-        
+
     }
-    
+
     public void check() throws SQLException {
         for (Album a : track.getAlbums()) {
             System.out.println("--------------------");
@@ -258,24 +266,24 @@ public class Songhandler {
                 database.updatePIC(track.getId(), as.getId(), a.getId(), pictureID);
                 //}
             }
-            
+
         }
-        
+
     }
-    
+
     public void deleteSong() {
         database.deleteSong(track.getId(), "AAS", "idSONG");
         database.deleteSong(track.getId(), "SONG", "idSONG");
-        
+
     }
-    
+
     public void deleteWhat(String type, int id) {
         database.deleteSong2(id, "AAS", type, "idSONG", track.getId());
-        
+
     }
-    
+
     public void createUpdateQueue() {
-        
+
         for (String meta : values.keySet()) {
             if (values.get(meta) != null) {
 
@@ -284,7 +292,7 @@ public class Songhandler {
                     //luker bort ting som ikke er endret
                 } else {
                     String temp = Dictionary.getDictionaryString().get(meta).name;
-                    
+
                     if (temp.equals(values.get(meta))) {
                     } else {
                         if (values.get(meta) != null) {
@@ -295,43 +303,43 @@ public class Songhandler {
             }
         }
     }
-    
+
     public void whereToUpdate() {
         for (String tag : readyForUpdate.keySet()) {
             check(tag, readyForUpdate.get(tag));
         }
-        
+
     }
-    
+
     public void whereToInsert() {
         for (String tag : readyForInsert.keySet()) {
             check(tag, readyForInsert.get(tag));
         }
-        
+
     }
-    
+
     public void createInsertQueue() {
         if (readyForInsert == null) {
             readyForInsert = new HashMap<>();
-            
+
         }
         for (String meta : values.keySet()) {
             if (values.get(meta) != null) {
-                
+
                 String temp = Dictionary.getDictionaryString().get(meta).name;
-                
+
                 if (!temp.equals(values.get(meta))) {
-                    
+
                     if (values.get(meta) != null) {
                         readyForInsert.put(meta, values.get(meta));
                     }
                 }
-                
-                
+
+
             }
         }
     }
-    
+
     private void check(String tag, String data) {
         switch (tag) {
             case "IART":
@@ -415,10 +423,10 @@ public class Songhandler {
             case "IDIG":
                 metaUp.put(tag, data);
                 break;
-            
+
         }
     }
-    
+
     public void updateSong() throws SQLException, FileNotFoundException {
         newArtists = new ArrayList<>();
         newAlbums = new ArrayList<>();
@@ -428,52 +436,53 @@ public class Songhandler {
             //ikke oppdater
         } else {
             if (!trackUp.isEmpty()) {
+                trackUp.put("edited_date", getCurrentDate());
                 database.update("SONG", "idSONG", track.getId(), trackUp);
             }
             if (!metaUp.isEmpty()) {
                 database.update("METADATA", "idMETADATA", track.getMetaId(), metaUp);
             }
-            
-            
+
+
         }
         albumUpdater(track.getId());
     }
-    
+
     public void updateField(String tag, String data) {
         //System.out.println(values.size());
         values.put(tag, data);
     }
-    
+
     public Track getTrack() {
         return track;
     }
-    
+
     public void setTrack(Track track) {
         this.track = track;
     }
-    
+
     public static void main(String[] args) throws SQLException, FileNotFoundException, IOException {
         Songhandler s = new Songhandler();
         s.loadSongInfo(1);
         System.out.println(s.getTrack().getIGNR() + s.getTrack().getAlbums().size());
-        
+
     }
-    
+
     public void getTopInfo(HashMap<String, JLabel> tags) {
         for (String s : tags.keySet()) {
             tags.get(s).setText(track.getValues().get(s));
         }
         this.tags = tags;
     }
-    
+
     public void setImage() {
         if (!tags.isEmpty()) {
-            
+
             tags.get("PIC").setIcon(track.getPic().getBilde());
         }
-        
+
     }
-    
+
     public int insertFile(File file) throws FileNotFoundException {
         FileInputStream fis = new FileInputStream(file);
         database.insertImage(fis, file, "200x200");
@@ -481,17 +490,17 @@ public class Songhandler {
         System.out.println(id);
         return id;
     }
-    
+
     public void setFile(File file) {
         picture = file;
     }
-    
+
     public void getAlbums(Artist artist) {
         artist.setAlbums(database.findAnArtistAlbums(artist.getId()));
     }
-    
+
     public DefaultTableModel getTracks(int id) {
         return database.getTracks(id);
-        
+
     }
 }

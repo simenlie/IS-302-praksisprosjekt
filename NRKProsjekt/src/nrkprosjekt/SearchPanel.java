@@ -79,6 +79,10 @@ public class SearchPanel extends javax.swing.JPanel {
         initMetaPopup();
     }
 
+    public void setRecentlyTable(int limit, String col, String sort) {
+        tableHandler.getRecentlyModel(searchTable, limit, sort, col);
+    }
+
     public void setTags(HashMap<String, JLabel> tags) {
         this.tags = tags;
     }
@@ -200,7 +204,7 @@ public class SearchPanel extends javax.swing.JPanel {
     private void infoActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         songInfo.getstaticInfo();
         songInfo.setVisible(true);
-        
+
     }
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {

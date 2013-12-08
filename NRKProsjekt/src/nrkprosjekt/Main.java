@@ -4,6 +4,7 @@
  */
 package nrkprosjekt;
 
+import Handlers.Songhandler;
 import Info.Dictionary;
 import Info.Path;
 import java.awt.BorderLayout;
@@ -460,10 +461,10 @@ public class Main extends javax.swing.JFrame {
                 }
 
 
-                UIManager.put("ComboBox.background", new ColorUIResource(Color.yellow));
-                UIManager.put("JTextField.background", new ColorUIResource(Color.yellow));
-                UIManager.put("ComboBox.selectionBackground", new ColorUIResource(Color.magenta));
-                UIManager.put("ComboBox.selectionForeground", new ColorUIResource(Color.blue));
+                UIManager.put("ComboBox.background", new ColorUIResource(Color.WHITE));
+                //UIManager.put("JTextField.background", new ColorUIResource(Color.yellow));
+                //UIManager.put("ComboBox.selectionBackground", new ColorUIResource(Color.magenta));
+                //UIManager.put("ComboBox.selectionForeground", new ColorUIResource(Color.blue));
                 UIManager.put("ComboBox.disabledBackground", new Color(212, 212, 210));
                 UIManager.put("ComboBox.disabledForeground", Color.BLACK);
 
@@ -559,7 +560,19 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void searchTableMouseClicked(java.awt.event.MouseEvent evt) throws SQLException {
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+                Songhandler songhandler;
+                try {
+                    songhandler = new Songhandler();
+                    musicPanel.setTextInfo(songhandler.getTrack().getINAM());
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
+            }
+        });
+        thread.start();
         if (evt.getButton() == 1 && content.isLink()) {
 
             back.setEnabled(true);

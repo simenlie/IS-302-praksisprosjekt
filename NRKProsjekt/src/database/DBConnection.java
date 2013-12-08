@@ -67,8 +67,6 @@ public class DBConnection {
 
     }
 
-    
-
     public void load() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -210,6 +208,48 @@ public class DBConnection {
             //String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
             String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ICRD," + getLargeString() + " from SONG, METADATA, AAS, ALBUM, ARTIST";
             String QueryString = selectQ + " WHERE SONG.idSONG = AAS.idSONG AND METADATA.idMETADATA = SONG.idMETADATA AND ALBUM.idALBUM = AAS.idALBUM AND ARTIST.idARTIST = AAS.idARTIST GROUP BY SONG.idSONG";
+            rs = statement.executeQuery(QueryString);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            //Coding to get columns-
+            int cols = rsmd.getColumnCount();
+            String c[] = new String[cols];
+            for (int i = 0; i < cols; i++) {
+                c[i] = rsmd.getColumnName(i + 1);
+                dm.addColumn(c[i]);
+            }
+            //get data from rows
+            Object row[] = new Object[cols + 1];
+            int teller = 1;
+            while (rs.next()) {
+                for (int i = 1; i < cols + 1; i++) {
+                    row[i] = rs.getString(i);
+                }
+                dm.addRow(row);
+                teller++;
+
+            }
+            while (teller < 10) {
+                // dm.addRow(new Object[]{"", ""});
+                teller++;
+            }
+            System.out.println(dm.getColumnCount());
+
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return dm;
+    }
+
+    public DefaultTableModel getTableLimit(String column, int limit, String sorting) {
+
+        DefaultTableModel dm = new TableModell();
+        dm.addColumn("");
+        try {
+            ResultSet rs = null;
+            //String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
+            String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ICRD," + getLargeString() + " from SONG, METADATA, AAS, ALBUM, ARTIST";
+            String QueryString = selectQ + " WHERE SONG.idSONG = AAS.idSONG AND METADATA.idMETADATA = SONG.idMETADATA AND ALBUM.idALBUM = AAS.idALBUM AND ARTIST.idARTIST = AAS.idARTIST GROUP BY SONG.idSONG order by " + column + " " + sorting + " LIMIT " + limit;
             rs = statement.executeQuery(QueryString);
             ResultSetMetaData rsmd = rs.getMetaData();
             //Coding to get columns-
@@ -678,8 +718,8 @@ public class DBConnection {
             HashMap<String, String> tempChecker = new HashMap<>();
             ResultSet rs = null;
             //String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
-           String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ICRD," + getLargeString() + " from SONG, METADATA, AAS, ALBUM, ARTIST";
-           
+            String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ICRD," + getLargeString() + " from SONG, METADATA, AAS, ALBUM, ARTIST";
+
             String initialQuery = selectQ + " where METADATA.idMETADATA = SONG.idMETADATA and SONG.idSONG = AAS.idSONG and ALBUM.idALBUM = AAS.idALBUM and ARTIST.idARTIST = AAS.idARTIST and (";
             String whereLines = "";
             int index = 0;
@@ -899,5 +939,84 @@ public class DBConnection {
             System.out.println(e);
         }
         return dm;
+    }
+
+//STATISTICS
+    public DefaultTableModel getMostPopular() {
+
+        DefaultTableModel dm = new TableModell();
+        dm.addColumn("");
+        try {
+            ResultSet rs = null;
+            //String selectQ = "select SONG.idSONG,INAM,IART,IALB,ILEN,IGNR,ISON,IKEY, IMED,ISRF,IENG,ITCH,ISRC,ICOP,ISFT,ICRD,ICMT,ISBJ,ILAN,ICON from SONG, METADATA, AAS, ALBUM, ARTIST";
+            String selectQ = "select SONG.idSONG,INAM,IART," + "ifnull(SONG.ICOUNT,0) count" + " from SONG, METADATA, AAS, ALBUM, ARTIST";
+            String QueryString = selectQ + " WHERE SONG.idSONG = AAS.idSONG AND METADATA.idMETADATA = SONG.idMETADATA AND ALBUM.idALBUM = AAS.idALBUM AND ARTIST.idARTIST = AAS.idARTIST GROUP BY SONG.idSONG order by ifnull(SONG.ICOUNT,0) DESC LIMIT 15";
+            rs = statement.executeQuery(QueryString);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            //Coding to get columns-
+            int cols = rsmd.getColumnCount();
+            String c[] = new String[cols];
+            for (int i = 0; i < cols; i++) {
+                c[i] = rsmd.getColumnName(i + 1);
+                dm.addColumn(c[i]);
+            }
+            //get data from rows
+            Object row[] = new Object[cols + 1];
+            int teller = 1;
+            while (rs.next()) {
+                for (int i = 1; i < cols + 1; i++) {
+                    row[i] = rs.getString(i);
+                }
+                dm.addRow(row);
+                teller++;
+
+            }
+            while (teller < 10) {
+                // dm.addRow(new Object[]{"", ""});
+                teller++;
+            }
+            System.out.println(dm.getColumnCount());
+
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return dm;
+    }
+
+    public int getTotalSearches() throws SQLException {
+        String q = "select sum(ifnull(a.count,0)) from (select SONG.idSONG,INAM,IART,ICRD,ifnull(SONG.ICOUNT,0) count from SONG, METADATA, AAS, ALBUM, ARTIST WHERE SONG.idSONG = AAS.idSONG AND METADATA.idMETADATA = SONG.idMETADATA AND ALBUM.idALBUM = AAS.idALBUM AND ARTIST.idARTIST = AAS.idARTIST GROUP BY SONG.idSONG order by ifnull(SONG.ICOUNT,0)) as a";
+        ResultSet rs = null;
+        rs = statement.executeQuery(q);
+        int total = 0;
+        while (rs.next()) {
+            total = rs.getInt(1);
+        }
+
+        return total;
+
+    }
+
+    public void updateSongSearch(ArrayList<Integer> list) {
+        String query = "update SONG set ICOUNT = ifnull(ICOUNT+1,1) where idSONG = ";
+        int index = 0;
+        for (int i : list) {
+            if (index == list.size() - 1) {
+                query += i;
+            } else {
+                query += i + " and idSONG = ";
+            }
+
+            index++;
+        }
+        System.out.println(query);
+        try {
+            statement = connection.createStatement();
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Unable to create." + e);
+        }
+
     }
 }

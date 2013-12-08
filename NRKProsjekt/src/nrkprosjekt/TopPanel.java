@@ -6,6 +6,8 @@ package nrkprosjekt;
 
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -26,13 +28,12 @@ public class TopPanel extends javax.swing.JPanel {
      * Creates new form TopPanel
      */
     public TopPanel() throws SQLException {
-        statis = new StatisticDialog(new javax.swing.JFrame(), true);
         initComponents();
         initComp();
         setName("Top");
         JLabel label = new JLabel("df");
         label.setBounds(0, 0, 2000, 73);
-        
+
         label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nrkprosjekt/graphics/topPanelAlt.PNG")));
         add(label);
         settings = new Settings(new javax.swing.JFrame(), true);
@@ -250,7 +251,18 @@ public class TopPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_searchBoxKeyReleased
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        statis.setVisible(true);
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    statis = new StatisticDialog(new javax.swing.JFrame(), true);
+                    statis.setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TopPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        thread.start();
+
     }//GEN-LAST:event_jButton5ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
