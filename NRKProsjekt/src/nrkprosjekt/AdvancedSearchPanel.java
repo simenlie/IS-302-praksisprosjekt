@@ -517,6 +517,25 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ILYRActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ISRC.setText("");
+        INAM.setText("");
+        IART.setText("");
+        IALB.setText("");
+        IPLA.setText("");
+        IPEO.setText("");
+        ISRF.setText("");
+        ICOM.setText("");
+        ICON.setText("");
+        ICRD.setText("");
+        IDIG.setText("");
+        IDIS.setText("");
+        IGNR.setText("");
+        IKEY.setText("");
+        ILAN.setText("");
+        ILYR.setText("");
+        IMED.setText("");
+        IVIL.setText("");
+        IREG.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ISRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ISRCActionPerformed

@@ -450,7 +450,7 @@ public class SongInformation extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        closeWindow();
+        setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
         private void closeWindow() {
